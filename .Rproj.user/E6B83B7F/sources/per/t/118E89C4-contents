@@ -10,20 +10,25 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     post = "/:year/:month/:day/:slug/"
 
 [[menu.main]]
-    name = "About"
-    url = "/about/"
+    name = "Sobre mí"
+    url = "/sobre_mi/"
+    weight = 1
+
 [[menu.main]]
     name = "GitHub"
     url = "https://github.com/JuveCampos"
+    weight = 2
+
 [[menu.main]]
     name = "Twitter"
     url = "https://twitter.com/JuvenalCamposF"
-    
+    weight = 3
+
 [[menu.main]]
     name = "LinkedIn"
     url = "https://www.linkedin.com/in/jorge-juvenal-campos-ferreira-5532b7160/"
-    
-    
+    weight = 4
+
 [params]
     description = "Blog y portafolio de trabajo"
 
