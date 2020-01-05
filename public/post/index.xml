@@ -1,39 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on JuveBlog</title>
+    <title>Posts on Juve Blog</title>
     <link>/post/</link>
-    <description>Recent content in Posts on JuveBlog</description>
+    <description>Recent content in Posts on Juve Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 03 Jan 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 30 Dec 2016 21:49:57 -0700</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Mi segundo nuevo post</title>
-      <link>/2020/01/03/mi-segundo-nuevo-post/</link>
-      <pubDate>Fri, 03 Jan 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/2020/01/03/mi-segundo-nuevo-post/</guid>
-      <description>
-
-&lt;div id=&#34;TOC&#34;&gt;
-no
-&lt;/div&gt;
-
-</description>
-    </item>
-    
-    <item>
-      <title>Nuestro primer Post</title>
-      <link>/2020/01/03/nuestro-primer-post/</link>
-      <pubDate>Fri, 03 Jan 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/2020/01/03/nuestro-primer-post/</guid>
-      <description>Nuevo contenido Contenido de prueba numero 1. Y esto es un archivo markdown, como los que ya conocemos de toda la vida.</description>
-    </item>
     
     <item>
       <title>A Plain Markdown Post</title>

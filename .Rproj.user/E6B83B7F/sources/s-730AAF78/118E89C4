@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1578187914382.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2342465267",
+    "id" : "118E89C4",
+    "lastKnownWriteTime" : 1578188086,
+    "last_content_update" : 1578188086294,
+    "path" : "~/Desktop/pagina2/config.toml",
+    "project_path" : "config.toml",
+    "properties" : {
+        "cursorPosition" : "6,44",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "toml"
+}
