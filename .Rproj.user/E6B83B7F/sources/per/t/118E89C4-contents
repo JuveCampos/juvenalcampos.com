@@ -1,5 +1,5 @@
 baseurl = "/"
-languageCode = "en-us"
+languageCode = "es-mx"
 title = "Juve Blog"
 theme = "hugo-lithium"
 googleAnalytics = ""
@@ -14,13 +14,18 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     url = "/about/"
 [[menu.main]]
     name = "GitHub"
-    url = "https://github.com/rstudio/blogdown"
+    url = "https://github.com/JuveCampos"
 [[menu.main]]
     name = "Twitter"
-    url = "https://twitter.com/rstudio"
-
+    url = "https://twitter.com/JuvenalCamposF"
+    
+[[menu.main]]
+    name = "LinkedIn"
+    url = "https://www.linkedin.com/in/jorge-juvenal-campos-ferreira-5532b7160/"
+    
+    
 [params]
-    description = "A website built through Hugo and blogdown."
+    description = "Blog y portafolio de trabajo"
 
     # options for highlight.js (version, additional languages, and theme)
     highlightjsVersion = "9.12.0"

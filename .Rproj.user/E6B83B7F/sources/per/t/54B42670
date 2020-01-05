@@ -1,25 +1,25 @@
 {
     "collab_server" : "",
     "contents" : "",
-    "created" : 1578187950813.000,
+    "created" : 1578188033631.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "0",
-    "id" : "EAAE9F76",
+    "hash" : "2700839508",
+    "id" : "54B42670",
     "lastKnownWriteTime" : 1578187909,
     "last_content_update" : 1578187909,
-    "path" : "~/Desktop/pagina2/index.Rmd",
-    "project_path" : "index.Rmd",
+    "path" : "~/Documents/GitHub/testWebsite/content/about.md",
+    "project_path" : "content/about.md",
     "properties" : {
-        "cursorPosition" : "3,0",
+        "cursorPosition" : "2,12",
         "scrollLine" : "0"
     },
     "read_only" : false,
     "read_only_alternatives" : [
     ],
-    "relative_order" : 2,
+    "relative_order" : 3,
     "source_on_save" : false,
     "source_window" : "",
-    "type" : "r_markdown"
+    "type" : "markdown"
 }
