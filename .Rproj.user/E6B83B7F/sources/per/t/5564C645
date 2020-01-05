@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1578094334875.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3854414093",
+    "id" : "5564C645",
+    "lastKnownWriteTime" : 1578094349,
+    "last_content_update" : 1578094349277,
+    "path" : "~/Desktop/website/content/post/2020-01-03-mi-segundo-nuevo-post.Rmd",
+    "project_path" : "content/post/2020-01-03-mi-segundo-nuevo-post.Rmd",
+    "properties" : {
+        "cursorPosition" : "11,0",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
