@@ -8,7 +8,7 @@ blogdown::serve_site()
 blogdown::new_post(title = "Nuestro primer Post",
                    author = "Juvenal Campos",
                    date = Sys.Date()
-                   )
+)
 
 # Temas en hugo> gohugo.io >> themes.gohugo.io
 
@@ -17,4 +17,4 @@ blogdown::install_theme("lithium")
 
 # Las imagenes son relativas a la carpeta public. 
 
-
+blogdown::
