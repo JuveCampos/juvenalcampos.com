@@ -6,19 +6,18 @@
     <description>Recent content on Juve Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-mx</language>
-    <lastBuildDate>Sun, 05 Jan 2020 01:42:00 -0700</lastBuildDate>
+    <lastBuildDate>Mon, 13 Jan 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Sobre mí</title>
-      <link>/about/</link>
-      <pubDate>Sun, 05 Jan 2020 01:42:00 -0700</pubDate>
+      <title>Tutorial de mapas en Leaflet</title>
+      <link>/2020/01/13/tutorial-de-mapas-en-leaflet/</link>
+      <pubDate>Mon, 13 Jan 2020 00:00:00 +0000</pubDate>
       
-      <guid>/about/</guid>
-      <description>Hola.
-Yo soy Juvenal Campos, y este es mi blog personal.</description>
+      <guid>/2020/01/13/tutorial-de-mapas-en-leaflet/</guid>
+      <description>La librería leaflet forma parte de la familia de librerías de los htmlwidgets, y su principal función es la de poder realizar mapas interactivos utilizando lenguaje R. Esta librería traduce nuestros comandos de R a JavaScript, creando una página web con elementos de información geográfica (como puntos, líneas o polígonos), fondos georreferenciados y funciones añadidas (como funciones de interacción con los elementos geográficos o aplicar zoom a zonas de interés).</description>
     </item>
     
     <item>
@@ -27,8 +26,9 @@ Yo soy Juvenal Campos, y este es mi blog personal.</description>
       <pubDate>Sun, 05 Jan 2020 01:42:00 -0700</pubDate>
       
       <guid>/sobre_mi/</guid>
-      <description>Hola.
-Yo soy Juvenal Campos, y este es mi blog personal.</description>
+      <description>Yo soy Juvenal Campos, y este es mi blog personal.
+Soy Ingeniero en Irrigación de Chapingo y Maestro en Economía por El Colegio de México, y actualmente trabajo en el Laboratorio Nacional de Políticas Públicas del CIDE como investigador asociado.
+Soy originario del Estado de Morelos, me gusta brincar chinelo, comer Cecina de Yeca y decir &amp;ldquo;si pues&amp;rdquo; cantadito. Mi pueblo se llama Ocuituco, y se encuentra en la región de los altos de Morelos, pegado al volcán Popocatépetl en esa parte del estado en la que ya no hace calor y tampoco tenemos albercas.</description>
     </item>
     
     <item>
@@ -37,10 +37,32 @@ Yo soy Juvenal Campos, y este es mi blog personal.</description>
       <pubDate>Sun, 05 Jan 2020 00:00:00 +0000</pubDate>
       
       <guid>/2020/01/05/nuestro-primer-post/</guid>
-      <description>Primer Post de la página.
-En este página revisaremos cosas, haremos códigos, tutoriales y me dedicaré a escribir contenido.
+      <description>Primer Post de la página. Post de prueba 01:
+_En este página revisaremos cosas, haremos códigos, tutoriales y me dedicaré a escribir contenido. _
 Saludos.
-Juvenal Campos Ferreira.</description>
+Juvenal Campos Ferreira.
+Comentarios. El post de arriba fué el post de prueba con el que estuve probando la página durante la primera semana. Hacer un blog es una idea que había estado rondandome la cabeza durante ya un año, desde que me comprometí públicamente en un Tweet a escribirlo como uno de mis propósitos de R de año nuevo (al cual incluso el mismo Hadley Wickham le dió RT).</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/about/</guid>
+      <description>Sobre mí /*! jQuery v1.11.3 | (c) 2005, 2015 jQuery Foundation, Inc. | jquery.org/license */ !function(a,b){&#34;object&#34;==typeof module&amp;&amp;&#34;object&#34;==typeof module.exports?module.exports=a.document?b(a,!0):function(a){if(!a.document)throw new Error(&#34;jQuery requires a window with a document&#34;);return b(a)}:b(a)}(&#34;undefined&#34;!=typeof window?window:this,function(a,b){var c=[],d=c.slice,e=c.concat,f=c.push,g=c.indexOf,h={},i=h.toString,j=h.hasOwnProperty,k={},l=&#34;1.11.3&#34;,m=function(a,b){return new m.fn.init(a,b)},n=/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g,o=/^-ms-/,p=/-([\da-z])/gi,q=function(a,b){return b.toUpperCase()};m.fn=m.prototype={jquery:l,constructor:m,selector:&#34;&#34;,length:0,toArray:function(){return d.call(this)},get:function(a){return null!=a?0a?this[a+this.length]:this[a]:d.call(this)},pushStack:function(a){var b=m.merge(this.constructor(),a);return b.prevObject=this,b.context=this.context,b},each:function(a,b){return m.each(this,a,b)},map:function(a){return this.pushStack(m.map(this,function(b,c){return a.call(b,c,b)}))},slice:function(){return this.pushStack(d.apply(this,arguments))},first:function(){return this.eq(0)},last:function(){return this.eq(-1)},eq:function(a){var b=this.length,c=+a+(0a?b:0);return this.pushStack(c=0&amp;&amp;bc?[this[c]]:[])},end:function(){return this.prevObject||this.constructor(null)},push:f,sort:c.sort,splice:c.splice},m.extend=m.fn.extend=function(){var a,b,c,d,e,f,g=arguments[0]||{},h=1,i=arguments.length,j=!1;for(&#34;boolean&#34;==typeof g&amp;&amp;(j=g,g=arguments[h]||{},h++),&#34;object&#34;==typeof g||m.isFunction(g)||(g={}),h===i&amp;&amp;(g=this,h--);ih;h++)if(null!=(e=arguments[h]))for(d in e)a=g[d],c=e[d],g!==c&amp;&amp;(j&amp;&amp;c&amp;&amp;(m.isPlainObject(c)||(b=m.isArray(c)))?(b?(b=!1,f=a&amp;&amp;m.isArray(a)?a:[]):f=a&amp;&amp;m.isPlainObject(a)?a:{},g[d]=m.extend(j,f,c)):void 0!==c&amp;&amp;(g[d]=c));return g},m.extend({expando:&#34;jQuery&#34;+(l+Math.random()).replace(/\D/g,&#34;&#34;),isReady:!0,error:function(a){throw new Error(a)},noop:function(){},isFunction:function(a){return&#34;function&#34;===m.type(a)},isArray:Array.isArray||function(a){return&#34;array&#34;===m.type(a)},isWindow:function(a){return null!=a&amp;&amp;a==a.window},isNumeric:function(a){return!m.isArray(a)&amp;&amp;a-parseFloat(a)+1=0},isEmptyObject:function(a){var b;for(b in a)return!1;return!0},isPlainObject:function(a){var b;if(!a||&#34;object&#34;!==m.type(a)||a.nodeType||m.isWindow(a))return!1;try{if(a.constructor&amp;&amp;!j.call(a,&#34;constructor&#34;)&amp;&amp;!j.call(a.constructor.prototype,&#34;isPrototypeOf&#34;))return!1}catch(c){return!1}if(k.ownLast)for(b in a)return j.call(a,b);for(b in a);return void 0===b||j.call(a,b)},type:function(a){return null==a?a+&#34;&#34;:&#34;object&#34;==typeof a||&#34;function&#34;==typeof a?h[i.call(a)]||&#34;object&#34;:typeof a},globalEval:function(b){b&amp;&amp;m.</description>
+    </item>
+    
+    <item>
+      <title>Sobre mí</title>
+      <link>/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/about/</guid>
+      <description>Hola.
+Yo soy Juvenal Campos, y este es mi blog personal.
+Soy Ingeniero en Irrigación de Chapingo y Maestro en Economía por El Colegio de México, y actualmente trabajo en el Laboratorio Nacional de Políticas Públicas del CIDE como investigador asociado.
+Soy originario del Estado de Morelos, me gusta brincar chinelo, comer Cecina de Yeca y decir &amp;ldquo;si pues&amp;rdquo; cantadito. Mi pueblo se llama Ocuituco, y se encuentra en la región de los altos de Morelos, pegado al volcán Popocatépetl en esa parte del estado en la que ya no hace calor y tampoco tenemos albercas.</description>
     </item>
     
   </channel>

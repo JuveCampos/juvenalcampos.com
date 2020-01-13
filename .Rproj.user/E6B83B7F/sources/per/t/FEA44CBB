@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1578896627294.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3689140",
+    "id" : "FEA44CBB",
+    "lastKnownWriteTime" : 1578897677,
+    "last_content_update" : 1578897677354,
+    "path" : "~/Documents/GitHub/testWebsite/content/post/2020-01-13-tutorial-de-mapas-en-leaflet.Rmd",
+    "project_path" : "content/post/2020-01-13-tutorial-de-mapas-en-leaflet.Rmd",
+    "properties" : {
+        "cursorPosition" : "155,0",
+        "scrollLine" : "152"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1578896635567.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2116388757",
+    "id" : "8EC96C05",
+    "lastKnownWriteTime" : 1546889075,
+    "last_content_update" : 1546889075,
+    "path" : "~/Desktop/Proyectos/DataCamp/DataCamp/Basics/leaflet/Shape sin islas/tutorial.Rmd",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "241,0",
+        "scrollLine" : "227"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

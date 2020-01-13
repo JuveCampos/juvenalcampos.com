@@ -16,5 +16,3 @@ blogdown::new_post(title = "Nuestro primer Post",
 blogdown::install_theme("lithium")
 
 # Las imagenes son relativas a la carpeta public. 
-
-blogdown::

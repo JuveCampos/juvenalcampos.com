@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1578864162581.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3722290210",
+    "id" : "5806F581",
+    "lastKnownWriteTime" : 1578893827,
+    "last_content_update" : 1578893827545,
+    "path" : "~/Documents/GitHub/testWebsite/content/post/2020-01-05-nuestro-primer-post.md",
+    "project_path" : "content/post/2020-01-05-nuestro-primer-post.md",
+    "properties" : {
+        "cursorPosition" : "44,179",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "markdown"
+}

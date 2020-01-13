@@ -3,13 +3,38 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/</loc>
-    <lastmod>2020-01-05T01:42:00-07:00</lastmod>
+    <loc>/categories/</loc>
+    <lastmod>2020-01-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/about/</loc>
-    <lastmod>2020-01-05T01:42:00-07:00</lastmod>
+    <loc>/</loc>
+    <lastmod>2020-01-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/mapas/</loc>
+    <lastmod>2020-01-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2020-01-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/r/</loc>
+    <lastmod>2020-01-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2020/01/13/tutorial-de-mapas-en-leaflet/</loc>
+    <lastmod>2020-01-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/tutoriales/</loc>
+    <lastmod>2020-01-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -18,21 +43,32 @@
   </url>
   
   <url>
+    <loc>/tags/blog/</loc>
+    <lastmod>2020-01-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/blog/</loc>
+    <lastmod>2020-01-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/2020/01/05/nuestro-primer-post/</loc>
     <lastmod>2020-01-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/</loc>
+    <loc>/tags/</loc>
     <lastmod>2020-01-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/categories/</loc>
+    <loc>/about/</loc>
+    <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/</loc>
+    <loc>/about/</loc>
   </url>
   
 </urlset>
