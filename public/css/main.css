@@ -357,7 +357,7 @@ code {
     margin-right: auto;
 
     /* Border styles */
-    border: 2px solid white; /* CHANGE THIS LINE */
+    border: 0px solid white;  /* CHANGE THIS LINE */
     border-radius: 0px;
 
 /**/
