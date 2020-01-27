@@ -54,10 +54,13 @@ options(scipen = 999)
 # Descarga de los datos.
 library(curl)
 library(readxl)
+```
 
-curl::curl_download(url = "https://www.inegi.org.mx/contenidos/programas/intercensal/2015/tabulados/01_poblacion_mor.xls", 
-                    destfile = "mor_pop.xls")
+```{r, eval = FALSE}
+curl::curl_download(url = "https://www.inegi.org.mx/contenidos/programas/intercensal/2015/tabulados/01_poblacion_mor.xls", destfile = "mor_pop.xls")
+```
 
+```{r}
 # Leemos datos
 # Por tamaño de localidad
 bd <- read_xls("mor_pop.xls", sheet = 2, skip = 6)
@@ -107,13 +110,6 @@ pop <- bd %>%
 pop
 ```
 
-```{r echo = FALSE}
-# Checamos la base 
-pop %>% 
-  DT::datatable(options = list(
-  language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json'),
-  pageLength = 5))
-```
 
 Ahora que tenemos la base como la necesitamos, procedemos a hacer la gráfica. 
 
