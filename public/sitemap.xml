@@ -3,22 +3,27 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/</loc>
+    <lastmod>2020-01-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2020-01-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2020/01/26/visualizando-pir%C3%A1mides-de-poblaci%C3%B3n-en-r/</loc>
+    <lastmod>2020-01-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/categories/</loc>
     <lastmod>2020-01-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/</loc>
-    <lastmod>2020-01-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/categories/mapas/</loc>
-    <lastmod>2020-01-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
     <lastmod>2020-01-13T00:00:00+00:00</lastmod>
   </url>
   
@@ -43,12 +48,12 @@
   </url>
   
   <url>
-    <loc>/categories/blog/</loc>
+    <loc>/tags/blog/</loc>
     <lastmod>2020-01-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/blog/</loc>
+    <loc>/categories/blog/</loc>
     <lastmod>2020-01-05T00:00:00+00:00</lastmod>
   </url>
   

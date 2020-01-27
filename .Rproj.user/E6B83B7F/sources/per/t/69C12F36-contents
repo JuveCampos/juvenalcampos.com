@@ -5,6 +5,7 @@
 blogdown::serve_site()
 
 # 3. Incluir nuevo post
+# Recuerda checar el addin si vas a publicar en RMarkdown
 blogdown::new_post(title = "Nuestro primer Post",
                    author = "Juvenal Campos",
                    date = Sys.Date()

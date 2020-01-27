@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es-mx">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.62.0" />
+
+
+<title>Visualizando pirámides de población en R - Juve Blog</title>
+<meta property="og:title" content="Visualizando pirámides de población en R - Juve Blog">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      
+      <header class="header">
+        
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+         
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/sobre_mi/">Sobre mí</a></li>
+    
+    <li><a href="https://github.com/JuveCampos">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/JuvenalCamposF">Twitter</a></li>
+    
+    <li><a href="https://www.linkedin.com/in/jorge-juvenal-campos-ferreira-5532b7160/">LinkedIn</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">11 min read</span>
+    
+
+    <h1 class="article-title">Visualizando pirámides de población en R</h1>
+
+    
+    <span class="article-date">2020-01-26</span>
+    
+
+    <div class="article-content">
+      
+<script src="2020-01-26-visualizando-pirámides-de-población-en-r_files/htmlwidgets/htmlwidgets.js"></script>
+<script src="2020-01-26-visualizando-pirámides-de-población-en-r_files/jquery/jquery.min.js"></script>
+<link href="2020-01-26-visualizando-pirámides-de-población-en-r_files/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+<script src="2020-01-26-visualizando-pirámides-de-población-en-r_files/datatables-binding/datatables.js"></script>
+<link href="2020-01-26-visualizando-pirámides-de-población-en-r_files/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="2020-01-26-visualizando-pirámides-de-población-en-r_files/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="2020-01-26-visualizando-pirámides-de-población-en-r_files/dt-core/js/jquery.dataTables.min.js"></script>
+<link href="2020-01-26-visualizando-pirámides-de-población-en-r_files/crosstalk/css/crosstalk.css" rel="stylesheet" />
+<script src="2020-01-26-visualizando-pirámides-de-población-en-r_files/crosstalk/js/crosstalk.min.js"></script>
+
+
+<p>Las pirámides de población (o <em>pirámide demográfica</em>, como le dicen los demógrafos) son un tipo de gráfica que nos permite analizar la distribución de la población por edades en una región determinada (municipio, estado o país).</p>
+<p>Desde el punto de vista gráfico, se trata de un doble histograma de frecuencias, dispuestos de manera horizontal, donde convencionalmente <strong>se ponen los grupos de edad masculina a la izquierda y los de poblaciòn femenina a la derecha</strong>. En el eje <em>y</em> (el de las ordenadas o el que va para arriba) se disponen los grupos de edad, moentras que en el eje <em>x</em> (el de las ordenadas, o el que va horizontal) van las cantidades de población. Para más información recomiendo leer este artículo de <a href="https://es.wikipedia.org/wiki/Pirámide_de_población">Wikipedia</a>.</p>
+<p>Desde el punto de vista de visualización de datos en R y a pesar de la gran utilidad y amplio uso de este tipo de gráficas, no hay una función <code>geom_popPyramid()</code> nativa en <code>ggplot2</code> que nos permita hacer pirámides de población sin tanto dolor (aunque podríamos programarla 😏). Sin embargo, en esta entrada de blog, nos dispondremos a generar una de estas gráficas a partir de elementos ya conocidos de esta librería.</p>
+<div id="antecedentes." class="section level2">
+<h2>1. Antecedentes.</h2>
+<p>El viernes pasado estaba intentando hacer una de estas gráficas de población en mi trabajo, siendo (como casi siempre) mi primer impulso buscar en Google <em>“como graficar pirámides de población en R”</em>. Estos son algunos de los tutoriales y artículos que me ayudaron:</p>
+<ul>
+<li><p><a href="http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html" class="uri">http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html</a></p></li>
+<li><p><a href="https://klein.uk/teaching/viz/datavis-pyramids/" class="uri">https://klein.uk/teaching/viz/datavis-pyramids/</a></p></li>
+<li><p><a href="https://stackoverflow.com/questions/38268741/geom-bar-ggplot2-stacked-grouped-bar-plot-with-positive-and-negative-values-p" class="uri">https://stackoverflow.com/questions/38268741/geom-bar-ggplot2-stacked-grouped-bar-plot-with-positive-and-negative-values-p</a></p></li>
+<li><p><a href="https://stackoverflow.com/questions/4559229/drawing-pyramid-plot-using-r-and-ggplot2" class="uri">https://stackoverflow.com/questions/4559229/drawing-pyramid-plot-using-r-and-ggplot2</a></p></li>
+</ul>
+<p>Todos son muy buenos y sirven para complementar esta entrada. El problema que tuve al checarlos fué que 1) muchas funciones no estaban actualizadas y 2) las bases de datos eran inaccesibles, por lo que era imposible reproducir los ejemplos presentados. Es por eso que aquí presentamos una tercera opción (y en español :3) para aquellos que tengan la necesidad de hacer una gráfica de población en el futuro.</p>
+</div>
+<div id="descripción-del-problema." class="section level1">
+<h1>2. Descripción del problema.</h1>
+<p>Vamos a elaborar la pirámide de población del Estado de Morelos, México a partir de los datos reportados por la <em>Encuensta Intercensal 2015</em> del INEGI en sus tabulados de Población.</p>
+<div id="descarga-de-los-datos." class="section level2">
+<h2>2.1. Descarga de los datos.</h2>
+<p>Descargamos los datos de población de la página de la encuesta intercensal 2015.</p>
+<p>La liga de descarga es la siguiente:</p>
+<p><a href="https://www.inegi.org.mx/contenidos/programas/intercensal/2015/tabulados/01_poblacion_mor.xls" class="uri">https://www.inegi.org.mx/contenidos/programas/intercensal/2015/tabulados/01_poblacion_mor.xls</a></p>
+<p>(En caso de que algún gobierno austero decida eliminar las bases de datos de INEGI por algún motivo en los próximos años, igualmente guardaré una <a href="https://github.com/JuveCampos/juveBlog/raw/master/Pirámide%20de%20Población/mor_pop.xls">copia en mi Github</a> de los datos).</p>
+<p><em><strong>Nota 1.</strong> Se supone que el lector sabe descargar librerias del CRAN.</em></p>
+<pre class="r"><code>options(scipen = 999)
+# Descarga de los datos.
+library(curl)
+library(readxl)
+
+curl::curl_download(url = &quot;https://www.inegi.org.mx/contenidos/programas/intercensal/2015/tabulados/01_poblacion_mor.xls&quot;, 
+                    destfile = &quot;mor_pop.xls&quot;)
+
+# Leemos datos
+# Por tamaño de localidad
+bd &lt;- read_xls(&quot;mor_pop.xls&quot;, sheet = 2, skip = 6)</code></pre>
+<p>La función anterior descargará el archivo en nuestro directorio de trabajo. La hoja 2 es la que contiene la población <em>Por tamaño de localidad</em> y las 6 líneas que se saltaron contienen el encabezado de logotipos que INEGI le pone a muchas de sus tablas.</p>
+</div>
+<div id="procesado-de-la-información." class="section level2">
+<h2>2.2. Procesado de la información.</h2>
+<p>Necesitamos obtener una tabla adecuada para realizar nuestra gráfica, tal como se explica en el siguiente esquema:</p>
+<p><img src="/post/2020-01-26-visualizando-pirámides-de-población-en-r_files/TablaFinal.png" style="width:80.0%" /></p>
+<p>Este esquema nos permite declarar una columna única de una sola base de datos, y declarar estas columnas dentro de los estéticos globales del ggplot como se ve más adelante.</p>
+<p>Para lograr esto, haremos el siguiente procesado de la información a través de la función <code>tidyr::pivot_longer()</code>:</p>
+<p><img src="/post/2020-01-26-visualizando-pirámides-de-población-en-r_files/TablaPivote.png" /></p>
+<pre class="r"><code># Librerias
+library(tidyverse)
+library(tidyr)
+
+# Procesamos datos
+pop &lt;- bd %&gt;%
+# Filtramos los renglones vacios, 
+# los renglones donde el Tamaño de localidad` es el Total y 
+# los `Grupos quinquenales de edad` son todos &quot;Total&quot;    
+  filter(!is.na(Estimador) &amp;
+           Estimador == &quot;Valor&quot; &amp;
+           `Tamaño de localidad` == &quot;Total&quot; &amp;
+           `Grupos quinquenales de edad` != &quot;Total&quot;) %&gt;%
+# Hacemos pivot longer rotando las columnas hombres y mujeres    
+  pivot_longer(cols = c(&quot;Hombres&quot;, &quot;Mujeres&quot;),
+               names_to = &quot;Sexo&quot;,
+               values_to = &quot;Poblacion por Sexo&quot;) %&gt;% 
+# Nos quedamos con columnas utiles  
+  select(`Entidad federativa`, `Grupos quinquenales de edad`, 
+         `Población total`, Sexo, `Poblacion por Sexo`)</code></pre>
+<pre class="r"><code># Checamos la base 
+pop</code></pre>
+<pre><code>## # A tibble: 34 x 5
+##    `Entidad federa… `Grupos quinque… `Población tota… Sexo 
+##    &lt;chr&gt;            &lt;chr&gt;                       &lt;dbl&gt; &lt;chr&gt;
+##  1 17 Morelos       00-04 años                 157558 Homb…
+##  2 17 Morelos       00-04 años                 157558 Muje…
+##  3 17 Morelos       05-09 años                 164416 Homb…
+##  4 17 Morelos       05-09 años                 164416 Muje…
+##  5 17 Morelos       10-14 años                 169614 Homb…
+##  6 17 Morelos       10-14 años                 169614 Muje…
+##  7 17 Morelos       15-19 años                 169269 Homb…
+##  8 17 Morelos       15-19 años                 169269 Muje…
+##  9 17 Morelos       20-24 años                 174065 Homb…
+## 10 17 Morelos       20-24 años                 174065 Muje…
+## # … with 24 more rows, and 1 more variable: `Poblacion por Sexo` &lt;dbl&gt;</code></pre>
+<div id="htmlwidget-1" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34"],["17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos","17 Morelos"],["00-04 años","00-04 años","05-09 años","05-09 años","10-14 años","10-14 años","15-19 años","15-19 años","20-24 años","20-24 años","25-29 años","25-29 años","30-34 años","30-34 años","35-39 años","35-39 años","40-44 años","40-44 años","45-49 años","45-49 años","50-54 años","50-54 años","55-59 años","55-59 años","60-64 años","60-64 años","65-69 años","65-69 años","70-74 años","70-74 años","75 años y más","75 años y más","No especificado","No especificado"],[157558,157558,164416,164416,169614,169614,169269,169269,174065,174065,146791,146791,135657,135657,134020,134020,128392,128392,110296,110296,102794,102794,84406,84406,68085,68085,51760,51760,40022,40022,65245,65245,1421,1421],["Hombres","Mujeres","Hombres","Mujeres","Hombres","Mujeres","Hombres","Mujeres","Hombres","Mujeres","Hombres","Mujeres","Hombres","Mujeres","Hombres","Mujeres","Hombres","Mujeres","Hombres","Mujeres","Hombres","Mujeres","Hombres","Mujeres","Hombres","Mujeres","Hombres","Mujeres","Hombres","Mujeres","Hombres","Mujeres","Hombres","Mujeres"],[80137,77421,83849,80567,86160,83454,84029,85240,85098,88967,69828,76963,63366,72291,61394,72626,59546,68846,50600,59696,48290,54504,38832,45574,31807,36278,24165,27595,18134,21888,29021,36224,650,771]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Entidad federativa<\/th>\n      <th>Grupos quinquenales de edad<\/th>\n      <th>Población total<\/th>\n      <th>Sexo<\/th>\n      <th>Poblacion por Sexo<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"language":{"url":"//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"},"pageLength":5,"columnDefs":[{"className":"dt-right","targets":[3,5]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<p>Ahora que tenemos la base como la necesitamos, procedemos a hacer la gráfica.</p>
+</div>
+<div id="graficando-con-ggplot." class="section level2">
+<h2>2.3. Graficando con <code>ggplot()</code>.</h2>
+<p>Para graficar utilizamos la función <code>ggplot()</code>.</p>
+</div>
+<div id="primera-versión-utilizando-geom_bar." class="section level2">
+<h2>Primera versión: utilizando <code>geom_bar()</code>.</h2>
+<p>La primera versión que realizaremos será utilizando la función <code>geom_bar()</code>. Esta función nos permite realizar gráficas de barras en R.</p>
+<pre class="r"><code>### Grafica ----
+ggplot(pop, aes(x = `Grupos quinquenales de edad`,
+                y = `Poblacion por Sexo`,
+                fill = Sexo)) +
+  geom_col(data = subset(pop, Sexo == &quot;Hombres&quot;) %&gt;% 
+             mutate(`Poblacion por Sexo` = -`Poblacion por Sexo`),
+              width = 0.5, fill = &quot;blue&quot;) +
+  geom_col(data = subset(pop, Sexo == &quot;Mujeres&quot;),
+           width = 0.5, fill = &quot;pink&quot;) + 
+  coord_flip()</code></pre>
+<p><img src="/post/2020-01-26-visualizando-pir%C3%A1mides-de-poblaci%C3%B3n-en-r_files/figure-html/unnamed-chunk-5-1.png" width="864" /></p>
+<p><b style = 'color:red; text-align:centered;'>Nótese las escalas del eje <em>x</em></b></p>
+<p>Ahora, tenemos que enfocarnos en la parte del eje de población. Primero que nada, tenemos que hacer un poco de análisis.</p>
+<pre class="r"><code># Valores maximos de población: 
+max(pop$`Poblacion por Sexo`)</code></pre>
+<pre><code>## [1] 88967</code></pre>
+<p>El máximo de población es 88,967 personas (correspondiente a Mujeres morelenses entre 20 a 24 años). Para el eje <code>x</code>, vamos a poner escalas cada 20,000 personas (para que sean unas 5 marcas en las escalas).</p>
+<pre class="r"><code># BREAKS - DEFINEN LA POSICIÓN 
+# Obtenemos los puntos donde se van a poner las escalas de la población. 
+seq(0, 100000, by = 20000)</code></pre>
+<pre><code>## [1]      0  20000  40000  60000  80000 100000</code></pre>
+<pre class="r"><code>seq(-100000, -20000, by = 20000)</code></pre>
+<pre><code>## [1] -100000  -80000  -60000  -40000  -20000</code></pre>
+<pre class="r"><code># Secuencia de puntos donde se van a poner las escalas del eje x
+c(seq(-100000, -20000, by = 20000), 
+  seq(0, 100000, by = 20000))</code></pre>
+<pre><code>##  [1] -100000  -80000  -60000  -40000  -20000       0   20000   40000
+##  [9]   60000   80000  100000</code></pre>
+<p>Como vemos arriba, es una secuencia que va desde -100,000 hasta 100,000. Esto implica que, dentro de la gráfica, <code>ggplot()</code> va a poner las etiquetas en los puntos marcados arriba, como puede verse en la siguiente imágen:</p>
+<p><strong>Imágen de donde se van a marcar las etiquetas</strong>.</p>
+<p>Ahora, pongamosle las etiquetas en los puntos que determinamos arriba, a través de la función</p>
+<pre class="r"><code># LABELS - DEFINEN EL CONTENIDO
+
+c(seq(-100000, -20000, by = 20000) * -1, 
+  seq(0, 100000, by = 20000)) </code></pre>
+<pre><code>##  [1] 100000  80000  60000  40000  20000      0  20000  40000  60000  80000
+## [11] 100000</code></pre>
+<p>Para este caso, las etiquetas son casi iguales que los quiebres que calculamos arriba, con la diferencia de que la parte de la población masculina tienen que ser positivos, no negativos (por eso los multiplicamos por -1).</p>
+<p>Ahora, incorporamos esto en la gráfica que ya hicimos arriba a través de la función <code>scale_y_continuous()</code>.</p>
+<p>Empezamos declarando los elementos estéticos. Los estéticos globales que vamos a usar son el <code>x</code>, el <code>y</code>, y el <code>fill</code>. <code>x</code> nos determinará la variable categórica que irá en el eje x, <code>y</code> la variable numérica que irá en el eje <code>y</code> y <code>fill</code> la variable categórica que clasifica a los datos en dos categorías, <code>Hombres</code> y <code>Mujeres</code>, asignando un color distinto a cada tipo de dato.</p>
+<pre class="r"><code># No correr! Abajo está completo.
+ggplot(pop, aes(x = `Grupos quinquenales de edad`,
+                y = `Poblacion por Sexo`,
+                fill = Sexo))</code></pre>
+<p>Después añadimos las gráficas de columnas mediante la función <code>geom_col()</code> con subconjuntos de los datos filtrando por hombres y mujeres. Después hacemos un cambio de ejes y al final añadimos las etiquetas en los ejes de las gráficas. A continuación el código completo.</p>
+<pre class="r"><code>### Grafica ----
+(plt &lt;- ggplot(pop, aes(x = `Grupos quinquenales de edad`,
+                y = `Poblacion por Sexo`,
+                fill = Sexo)) +
+  # Seccion de HOMBRES
+  geom_col(data = subset(pop, Sexo == &quot;Hombres&quot;) %&gt;% 
+             # Convertimos los datos de los Hombres en negativos
+             mutate(`Poblacion por Sexo` = -`Poblacion por Sexo`),
+         width = 0.5, fill = &quot;blue&quot;) +
+  # Seccion de MUJERES
+  geom_col(data = subset(pop, Sexo == &quot;Mujeres&quot;),
+         width = 0.5, fill = &quot;pink&quot;) + 
+  # Cambio de ejes de coordenadas
+  coord_flip() + 
+     scale_y_continuous(
+     breaks = c(seq(-100000, -20000, by = 20000), 
+                seq(0, 100000, by = 20000)),
+     labels = c(seq(-100000, -20000, by = 20000) * -1, 
+                seq(0, 100000, by = 20000))) )</code></pre>
+<p><img src="/post/2020-01-26-visualizando-pir%C3%A1mides-de-poblaci%C3%B3n-en-r_files/figure-html/unnamed-chunk-10-1.png" width="864" /></p>
+<p>Ya a partir de aquí lo que procede es personalizar el tema y las etiquetas.</p>
+</div>
+<div id="segunda-versión-utilizando-geom_linerange." class="section level2">
+<h2>2.4. Segunda versión: utilizando <code>geom_linerange()</code>.</h2>
+<p>Otra versión muy común de las gráficas de pirámides de población consiste en poner los grupos de edad en el centro de la gráfica. Esto no es posible de realizar con las barras normales de <code>ggplot</code>, por lo que utilizaremos un elemento gráfico llamado <code>geom_linerange()</code>, el cual nos permite representar de manera gráfica intervalos con inicio y final.</p>
+<p>La única diferencia entre el metodo anterior y el que viene a continuación, consiste en 1) Cambiar el <code>geom_col()</code> por un <code>geom_linerange()</code>, incluir dentro el <code>aes(ymin, ymax)</code> y 3) también introducir como etiquetas de texto en el centro de la gráfica con <code>geom_label()</code>.</p>
+<p>Igualmente, hay que programar un <code>desplazamiento</code> de las barras a la derecha y a la izquierda, para dejar el espacio para las etiquetas que van a ir en el centro. Para la gráfica que queremos hacer dejaremos un desplazamiento de 10,000 unidades de población (la magnitud de este desplazamiento depende de los datos del eje <em>y</em>, en este caso de los números de población).</p>
+<p>Se escogió 10,000 como desplazamiento porque así cabe bien el texto de las categorias de edad.</p>
+<pre class="r"><code>### Grafica ----
+desplazamiento &lt;- 10000</code></pre>
+<p>Para este caso modificaremos ligeramente las etiquetas:</p>
+<pre class="r"><code># BREAKS
+c(seq(-180000, 0, by = 30000) - desplazamiento,
+                seq(0, 180000, by = 30000) + desplazamiento)</code></pre>
+<pre><code>##  [1] -190000 -160000 -130000 -100000  -70000  -40000  -10000   10000
+##  [9]   40000   70000  100000  130000  160000  190000</code></pre>
+<p>Estas serán las nuevas coordenadas dentro del eje X en las que se van a colocar las nuevas etiquetas. Es lo mismo que con las anteriores, solo que sumandole/restándole el desplazamiento.</p>
+<pre class="r"><code># LABELS
+c(rev(seq(0, 180000, by = 30000)), 
+  seq(0, 180000, by = 30000))</code></pre>
+<pre><code>##  [1] 180000 150000 120000  90000  60000  30000      0      0  30000  60000
+## [11]  90000 120000 150000 180000</code></pre>
+<p>Ahora si, hacemos la gráfica:</p>
+<pre class="r"><code># Graficamos
+ggplot(pop, aes(x = `Grupos quinquenales de edad`,
+                y = `Poblacion por Sexo`,
+                fill = Sexo)) +
+  geom_linerange(data = subset(pop, Sexo == &quot;Hombres&quot;) %&gt;% 
+                   # Convertimos los datos de los Hombres en negativos
+                 mutate(`Poblacion por Sexo` = -`Poblacion por Sexo`),
+                 aes(ymin = -desplazamiento, 
+                     ymax = -desplazamiento +`Poblacion por Sexo`),
+                 size = 5, 
+                 color = &quot;blue&quot;) +
+  geom_linerange(data = subset(pop, Sexo == &quot;Mujeres&quot;),
+                 aes(ymin = desplazamiento, 
+                     ymax = desplazamiento  +`Poblacion por Sexo`),
+                 size = 5, 
+                 color = &quot;pink&quot;) +
+  # Cambiamos el orden de los ejes de la graficas 
+  coord_flip()  +
+   scale_y_continuous(
+     breaks = c(seq(-180000, 0, by = 30000) - desplazamiento,
+                seq(0, 180000, by = 30000) + desplazamiento),
+     labels = c(rev(seq(0, 180000, by = 30000)),
+               seq(0, 180000, by = 30000))) +
+  # Eliminamos el texto del eje x volteado
+   theme(plot.title = element_text(hjust = .5),
+        axis.ticks = element_blank(),
+        axis.text.y = element_blank()
+        ) +   # Centre plot title
+   # Aniadimos la escala de texto en el centro. 
+   geom_label(aes(x = `Grupos quinquenales de edad`, 
+                  y = 0, 
+                  label = `Grupos quinquenales de edad`),
+   # Caracteristicas del texto             
+             family = &quot;Arial&quot;,
+             size = 3.5, 
+             label.padding = unit(0.0, &quot;lines&quot;), 
+             label.size = 0,
+             label.r = unit(0.0, &quot;lines&quot;), 
+             fill = &quot;#FFFFFF&quot;, 
+             alpha = 0.9, 
+             color = &quot;#5D646F&quot;)</code></pre>
+<p><img src="/post/2020-01-26-visualizando-pir%C3%A1mides-de-poblaci%C3%B3n-en-r_files/figure-html/unnamed-chunk-14-1.png" width="864" /></p>
+</div>
+<div id="qué-sigue" class="section level2">
+<h2>2.5. ¿Qué sigue?</h2>
+<p>Lo que sigue a continuación es embellecer la gráfica modificando los temas: fondo de la gráfica, tipo de letra, colores, etc. Igualmente, añadir formato a los números, poner títulos, subtítulos y pies de página, modificar los colores (quizá el rosa para mujeres y azul para hombres no parezca tan adecuado), entre alguna otra función añadida que nos interese agregar.</p>
+<p>Una de las ventajas de hacer visualizaciones en código es que es difícil solo la primera vez. Una vez que ya tenemos el código, podemos tenerlo guardado para hacer otras gráficas cuando salgan nuevos datos de población (alguien dijo censo 2020?) o que podemos utilizarlo para graficar otros datos (por ejemplo, pirámides para municipios dentro de un estado o de otros estados, o por tamaños de comunidad). O ya de plano construir una aplicación en <em>Shiny</em> para que el usuario haga las pirámides de población que quiera.</p>
+</div>
+</div>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            
+            
+            <p>2020. Juvenal Campos &nbsp; &nbsp; </p>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Hecho con R y <img class="Hugo" src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+
