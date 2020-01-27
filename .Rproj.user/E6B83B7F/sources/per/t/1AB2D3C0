@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1580103771810.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "700126020",
+    "id" : "1AB2D3C0",
+    "lastKnownWriteTime" : 1580103794,
+    "last_content_update" : 1580103794662,
+    "path" : "~/Documents/GitHub/testWebsite/content/post/2020-01-26-visualizando-pirámides-de-población-en-r.Rmd",
+    "project_path" : "content/post/2020-01-26-visualizando-pirámides-de-población-en-r.Rmd",
+    "properties" : {
+        "cursorPosition" : "118,0",
+        "last_setup_crc32" : "1084B3AA4dc5badc",
+        "scrollLine" : "116"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
