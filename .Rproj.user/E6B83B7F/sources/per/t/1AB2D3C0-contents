@@ -162,7 +162,6 @@ c(seq(-100000, -20000, by = 20000),
 
 Como vemos arriba, es una secuencia que va desde -100,000 hasta 100,000. Esto implica que, dentro de la gráfica, `ggplot()` va a poner las etiquetas en los puntos marcados arriba, como puede verse en la siguiente imágen: 
 
-**Imágen de donde se van a marcar las etiquetas**.
 
 Ahora, pongamosle las etiquetas en los puntos que determinamos arriba, a través de la función 
 
