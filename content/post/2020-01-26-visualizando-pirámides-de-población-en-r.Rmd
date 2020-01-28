@@ -7,7 +7,6 @@ categories: []
 tags: []
 ---
 
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(fig.width=9, fig.height=5) 
@@ -121,7 +120,7 @@ Para graficar utilizamos la función `ggplot()`.
 
 La primera versión que realizaremos será utilizando la función `geom_col()`. Esta función nos permite realizar gráficas de barras en R. 
 
-```{r}
+```{r, eval = FALSE}
 ### Grafica ----
 ggplot(pop, aes(x = `Grupos quinquenales de edad`,
                 y = `Poblacion por Sexo`,
@@ -135,12 +134,14 @@ ggplot(pop, aes(x = `Grupos quinquenales de edad`,
 
 ```
 
+
+![](/post/2020-01-26-visualizando-pirámides-de-población-en-r_files/unnamed-chunk-5-1.png)
+
 <b style = 'color:red; text-align:centered;'>Nótese las escalas del eje _x_</b>
 
 Ahora, tenemos que enfocarnos en la parte del eje de población. Primero que nada, tenemos que hacer un poco de análisis. 
 
 ```{r}
-
 # Valores maximos de población: 
 max(pop$`Poblacion por Sexo`)
 ```
@@ -188,7 +189,7 @@ ggplot(pop, aes(x = `Grupos quinquenales de edad`,
 
 Después añadimos las gráficas de columnas mediante la función `geom_col()` con subconjuntos de los datos filtrando por hombres y mujeres. Después hacemos un cambio de ejes y al final añadimos las etiquetas en los ejes de las gráficas. A continuación el código completo. 
 
-```{r}
+```{r, eval = FALSE}
 ### Grafica ----
 (plt <- ggplot(pop, aes(x = `Grupos quinquenales de edad`,
                 y = `Poblacion por Sexo`,
@@ -211,6 +212,8 @@ Después añadimos las gráficas de columnas mediante la función `geom_col()` c
 
 ```
 
+![](/post/2020-01-26-visualizando-pirámides-de-población-en-r_files/unnamed-chunk-10-1.png)
+
 Ya a partir de aquí lo que procede es personalizar el tema y las etiquetas. 
 
 ## 2.4. Segunda versión: utilizando `geom_linerange()`.
@@ -231,7 +234,7 @@ desplazamiento <- 10000
 Para este caso modificaremos ligeramente las etiquetas: 
 
 ```{r}
-# BREAKS
+# BREAKS - DEFINEN LA POSICION
 c(seq(-180000, 0, by = 30000) - desplazamiento,
                 seq(0, 180000, by = 30000) + desplazamiento)
 ```
@@ -239,7 +242,7 @@ c(seq(-180000, 0, by = 30000) - desplazamiento,
 Estas serán las nuevas coordenadas dentro del eje X en las que se van a colocar las nuevas etiquetas. Es lo mismo que con las anteriores, solo que sumandole/restándole el desplazamiento. 
 
 ```{r}
-# LABELS
+# LABELS - DEFINEN EL CONTENIDO
 c(rev(seq(0, 180000, by = 30000)), 
   seq(0, 180000, by = 30000))
 
@@ -247,7 +250,7 @@ c(rev(seq(0, 180000, by = 30000)),
 
 Ahora si, hacemos la gráfica: 
 
-```{r}
+```{r, eval = FALSE}
 # Graficamos
 ggplot(pop, aes(x = `Grupos quinquenales de edad`,
                 y = `Poblacion por Sexo`,
@@ -291,9 +294,11 @@ ggplot(pop, aes(x = `Grupos quinquenales de edad`,
              color = "#5D646F")
 ```
 
+![](/post/2020-01-26-visualizando-pirámides-de-población-en-r_files/unnamed-chunk-14-1.png)
+
 ## 2.5. ¿Qué sigue? 
 
 Lo que sigue a continuación es embellecer la gráfica modificando los temas: fondo de la gráfica, tipo de letra, colores, etc. Igualmente, añadir formato a los números, poner títulos, subtítulos y pies de página, modificar los colores (quizá el rosa para mujeres y azul para hombres no parezca tan adecuado), entre alguna otra función añadida que nos interese agregar. 
 
-Una de las ventajas de hacer visualizaciones en código es que es difícil solo la primera vez. Una vez que ya tenemos el código, podemos tenerlo guardado para hacer otras gráficas cuando salgan nuevos datos de población (alguien dijo censo 2020?) o que podemos utilizarlo para graficar otros datos (por ejemplo, pirámides para municipios dentro de un estado o de otros estados, o por tamaños de comunidad). O ya de plano construir una aplicación en _Shiny_ para que el usuario haga las pirámides de población que quiera. 
+Una de las ventajas de hacer visualizaciones en código es que es difícil solo la primera vez. Una vez que ya tenemos el código, podemos tenerlo guardado para hacer otras gráficas cuando salgan nuevos datos de población ( _alguien dijo censo 2020?_) o que podemos utilizarlo para graficar otros datos (por ejemplo, pirámides para municipios dentro de un estado o de otros estados, o por tamaños de comunidad). O ya de plano construir una aplicación en _Shiny_ para que el usuario haga las pirámides de población que quiera. Explora las posibilidades. 
 

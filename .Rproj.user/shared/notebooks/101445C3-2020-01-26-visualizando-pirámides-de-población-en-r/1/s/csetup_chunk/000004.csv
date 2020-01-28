@@ -1,7 +1,0 @@
-"0","?opts_chunk$set
-"
-"2","Error in eval(argExpr, envir) : object 'opts_chunk' not found
-"
-"2","Error in .signatureFromCall(fdef, expr, envir, doEval) : 
-  error in trying to evaluate the expression for argument ‘x’ (opts_chunk)
-"
