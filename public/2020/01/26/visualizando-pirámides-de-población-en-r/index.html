@@ -67,7 +67,7 @@
 
   <article class="article">
     
-    <span class="article-duration">10 min read</span>
+    <span class="article-duration">12 min read</span>
     
 
     <h1 class="article-title">Visualizando pirámides de población en R</h1>
@@ -195,7 +195,6 @@ c(seq(-100000, -20000, by = 20000),
 <pre><code>##  [1] -100000  -80000  -60000  -40000  -20000       0   20000   40000
 ##  [9]   60000   80000  100000</code></pre>
 <p>Como vemos arriba, es una secuencia que va desde -100,000 hasta 100,000. Esto implica que, dentro de la gráfica, <code>ggplot()</code> va a poner las etiquetas en los puntos marcados arriba, como puede verse en la siguiente imágen:</p>
-<p><strong>Imágen de donde se van a marcar las etiquetas</strong>.</p>
 <p>Ahora, pongamosle las etiquetas en los puntos que determinamos arriba, a través de la función</p>
 <pre class="r"><code># LABELS - DEFINEN EL CONTENIDO
 
@@ -301,6 +300,82 @@ ggplot(pop, aes(x = `Grupos quinquenales de edad`,
 <h2>2.5. ¿Qué sigue?</h2>
 <p>Lo que sigue a continuación es embellecer la gráfica modificando los temas: fondo de la gráfica, tipo de letra, colores, etc. Igualmente, añadir formato a los números, poner títulos, subtítulos y pies de página, modificar los colores (quizá el rosa para mujeres y azul para hombres no parezca tan adecuado), entre alguna otra función añadida que nos interese agregar.</p>
 <p>Una de las ventajas de hacer visualizaciones en código es que es difícil solo la primera vez. Una vez que ya tenemos el código, podemos tenerlo guardado para hacer otras gráficas cuando salgan nuevos datos de población ( <em>alguien dijo censo 2020?</em>) o que podemos utilizarlo para graficar otros datos (por ejemplo, pirámides para municipios dentro de un estado o de otros estados, o por tamaños de comunidad). O ya de plano construir una aplicación en <em>Shiny</em> para que el usuario haga las pirámides de población que quiera. Explora las posibilidades.</p>
+</div>
+<div id="ejemplo-reproducible." class="section level2">
+<h2>2.6 Ejemplo reproducible.</h2>
+<p>Tras la publicación de esta entrada de post, recibí un par de comentarios muy acertados:</p>
+<blockquote class="twitter-tweet">
+<p lang="es" dir="ltr">
+Recomendaciones: tu último grupo de edad agrupa demasiada población, separaría 75-79, 80-84 y 85+. Recomiendo también prorratear la población con edad No especificada. Finalmente, para quien quiera comparar estructuras lo ideal es usar proporciones, no volumen.
+</p>
+— El Mau (<span class="citation">@mochis22</span>) <a href="https://twitter.com/mochis22/status/1222153482703998976?ref_src=twsrc%5Etfw">January 28, 2020</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet">
+<p lang="es" dir="ltr">
+Buenísimo👏🏼👏🏼👏🏼! Igual sería bueno una legend o geom_text para saber qué significa los colores rosas y azules, no? Jejeje
+</p>
+— Claudio Pacheco (<span class="citation">@claudiodanielpc</span>) <a href="https://twitter.com/claudiodanielpc/status/1222012861150646272?ref_src=twsrc%5Etfw">January 28, 2020</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p>Por lo tanto, y para no reescribir todo de nuevo, anexo un ejemplo reproducible que añade las sugerencias mencionadas arriba.</p>
+<pre class="r"><code># Descarga de los datos.
+library(curl)
+library(readxl)
+library(tidyverse)
+curl::curl_download(url = &quot;https://www.inegi.org.mx/contenidos/programas/intercensal/2015/tabulados/01_poblacion_mor.xls&quot;, destfile = &quot;mor_pop.xls&quot;)
+
+# Leemos datos
+# Por tamaño de localidad
+mor &lt;- read_xls(&quot;mor_pop.xls&quot;, sheet = 2, skip = 6)
+
+# Procesado de los datos
+pop &lt;- mor %&gt;%
+  # Filtramos los renglones vacios,
+  # los renglones donde el Tamaño de localidad` es el Total y
+  # los `Grupos quinquenales de edad` son todos &quot;Total&quot;    
+  filter(!is.na(Estimador) &amp;
+           Estimador == &quot;Valor&quot; &amp;
+           `Tamaño de localidad` == &quot;Total&quot; &amp;
+           `Grupos quinquenales de edad` != &quot;Total&quot;) %&gt;%
+  mutate(totH = sum(Hombres),
+         totM = sum(Mujeres)) %&gt;%
+  mutate(Hombres = (Hombres/totH)*100,
+         Mujeres = (Mujeres/totM)*100
+  ) %&gt;%
+  select(-totH, -totM) %&gt;%
+  # Hacemos pivot longer rotando las columnas hombres y mujeres    
+  pivot_longer(cols = c(&quot;Hombres&quot;, &quot;Mujeres&quot;),
+               names_to = &quot;Sexo&quot;,
+               values_to = &quot;Poblacion por Sexo&quot;) %&gt;%
+  # Nos quedamos con columnas utiles  
+  select(`Entidad federativa`, `Grupos quinquenales de edad`,
+         `Población total`, Sexo, `Poblacion por Sexo`) %&gt;%
+  filter(!(`Grupos quinquenales de edad` %in% c(&quot;75 años y más&quot;,&quot;No especificado&quot;)))
+
+
+# Elaboracion de la grafica
+ggplot(pop, aes(x = `Grupos quinquenales de edad`,
+                y = `Poblacion por Sexo`,
+                fill = Sexo)) +
+  geom_bar(data = subset(pop, Sexo == &quot;Hombres&quot;) %&gt;% mutate(`Poblacion por Sexo` = -`Poblacion por Sexo`),
+           stat = &quot;identity&quot;, width = 0.5, fill = &quot;blue&quot;) +
+  geom_bar(data = subset(pop, Sexo == &quot;Mujeres&quot;),
+           stat = &quot;identity&quot;, width = 0.5, fill = &quot;pink&quot;) +
+  coord_flip() +
+  ggthemes::theme_tufte() +
+  theme(plot.title = element_text(family = &quot;Arial&quot;, hjust = 0.5, size = 20),
+        axis.text.x = element_text(family = &quot;Arial&quot;),
+        axis.text.y = element_text(family = &quot;Arial&quot;)
+  ) +
+  labs(title = &quot;Pirámide Poblacional de Morelos, 2015&quot;,
+       x = &quot;&quot;,
+       y = &quot;Hombres                        Mujeres&quot;,
+       caption = &quot;Fuente: INEGI. Encuesta intercensal 2015. Tabulados de Población \nSe omiten personas de 75 años y más, por venir aglomeradas en un mismo grupo de edad.&quot;) +
+  scale_y_continuous(breaks = seq(-12, 12, by = 2), labels = paste0(c(seq(-12, 0, by = 2)*-1, seq(2, 12, by = 2)), &quot;%&quot;))
+
+ggsave(filename= &quot;ppMorelos.png&quot;, dpi = 300)</code></pre>
+<p><img src="/post/2020-01-26-visualizando-pirámides-de-población-en-r_files/FinalPiramide.png" /></p>
 </div>
 </div>
 

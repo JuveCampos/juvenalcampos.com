@@ -301,3 +301,78 @@ Lo que sigue a continuación es embellecer la gráfica modificando los temas: fo
 
 Una de las ventajas de hacer visualizaciones en código es que es difícil solo la primera vez. Una vez que ya tenemos el código, podemos tenerlo guardado para hacer otras gráficas cuando salgan nuevos datos de población ( _alguien dijo censo 2020?_) o que podemos utilizarlo para graficar otros datos (por ejemplo, pirámides para municipios dentro de un estado o de otros estados, o por tamaños de comunidad). O ya de plano construir una aplicación en _Shiny_ para que el usuario haga las pirámides de población que quiera. Explora las posibilidades. 
 
+## 2.6 Ejemplo reproducible. 
+
+Tras la publicación de esta entrada de post, recibí un par de comentarios muy acertados: 
+
+<blockquote class="twitter-tweet"><p lang="es" dir="ltr">Recomendaciones: tu último grupo de edad agrupa demasiada población, separaría 75-79, 80-84 y 85+. Recomiendo también prorratear la población con edad No especificada. Finalmente, para quien quiera comparar estructuras lo ideal es usar proporciones, no volumen.</p>&mdash; El Mau (@mochis22) <a href="https://twitter.com/mochis22/status/1222153482703998976?ref_src=twsrc%5Etfw">January 28, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet"><p lang="es" dir="ltr">Buenísimo👏🏼👏🏼👏🏼! Igual sería bueno una legend o geom_text para saber qué significa los colores rosas y azules, no? Jejeje</p>&mdash; Claudio Pacheco (@claudiodanielpc) <a href="https://twitter.com/claudiodanielpc/status/1222012861150646272?ref_src=twsrc%5Etfw">January 28, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+Por lo tanto, y para no reescribir todo de nuevo, anexo un ejemplo reproducible que añade las sugerencias mencionadas arriba. 
+
+
+
+```{r, eval=FALSE}
+# Descarga de los datos.
+library(curl)
+library(readxl)
+library(tidyverse)
+curl::curl_download(url = "https://www.inegi.org.mx/contenidos/programas/intercensal/2015/tabulados/01_poblacion_mor.xls", destfile = "mor_pop.xls")
+
+# Leemos datos
+# Por tamaño de localidad
+mor <- read_xls("mor_pop.xls", sheet = 2, skip = 6)
+
+# Procesado de los datos
+pop <- mor %>%
+  # Filtramos los renglones vacios,
+  # los renglones donde el Tamaño de localidad` es el Total y
+  # los `Grupos quinquenales de edad` son todos "Total"    
+  filter(!is.na(Estimador) &
+           Estimador == "Valor" &
+           `Tamaño de localidad` == "Total" &
+           `Grupos quinquenales de edad` != "Total") %>%
+  mutate(totH = sum(Hombres),
+         totM = sum(Mujeres)) %>%
+  mutate(Hombres = (Hombres/totH)*100,
+         Mujeres = (Mujeres/totM)*100
+  ) %>%
+  select(-totH, -totM) %>%
+  # Hacemos pivot longer rotando las columnas hombres y mujeres    
+  pivot_longer(cols = c("Hombres", "Mujeres"),
+               names_to = "Sexo",
+               values_to = "Poblacion por Sexo") %>%
+  # Nos quedamos con columnas utiles  
+  select(`Entidad federativa`, `Grupos quinquenales de edad`,
+         `Población total`, Sexo, `Poblacion por Sexo`) %>%
+  filter(!(`Grupos quinquenales de edad` %in% c("75 años y más","No especificado")))
+
+
+# Elaboracion de la grafica
+ggplot(pop, aes(x = `Grupos quinquenales de edad`,
+                y = `Poblacion por Sexo`,
+                fill = Sexo)) +
+  geom_bar(data = subset(pop, Sexo == "Hombres") %>% mutate(`Poblacion por Sexo` = -`Poblacion por Sexo`),
+           stat = "identity", width = 0.5, fill = "blue") +
+  geom_bar(data = subset(pop, Sexo == "Mujeres"),
+           stat = "identity", width = 0.5, fill = "pink") +
+  coord_flip() +
+  ggthemes::theme_tufte() +
+  theme(plot.title = element_text(family = "Arial", hjust = 0.5, size = 20),
+        axis.text.x = element_text(family = "Arial"),
+        axis.text.y = element_text(family = "Arial")
+  ) +
+  labs(title = "Pirámide Poblacional de Morelos, 2015",
+       x = "",
+       y = "Hombres                        Mujeres",
+       caption = "Fuente: INEGI. Encuesta intercensal 2015. Tabulados de Población \nSe omiten personas de 75 años y más, por venir aglomeradas en un mismo grupo de edad.") +
+  scale_y_continuous(breaks = seq(-12, 12, by = 2), labels = paste0(c(seq(-12, 0, by = 2)*-1, seq(2, 12, by = 2)), "%"))
+
+ggsave(filename= "ppMorelos.png", dpi = 300)
+```
+![](/post/2020-01-26-visualizando-pirámides-de-población-en-r_files/FinalPiramide.png)
+
+
+
+

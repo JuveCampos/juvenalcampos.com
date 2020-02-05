@@ -1,0 +1,7 @@
+"0",""
+"0","ggsave(filename= ""Poblacion/ppMorelos.png"", dpi = 300)"
+"2","Saving 9 x 5 in image
+"
+"2","Error in grDevices::dev.off() : 
+  QuartzBitmap_Output - unable to open file 'Poblacion/ppMorelos.png'
+"
