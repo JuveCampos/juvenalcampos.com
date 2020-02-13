@@ -31,15 +31,6 @@ Desde el punto de vista gráfico, se trata de un doble histograma de frecuencias
     </item>
     
     <item>
-      <title>Tutorial de mapas en Leaflet</title>
-      <link>/2020/01/13/tutorial-de-mapas-en-leaflet/</link>
-      <pubDate>Mon, 13 Jan 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/2020/01/13/tutorial-de-mapas-en-leaflet/</guid>
-      <description>La librería leaflet forma parte de la familia de librerías de los htmlwidgets, y su principal función es la de poder realizar mapas interactivos utilizando lenguaje R. Esta librería traduce nuestros comandos de R a JavaScript, creando una página web con elementos de información geográfica (como puntos, líneas o polígonos), fondos georreferenciados y funciones añadidas (como funciones de interacción con los elementos geográficos o aplicar zoom a zonas de interés).</description>
-    </item>
-    
-    <item>
       <title>Nuestro primer Post</title>
       <link>/2020/01/05/nuestro-primer-post/</link>
       <pubDate>Sun, 05 Jan 2020 00:00:00 +0000</pubDate>
@@ -48,15 +39,6 @@ Desde el punto de vista gráfico, se trata de un doble histograma de frecuencias
       <description>Primer Post de la página. Hacer un blog es una idea que había estado rondandome la cabeza durante ya un año, a inicios del 2019, cuando me comprometí públicamente en un Tweet a hacerlo como uno de mis propósitos de R de año nuevo (tweet al cual el mismo Hadley Wickham le dió RT).
 My #rstats goals for 2019:
 1. Learn how to use Sentiment Analysis 2. Learn how to deal with Twitter Data</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>/1/01/01/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/1/01/01/</guid>
-      <description>La librería leaflet forma parte de la familia de librerías de los htmlwidgets, y su principal función es la de poder realizar mapas interactivos utilizando lenguaje R. Esta librería traduce nuestros comandos de R a JavaScript, creando una página web con elementos de información geográfica (como puntos, líneas o polígonos), fondos georreferenciados y funciones añadidas (como funciones de interacción con los elementos geográficos o aplicar zoom a zonas de interés).</description>
     </item>
     
   </channel>

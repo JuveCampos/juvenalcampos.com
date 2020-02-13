@@ -1,0 +1,3 @@
+
+bd <- readRDS("/Users/admin/Downloads/AGUASCALIENTES.rds")
+head(bd)

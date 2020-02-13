@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1578864038563.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "69C12F36",
+    "lastKnownWriteTime" : 1580103687,
+    "last_content_update" : 1580103687980,
+    "path" : "~/Documents/GitHub/testWebsite/funcionesBlogdown.R",
+    "project_path" : "funcionesBlogdown.R",
+    "properties" : {
+        "cursorPosition" : "6,23",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
