@@ -291,7 +291,6 @@ leaflet(lineaCIDE) %>%
   addPolylines(color = "#005700")
 ```
 
-<p class=footnote>Fig. 6 Mapa de la línea con la mínima distancia respecto al CIDE</p>
 
 Pues ahora tenemos una función que nos calcula la distancia y otra que nos dibuja las líneas. Entonces, a partir de estas funciones, cualquier programador experimentado de R puede calcular las distancias y la trayectoria en línea recta a la frontera a partir de solo tener las coordenadas `X` y `Y` del punto de interés, y copipegando las funciones de arriba en su sesión de RStudio.  
 

@@ -78,15 +78,15 @@
 
     <div class="article-content">
       
-<script src="2020-02-18-distancia-punto-a-linea_files/htmlwidgets/htmlwidgets.js"></script>
-<script src="2020-02-18-distancia-punto-a-linea_files/jquery/jquery.min.js"></script>
-<link href="2020-02-18-distancia-punto-a-linea_files/leaflet/leaflet.css" rel="stylesheet" />
-<script src="2020-02-18-distancia-punto-a-linea_files/leaflet/leaflet.js"></script>
-<link href="2020-02-18-distancia-punto-a-linea_files/leafletfix/leafletfix.css" rel="stylesheet" />
-<script src="2020-02-18-distancia-punto-a-linea_files/Proj4Leaflet/proj4-compressed.js"></script>
-<script src="2020-02-18-distancia-punto-a-linea_files/Proj4Leaflet/proj4leaflet.js"></script>
-<link href="2020-02-18-distancia-punto-a-linea_files/rstudio_leaflet/rstudio_leaflet.css" rel="stylesheet" />
-<script src="2020-02-18-distancia-punto-a-linea_files/leaflet-binding/leaflet.js"></script>
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
+<link href="/rmarkdown-libs/leaflet/leaflet.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/leaflet/leaflet.js"></script>
+<link href="/rmarkdown-libs/leafletfix/leafletfix.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/Proj4Leaflet/proj4-compressed.js"></script>
+<script src="/rmarkdown-libs/Proj4Leaflet/proj4leaflet.js"></script>
+<link href="/rmarkdown-libs/rstudio_leaflet/rstudio_leaflet.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/leaflet-binding/leaflet.js"></script>
 
 
 <style>
@@ -144,7 +144,7 @@ Nota. Utiliza siempre el argumento max.plot=1 para explorar tus datos (si no, tu
 </p>
 <pre class="r"><code># Ploteado (te recomiendo que no le muevas al max.plot = 1)
 plot(f, max.plot = 1)</code></pre>
-<img src="2020-02-18-distancia-punto-a-linea_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+<img src="/post/2020-02-18-distancia-punto-a-linea_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 <p class="footnote">
 Fig. 3 Polilínea de la frontera norte
 </p>
@@ -323,9 +323,6 @@ leaflet(lineaCIDE) %&gt;%
   addPolylines(color = &quot;#005700&quot;)</code></pre>
 <div id="htmlwidget-2" style="width:800px;height:480px;" class="leaflet html-widget"></div>
 <script type="application/json" data-for="htmlwidget-2">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addPolylines","args":[[[[{"lng":[-99.263426,-97.4253852925037],"lat":[19.374515,25.8406048875242]}]]],null,null,{"interactive":true,"className":"","stroke":true,"color":"#005700","weight":5,"opacity":0.5,"fill":false,"fillColor":"#005700","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[19.374515,25.8406048875242],"lng":[-99.263426,-97.4253852925037]}},"evals":[],"jsHooks":[]}</script>
-<p class="footnote">
-Fig. 6 Mapa de la línea con la mínima distancia respecto al CIDE
-</p>
 <p>Pues ahora tenemos una función que nos calcula la distancia y otra que nos dibuja las líneas. Entonces, a partir de estas funciones, cualquier programador experimentado de R puede calcular las distancias y la trayectoria en línea recta a la frontera a partir de solo tener las coordenadas <code>X</code> y <code>Y</code> del punto de interés, y copipegando las funciones de arriba en su sesión de RStudio.</p>
 </div>
 <div id="y-si-hacemos-un-shiny" class="section level2">
