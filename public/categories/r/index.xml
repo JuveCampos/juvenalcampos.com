@@ -6,10 +6,20 @@
     <description>Recent content in R on Juve Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-mx</language>
-    <lastBuildDate>Mon, 13 Jan 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 18 Feb 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Distancia Punto a Linea</title>
+      <link>/2020/02/18/distancia-punto-a-linea/</link>
+      <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/02/18/distancia-punto-a-linea/</guid>
+      <description>h2 { color:red; } iframe{ width: 1000px; height: 750px; border: 2px solid #ccc; }  La semana pasada, mientras estaba yo muy a gusto en mi trabajo limpiando bases de datos, un amigo mío muy querido (y aparte, mi ex-jefe) Jesús Carrillo [@ProfeTriste](https://twitter.com/ProfeTriste) me lanzó el siguiente reto:
+Y pues bueno, al terminar la jornada laboral (obviamente) me dediqué a resolver este reto (porque, si bien tenía la idea, nunca lo había realizado).</description>
+    </item>
     
     <item>
       <title>Tutorial de mapas en Leaflet</title>
