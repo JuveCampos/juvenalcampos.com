@@ -32,7 +32,7 @@ tags: []
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-La semana pasada, mientras estaba yo muy a gusto en mi trabajo limpiando bases de datos, un amigo mío muy querido (y aparte, mi ex-jefe) Jesús Carrillo  [@ProfeTriste](https://twitter.com/ProfeTriste) me lanzó el siguiente reto: 
+La semana pasada, mientras estaba yo muy a gusto en mi trabajo limpiando bases de datos, un amigo mío muy querido (y con quien di un curso hace un par de años) Jesús Carrillo [@ProfeTriste](https://twitter.com/ProfeTriste) me lanzó el siguiente reto: 
 
 ![](/post/2020-02-18-distancia-punto-a-linea_files/conversacionJesus.png)
 <p class=footnote>Fig. 1 Conversación con Jesús</p>
@@ -137,7 +137,7 @@ Y ahí está la respuesta a la distancia, y al reto de mi amigo. **Fin**.
 
 Pero ahora pueden surgir preguntas muy lógicas sobre esta respuesta... Una de ellas es: _¿A qué punto de la frontera se le calculó la distancia?_ 
 
-Entonces, hagamos el cálculo más detenidamente, para esto, propongo descomponer la línea de la frontera norte en sus vértices o componentes: 
+Entonces, hagamos el cálculo más detenidamente. Para esto, propongo descomponer la línea de la frontera norte en sus vértices o componentes: 
 
 ```{r, message=FALSE, cache=FALSE,warning=FALSE}
 # Descomponemos la linea en sus coordenadas
@@ -291,7 +291,6 @@ leaflet(lineaCIDE) %>%
   addPolylines(color = "#005700")
 ```
 
-
 Pues ahora tenemos una función que nos calcula la distancia y otra que nos dibuja las líneas. Entonces, a partir de estas funciones, cualquier programador experimentado de R puede calcular las distancias y la trayectoria en línea recta a la frontera a partir de solo tener las coordenadas `X` y `Y` del punto de interés, y copipegando las funciones de arriba en su sesión de RStudio.  
 
 ## 8. ¿Y si hacemos un shiny?  
@@ -314,7 +313,7 @@ knitr::include_app("https://lnppmicrositio.shinyapps.io/distanciaAFrontera/")
 
 **Sobre los motivos...**
 
-Para alguien experimentado en el análisis de datos espaciales quizá el contenido de este artículo no le sea lo suficientemente impresionante (para mi ciertamente no lo es tanto), pero si constituyó una buena excusa para programar algo divertido e introducir varios conceptos de varios cursos que voy a dar en la Escuela de Métodos del CIDE a lo largo de este año. Por ejemplo, la parte de descarga de datos de internet lo voy a abordar en un curso de `Manejo de bases de datos no estructurados` que voy a dar en Noviembre, la de elaboración de mapas en el de `Análisis de datos Geoespaciales` en Mayo y la de creación de Aplicaciones en `shiny` lo voy a dar a lo largo de el mes de marzo, todos en el presente año. 
+Para alguien experimentado en el análisis de datos espaciales quizá el contenido de este artículo no le sea lo suficientemente impresionante (para mi ciertamente no lo es tanto), pero si constituyó una buena excusa para programar algo divertido e introducir varios conceptos de varios cursos que voy a dar en la [Escuela de Métodos del LNPP-CIDE](https://www.lnpp.mx/evento/escuela-de-metodos-2020/) a lo largo de este año. Por ejemplo, la parte de descarga de datos de internet lo voy a abordar en un curso de `Manejo de bases de datos no estructurados` que voy a dar en Noviembre, la de elaboración de mapas en el de `Análisis de datos Geoespaciales` en Mayo y la de creación de [Aplicaciones en `shiny`]( https://www.lnpp.mx/evento/visualizacion-de-datos-en-shiny/) lo voy a dar a lo largo de el mes de marzo, todos en 2020. 
 
 **Sobre el uso de los vértices...**
 
@@ -330,6 +329,6 @@ Si tienen dudas de alguna parte de esta entrada de blog, algún comentario o me 
 
 _Gracias por llegar hasta acá. :3_
 
-
+Juvenal Campos.
 
 

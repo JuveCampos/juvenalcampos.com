@@ -106,7 +106,7 @@
   }
     
 </style>
-<p>La semana pasada, mientras estaba yo muy a gusto en mi trabajo limpiando bases de datos, un amigo mío muy querido (y aparte, mi ex-jefe) Jesús Carrillo <span class="citation">[@ProfeTriste]</span>(<a href="https://twitter.com/ProfeTriste" class="uri">https://twitter.com/ProfeTriste</a>) me lanzó el siguiente reto:</p>
+<p>La semana pasada, mientras estaba yo muy a gusto en mi trabajo limpiando bases de datos, un amigo mío muy querido (y con quien di un curso hace un par de años) Jesús Carrillo <span class="citation">[@ProfeTriste]</span>(<a href="https://twitter.com/ProfeTriste" class="uri">https://twitter.com/ProfeTriste</a>) me lanzó el siguiente reto:</p>
 <img src="/post/2020-02-18-distancia-punto-a-linea_files/conversacionJesus.png" />
 <p class="footnote">
 Fig. 1 Conversación con Jesús
@@ -182,7 +182,7 @@ Nota. Cuando se va a trabajar con la interacción de dos bases de datos geográf
 <div id="a-qué-punto-se-calculó-la-distancia" class="section level2">
 <h2>5. ¿A qué punto se calculó la distancia?</h2>
 <p>Pero ahora pueden surgir preguntas muy lógicas sobre esta respuesta… Una de ellas es: <em>¿A qué punto de la frontera se le calculó la distancia?</em></p>
-<p>Entonces, hagamos el cálculo más detenidamente, para esto, propongo descomponer la línea de la frontera norte en sus vértices o componentes:</p>
+<p>Entonces, hagamos el cálculo más detenidamente. Para esto, propongo descomponer la línea de la frontera norte en sus vértices o componentes:</p>
 <pre class="r"><code># Descomponemos la linea en sus coordenadas
 ptos_linea &lt;- st_coordinates(f) %&gt;%
   as.data.frame() %&gt;%
@@ -340,7 +340,7 @@ leaflet(lineaCIDE) %&gt;%
 <div id="conclusiones." class="section level2">
 <h2>9. Conclusiones.</h2>
 <p><strong>Sobre los motivos…</strong></p>
-<p>Para alguien experimentado en el análisis de datos espaciales quizá el contenido de este artículo no le sea lo suficientemente impresionante (para mi ciertamente no lo es tanto), pero si constituyó una buena excusa para programar algo divertido e introducir varios conceptos de varios cursos que voy a dar en la Escuela de Métodos del CIDE a lo largo de este año. Por ejemplo, la parte de descarga de datos de internet lo voy a abordar en un curso de <code>Manejo de bases de datos no estructurados</code> que voy a dar en Noviembre, la de elaboración de mapas en el de <code>Análisis de datos Geoespaciales</code> en Mayo y la de creación de Aplicaciones en <code>shiny</code> lo voy a dar a lo largo de el mes de marzo, todos en el presente año.</p>
+<p>Para alguien experimentado en el análisis de datos espaciales quizá el contenido de este artículo no le sea lo suficientemente impresionante (para mi ciertamente no lo es tanto), pero si constituyó una buena excusa para programar algo divertido e introducir varios conceptos de varios cursos que voy a dar en la <a href="https://www.lnpp.mx/evento/escuela-de-metodos-2020/">Escuela de Métodos del LNPP-CIDE</a> a lo largo de este año. Por ejemplo, la parte de descarga de datos de internet lo voy a abordar en un curso de <code>Manejo de bases de datos no estructurados</code> que voy a dar en Noviembre, la de elaboración de mapas en el de <code>Análisis de datos Geoespaciales</code> en Mayo y la de creación de <a href="https://www.lnpp.mx/evento/visualizacion-de-datos-en-shiny/">Aplicaciones en <code>shiny</code></a> lo voy a dar a lo largo de el mes de marzo, todos en 2020.</p>
 <p><strong>Sobre el uso de los vértices…</strong></p>
 <p>Platicando con mi colega Juan Javier Santos, creemos que calcular la distancia a partir de los vértices puede ser un poco problemático (pensando en el caso de una línea recta a una distancia <span class="math inline">\(\epsilon\)</span> pequeña de un punto) Sin embargo, creo que dada la cantidad de vértices y las distancias a las cuales se calculan las distancias, esto no debería constituir un gran problema.</p>
 <p><strong>Sobre la creación del shiny…</strong></p>
@@ -348,6 +348,7 @@ leaflet(lineaCIDE) %&gt;%
 <p><strong>Sobre el seguimiento al post</strong>.</p>
 <p>Si tienen dudas de alguna parte de esta entrada de blog, algún comentario o me detectaron algún error, me encuentro disponible en Twitter en <span class="citation">@JuvenalCamposF</span>, o a mi correo, <a href="mailto:juveroark@gmail.com" class="email">juveroark@gmail.com</a>.</p>
 <p><em>Gracias por llegar hasta acá. :3</em></p>
+<p>Juvenal Campos.</p>
 </div>
 
     </div>
