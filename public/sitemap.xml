@@ -13,11 +13,6 @@
   </url>
   
   <url>
-    <loc>/</loc>
-    <lastmod>2020-02-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/categories/mapas/</loc>
     <lastmod>2020-02-18T00:00:00+00:00</lastmod>
   </url>
@@ -48,17 +43,22 @@
   </url>
   
   <url>
+    <loc>/</loc>
+    <lastmod>2020-01-05T01:42:00-07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/sobre_mi/</loc>
     <lastmod>2020-01-05T01:42:00-07:00</lastmod>
   </url>
   
   <url>
-    <loc>/categories/blog/</loc>
+    <loc>/tags/blog/</loc>
     <lastmod>2020-01-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/blog/</loc>
+    <loc>/categories/blog/</loc>
     <lastmod>2020-01-05T00:00:00+00:00</lastmod>
   </url>
   
@@ -70,11 +70,6 @@
   <url>
     <loc>/tags/</loc>
     <lastmod>2020-01-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/about/</loc>
-    <priority>0</priority>
   </url>
   
   <url>
