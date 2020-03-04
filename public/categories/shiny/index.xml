@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>shiny on Juve Blog</title>
+    <link>/categories/shiny/</link>
+    <description>Recent content in shiny on Juve Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>es-mx</language>
+    <lastBuildDate>Tue, 03 Mar 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/shiny/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Ejemplos de lo que se puede hacer en shiny</title>
+      <link>/2020/03/03/ejemplos-de-lo-que-se-puede-hacer-en-shiny/</link>
+      <pubDate>Tue, 03 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/03/03/ejemplos-de-lo-que-se-puede-hacer-en-shiny/</guid>
+      <description>¿Qué es shiny?
+La librería {shiny} es un paquete de R que nos permite realizar aplicaciones web interactivas a partir de utilizar funciones en el lenguaje R. Al igual que otros paquetes de este lenguaje de programación, como dplyr o ggplot, para usar shiny tenemos que instalarlo desde el CRAN y llamarlo en nuestra sesión de R. Tan simple como eso.
+Shiny es altamente versatil y nos permite hacer páginas web funcionales sin la necesidad de aprender el lenguaje HTML ni las hojas de estilo CSS, lo cual lo hace muy práctico para muchos perfiles de analistas que deseen publicar su trabajo o explorar ideas y que no tienen los recursos para contratar un programador, o que deséen hacerlo por su cuenta.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -299,7 +299,7 @@ Bueno, y ¿si hacemos una solución en la cual cualquier usuario pueda calcular 
 
 ### Breve nota sobre shiny.
 
-La libería `shiny` nos permite realizar aplicaciones web interactivas utilizando el lenguaje de programación R para ( _parafraseando a Hadley Wickham de RStudio_ ) pasar nuestros superpoderes de R a cualquier usuario que tenga acceso a un navegador web. 
+La librería `shiny` nos permite realizar aplicaciones web interactivas utilizando el lenguaje de programación R para ( _parafraseando a Hadley Wickham de RStudio_ ) pasar nuestros superpoderes de R a cualquier usuario que tenga acceso a un navegador web. 
 
 En este caso, el **superpoder** que vamos a pasar es el de _poder calcular la distancia y poder construir la línea de mínima distancia_ tan solo con presionar un punto en el mapa. 
 
