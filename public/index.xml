@@ -6,10 +6,20 @@
     <description>Recent content on Juve Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-mx</language>
-    <lastBuildDate>Tue, 03 Mar 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 26 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Cortando Islas</title>
+      <link>/2020/07/26/cortando-islas/</link>
+      <pubDate>Sun, 26 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/07/26/cortando-islas/</guid>
+      <description>h2 { color:red; } iframe{ width: 1000px; height: 750px; border: 2px solid #ccc; } p.footnote{ color:#5e5e5e; font-size:70%; }  Elaborado por: Juvenal Campos y Ami Sosa
+Ver países y continentes enteros ya no es un derecho exclusivo de los astronautas o los superhéroes. Gracias a los sistemas de información geográfica cada vez es más sencillo crear nuestros propios mapas y representar visualmente los fenómenos que consideramos importantes para entender mejor el mundo que nos rodea.</description>
+    </item>
     
     <item>
       <title>Ejemplos de lo que se puede hacer en shiny</title>
