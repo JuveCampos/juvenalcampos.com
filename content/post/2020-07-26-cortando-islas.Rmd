@@ -26,33 +26,34 @@ tags: []
     
 </style>
 
-<font size="4">**Elaborado por: Juvenal Campos y Ami Sosa**</font>
+ **Elaborado por: Juvenal Campos y Ami Sosa** 
 
-<font size="4">Ver países y continentes enteros ya no es un derecho exclusivo de los astronautas o los superhéroes. Gracias a los sistemas de información geográfica cada vez es más sencillo crear nuestros propios mapas y representar visualmente los fenómenos que consideramos importantes para entender mejor el mundo que nos rodea. Sin embargo, hacer mapas es un ejercicio **muy poderoso** que puede ser usado para informar o desinformar.</font>
+ Ver países y continentes enteros ya no es un derecho exclusivo de los astronautas o los superhéroes. Gracias a los sistemas de información geográfica cada vez es más sencillo crear nuestros propios mapas y representar visualmente los fenómenos que consideramos importantes para entender mejor el mundo que nos rodea. Sin embargo, hacer mapas y manipular información geográfica es un ejercicio **muy poderoso** que puede ser usado para informar o para desinformar.
   
-***  
-
-<font size="4">*"Recuerda, un gran poder conlleva una gran responsabilidad"*</font>  
+ *"Recuerda, un gran poder conlleva una gran responsabilidad"*  
+ 
 ![](https://media.giphy.com/media/MCZ39lz83o5lC/giphy.gif)
   
-***  
   
-<font size="4">Las **islas** son uno de esos detalles que podemos pasar por alto pero que pueden tener efectos confusos para quienes vean nuestros mapas, ya que **no todas las islas son iguales**. De acuerdo con el INEGI, el Territorio Insular Mexicano está integrado por 2,128 islas entre las cuales sólo 82 están pobladas.</font>
- 
+Para el presente tutorial nos concentraremos en el caso de presentar información a través de mapas con territorios insulares. 
+
+Las **islas** son uno de esos detalles que podemos pasar por alto pero que pueden tener efectos confusos para quienes ven nuestros mapas, ya que **no todas las islas son iguales**. 
+
+De acuerdo con el INEGI, el Territorio Insular Mexicano está integrado por 2,128 islas entre las cuales sólo 82 están pobladas. 
   
-<font size="4">Es importante investigar previamente para saber con qué tipo de isla estamos lidiando, para decidir si contribuye o deteriora la claridad de comprensión y análisis de nuestros datos.</font>
-  
-  
-<font size="4">Por ejemplo, si estamos mapeando defunciones de COVID-19 por municipio, incluir en nuestro mapa una isla deshabitada que forma parte de un municipio podría llevarnos a visualizar información falsa y decir que esa isla tiene defunciones cuando esta ni si quiera está poblada.</font>
-  
-  
-<font size="4">Entonces, si consideras que lo más conveniente es no mapear una isla pero no sabes cómo eliminarla, no te preocupes, aquí te explicamos cómo hacerlo.</font>
+Es importante investigar previamente para saber con qué tipo de isla estamos lidiando, para decidir si contribuye o deteriora la claridad de comprensión y análisis de nuestros datos. 
   
   
-***
+Por ejemplo, **si estamos mapeando defunciones de COVID-19 por municipio**, incluir en nuestro mapa una isla deshabitada que forma parte de un municipio podría llevarnos a **visualizar información errónea** y decir que esa isla tiene defunciones cuando esta ni si quiera está poblada. 
   
- 
-<font size="4">Primero lo básico, cargar las librerías `tidyverse`, `sf` y `leaflet` que nos ayudarán a manipular y visualizar información geográfica.</font>
+  
+ **Entonces, si consideras que lo más conveniente es no mapear una isla pero no sabes cómo eliminarla, no te preocupes, aquí te proponemos una manera de hacerlo. (Otra forma de eliminar islas la puedes encontrar [acá]())** 
+
+### Inicio del tutorial
+
+Si quieres descargar la base de datos para replicar este ejercicio, puedes descargarla de este [enlace](https://raw.githubusercontent.com/JuveCampos/juveBlog/master/cortando%20Islas/mpios.geojson). La base de datos en la que nos basamos es la de división municipal de CONABIO, la cual puedes descargar de este [enlace](http://www.conabio.gob.mx/informacion/gis/).
+
+Primero lo básico, cargar las librerías `tidyverse`, `sf` y `leaflet` que nos ayudarán a manipular y visualizar información geográfica. 
   
 ```{r message=FALSE, cache=FALSE, warning=FALSE}
 # Librerías ----
@@ -61,19 +62,18 @@ library(sf)
 library(leaflet)
 ``` 
  
-***  
-  
-<font size="4">Después debemos obtener la base de datos con el archivo de información geográfica que vamos a utilizar para crear nuestro mapa y filtramos el nombre del estado al que le vamos a quitar las islas. En este caso vamos a eliminar las islas Revillagigedo de Colima, que son consideradas como Patrimonio Natural de la Humanidad, como parque nacional y porque tienen una población muy pequeña.</font>
+Después debemos obtener la base de datos con el archivo de información geográfica que vamos a utilizar para crear nuestro mapa y filtramos el nombre del estado al que le vamos a quitar las islas. 
 
-* <font size="4">[Islas Revillagigedo](https://es.wikipedia.org/wiki/Archipiélago_de_Revillagigedo)</font>
+En este caso vamos a eliminar las _islas Revillagigedo_ de Colima, que son consideradas como _Patrimonio Natural de la Humanidad_, como parque nacional y porque tienen una población muy pequeña (60 habitantes entre todas las islas). 
 
-<font size="4">Si quieres descargar la base de datos para replicar este ejercicio, puedes descargarla de este [enlace](https://raw.githubusercontent.com/JuveCampos/juveBlog/master/cortando%20Islas/mpios.geojson).</font> 
-
-***
+*  [Islas Revillagigedo](https://es.wikipedia.org/wiki/Archipiélago_de_Revillagigedo) 
+ 
 ![](https://media.giphy.com/media/26FfiihphZyQruIp2/giphy.gif)
 
 ```{r}
 # Datos ----
+
+# Capa geografica
 url_shape <- "https://raw.githubusercontent.com/JuveCampos/juveBlog/master/cortando%20Islas/mpios.geojson"
 
 # Leemos el shape
@@ -84,40 +84,38 @@ bd <- st_read(url_shape,
 colima <- bd %>% filter(NOM_ENT == "Colima")
 ```
   
-***
-
-<font size="4">Exploramos la base y la mapeamos para ver cómo se ve el estado con islas y después nos aseguramos de que sea una base geográfica.</font>
+ Exploramos la base y la mapeamos para ver cómo se ve el estado con islas y después nos aseguramos de que sea una base geográfica. 
   
 ```{r}
 # Exploramos la base 
 plot(colima, max.plot = 1)
-# Si es base geografica :3
+```
 
+Como podemos ver en la imagen de arriba, el objeto `colima` efectivamente es una base de datos geográfica que abarca tanto la zona territorial como las islas que se encuentran al poniente. 
+
+```{r}
 # Checamos el sistema de coordenadas 
 ## de referencia (crs)
 st_crs(colima)
 ```
   
-***
+ La proyección tiene un sistema de referencia de coordenadas igual a 4326 ([WGS84](https://spatialreference.org/ref/epsg/wgs-84/)), lo que significa que está en términos de latitud y longitud. **Saber el sistema de referencia es muy importante a la hora de utilizar y procesar la información.**
   
-<font size="4">La proyección tiene un sistema de referencia de coordenadas igual a 4326 ([WGS84](https://spatialreference.org/ref/epsg/wgs-84/)), lo que significa que está en términos de latitud y longitud.</font>
-  
-<font size="4">Después obtenemos las coordenadas extremas del territorio de Colima, es decir, el punto máximo en x y en y, el punto mínimo en x y en y, buscando generar un cuadro que englobe al estado sin sus islas. Puedes  obtener estas coordenadas en Google Maps, como muestran las imágenes a continuación: </font>
+Después obtenemos las coordenadas extremas del territorio de Colima, es decir, el punto máximo en `x` y en `y`, el punto mínimo en `x` y en `y`, buscando generar un cuadro que englobe al estado sin sus islas. 
 
-<!-- ![](/post/2020-07-26-cortando-islas_files/coordMinColima.png) -->
+Puedes  obtener estas coordenadas en Google Maps, como muestran las imágenes a continuación:  
 
 ![](/post/2020-07-26-cortando-islas_files/coordMinColima.png)
 
 
 <p style = 'color:gray;'>Coordenadas mínimas del polígono territorial de Colima</p>
 
-<!-- ![](/post/2020-07-26-cortando-islas_files/coordMaxColima.png) -->
 
 ![](/post/2020-07-26-cortando-islas_files/coordMaxColima.png)
 
 <p style = 'color:gray;'>Coordenadas máximas del polígono territorial de Colima</p>
 
-<font size="4">Registramos las coordenadas</font>
+Registramos las coordenadas: 
   
 ```{r}
 # Coordenadas extremas Colima Territorial
@@ -127,9 +125,7 @@ maxY = 19.563769
 minY = 18.65329
 ```
    
-***
-  
-<font size="4">Después elaboramos la matriz de coordenadas que dará origen al cuadro utilizando la función `expand.grid()`. Lo que hace esta función es crear una base de datos con todas las combinaciones posibles de los vectores que introducimos en la función.</font> 
+Después elaboramos la matriz de coordenadas que dará origen al cuadro utilizando la función `expand.grid()`. Lo que hace esta función es crear una base de datos con todas las combinaciones posibles de los vectores que introducimos en la función. 
   
 ```{r}
 # Generamos combinaciones de coordenadas a 
@@ -139,9 +135,12 @@ cuadro <- expand.grid(x = c(minX,
                       y = c(minY,
                             maxY))  %>%
   as.matrix()
+
+# Imprimimos la tabla del cuadro
+cuadro
 ```
   
-<font size="4">Una vez que tenemos la matriz, ordenamos las coordenadas de manera que formen un cuadro cerrado, repitiendo la coordenada 1:</font>
+Una vez que tenemos la matriz, ordenamos las coordenadas de manera que formen un cuadro cerrado , repitiendo la coordenada 1, de tal forma que sigan un caminito o trayectoria: 
   
 ```{r}
 # Forma de ordenar las coordenadas de tal forma
@@ -150,7 +149,7 @@ cuadro <- expand.grid(x = c(minX,
 cuadro <- cuadro[c(1,2,4,3,1),]
 ```
   
-<font size="4">Convertimos el cuadro en una lista para poder convertirlo después en un objeto geométrico poligonal, con el sistema de coordenadas de referencia `crs = 4326` de latitud y longitud.</font> 
+Convertimos el cuadro en una lista para poder convertirlo después en un objeto geométrico poligonal, con el sistema de coordenadas de referencia `crs = 4326` de latitud y longitud. 
   
 ```{r}
 # Convertimos a lista
@@ -159,7 +158,7 @@ cuadro <- list(cuadro)
 cuadro <- st_polygon(cuadro) %>% st_sfc(crs = 4326)
 ```
   
-<font size="4">Ahora si, verifiquemos que el cuadro fue creado correctamente y exploremos cómo se ve.</font>
+Ahora si, verifiquemos que el cuadro fue creado correctamente y exploremos cómo se ve. 
   
 ```{r}
 # Checamos como se ve el cuadro
@@ -170,56 +169,70 @@ leaflet(colima) %>%
               color = "red")
 ```
   
-<font size="4">!Perfecto! El cuadro rojo que creamos abarca al estado de Colima sin sus islas.</font>
+!Perfecto! El cuadro rojo que creamos abarca al estado de Colima sin sus islas. 
   
-***
-  
-<font size="4">Pero ¿por qué el orden de coordenaas para cerrar el cuadro no es 1,2,3,4,1? pues porque necesitamos crear un cuadrado y según las coordenadas que nos dio la matriz ese sería el orden adecuado, si lo hacemos del 1 al 4 trazaríamos un moño sobre Colima, no un cuadro.</font> 
+Pero ¿por qué el orden de coordenaas para cerrar el cuadro no es 1,2,3,4,1? pues porque necesitamos crear un cuadrado y según las coordenadas que nos dio la matriz ese sería el orden adecuado, si lo hacemos del 1 al 4 trazaríamos un moño sobre Colima, no un cuadro. (_Como se puede ver a continuación_).
   
 ![](/post/2020-07-26-cortando-islas_files/monito_colima.png)
   
-***  
-  
-<font size="4">Bueno, ahora a checar que Colima no tenga islas al momento de visualizarla.</font> 
+Ahora, intersectamos el cuadro con el polígono se Colima a traves de la función `st_intersection(x, y)`, la cual extrae del polígono `x` lo que se intersecta con el polígono `y`.
+
   
 ```{r}
 # Extraemos la parte del poligono de Colima que 
 ## se intersecta con el cuadro que generamos 
 colima_sin_islas <- st_intersection(colima, cuadro)
+
+# Checamos que efectivamente solo tengamos el 
+## polígono territorial de Colima
 plot(colima_sin_islas)
 ```
   
-<font size="4">Finalmente tenemos que regresar ese polígono al shape original. Para eso, primero sacamos de nuestra base de datos a Colima con islas y luego metemos a Colima sin islas.</font>
+Finalmente tenemos que regresar ese polígono al shape original. Para eso, primero sacamos de nuestra base de datos a Colima con islas y luego metemos a Colima sin islas. 
   
 ```{r}
+
+# Le quitamos Colima
 bd <- bd %>% 
   filter(NOM_ENT != "Colima")
 
-# Metemos a Colima, sin islas. 
+# Metemos el Colima sin islas. 
 bd <- rbind(bd, colima_sin_islas)
 
 # Y aquí podemos ver que Colima ya no tiene a las Islas Revillagigedo en nuestro mapa.
 plot(bd, max.plot = 1)
 ```
   
-<font size="4">Por último guardamos nuestro nuevo mapa. **OJO** cuando trabajamos con archivos .geojson, no nos es posible reescribirlos, así que tenemos que crear nuevos archivos para cada cambio que hagamos.</font> 
+Por último guardamos nuestro nuevo mapa.
+
+**OJO** cuando trabajamos con archivos `.geojson`, no nos es posible reescribirlos (salvo que ), así que tenemos que crear nuevos archivos para cada cambio que hagamos. 
   
 ```{r eval = FALSE}
-st_write(bd, "01_Datos/Shapes/mpios_sin_revillagigedo.geojson")
+
+# Guardar el nuevo archivo geográfico
+st_write(bd, 
+  "01_Datos/Shapes/mpios_sin_revillagigedo.geojson")
+
+# # Si a fuerzas quieres sobre-escribir
+# st_write(bd, 
+#          '01_Datos/Shapes/mpios_sin_revillagigedo.geojson',
+#          layer_options = 'OVERWRITE=YES', 
+#          update = TRUE)
+
 ```
-   
-***
   
-<font size="4">Para agilizar el proceso de cortar islas podemos hacer una función. Los datos de entrada que utilizaremos para nuestra función son las coordenadas del cuadro y el shape que vamos a recortar.</font> 
+Para agilizar el proceso de cortar islas podemos _hacer una función_. Los datos de entrada que utilizaremos para nuestra función son _las coordenadas del cuadro y el shape que vamos a recortar_. 
   
 ```{r}
+# Hacemos nuestra función
 recorte_cuadro <- function(shp, 
                            minX, 
                            maxX,
                            minY,
                            maxY){
-  # Copiamos y adecuamos el código de arriba
-  # Elaboramos la matriz de coordenadas que dará origen al cuadro
+# Copiamos y adecuamos el código que escribimos antes
+# Elaboramos la matriz de coordenadas que dará 
+##origen al cuadro
   cuadro <- expand.grid(x = c(minX,
                               maxX),
                         y = c(minY,
@@ -242,9 +255,7 @@ recorte_cuadro <- function(shp,
 }
 ```
   
-***
-
-<font size="4">Con nuestra nueva función ahorramos tiempo y podemos cortar las islas de Nayarit y Yucatán mucho más rápido.</font> 
+Con nuestra nueva función ahorramos tiempo y podemos cortar las islas de Nayarit y Yucatán (por ejemplo) mucho más rápido. 
   
 ```{r}
 
@@ -263,9 +274,7 @@ nayarit_sin_islas_marias <- recorte_cuadro(
 plot(nayarit_sin_islas_marias, max.plot = 1)
 ```
   
-***
-  
-<font size="4">Ahora vamos con Yucatán.</font>
+Ahora vamos con Yucatán. 
   
 ```{r}
 # Remover el arrecife Alacranes de Yucatan
@@ -281,7 +290,7 @@ yucatan_sin_arrecife_alacranes <- recorte_cuadro(
 plot(yucatan_sin_arrecife_alacranes, max.plot = 1)
 ```
   
-<font size="4">Finalmente generamos una nueva capa de datos sin las islas de Yucatán ni las de Nayarit.</font> 
+Finalmente generamos una nueva capa de datos sin las islas de Yucatán ni las de Nayarit. 
   
 ```{r eval = FALSE}
 bd <- bd %>% 
@@ -295,26 +304,26 @@ plot(bd, max.plot = 1)
 
 # Guardamos el resultado en un nuevo archivo .geojson
 st_write(bd, "01_Datos/Shapes/mpios_con_menos_islas_aun.geojson")
+
+# # Igual, si a fuerzas quieres sobre-escribir
+# st_write(bd, 
+#          '01_Datos/Shapes/mpios_con_menos_islas_aun.geojson',
+#          layer_options = 'OVERWRITE=YES', 
+#          update = TRUE)
+
+
 ```
 
-***
-
-<font size="4">**¡Y listo!**</font> 
+ **¡Y listo!** 
   
-<font size="4">Tenemos a los tres estados mapeados sin islas, listos para comunicar información correcta y sin datos que no tengan sentido.</font>
+Tenemos a los tres estados mapeados sin islas, listos para comunicar información correcta y sin datos que puedan generar confusión.
 
-<font size="4">Siempre es un buen ejercicio reflexionar antes de construir mapas y preguntarnos *¿Qué quiero comunicar? ¿Por qué quiero comunicar esto? ¿Cómo se relaciona la geografía con los datos que voy a utilizar? ¿Cómo mapeo mis datos de la manera más clara posible?*</font> 
+Este procedimiento es útil para ilustrar como podemos manipular bases de datos geográficas, las cuales, aparte del tratamiento normal que se puede hacer a través de los verbos `dplyr` que aplican a todas las bases de datos, también involucran un tipo de manipulación espacial a partir de trabajar con las geomatrías que tienen asociadas.
 
-  
-<font size="4">**Recuerda usar el poder de los mapas responsablemente.**</font> 
-  
-***
+Siempre es un buen ejercicio reflexionar antes de construir mapas y preguntarnos *¿Qué quiero comunicar? ¿Por qué quiero comunicar esto? ¿Cómo se relaciona la geografía con los datos que voy a utilizar? ¿Cómo mapeo mis datos de la manera más clara posible?* En este caso, desasociar islas deshabitadas tiene sentido pero, por ejemplo... _¿sería válido deshacernos de la isla de Cozumel en nuestro análisis, y en la cual vive la mayoría de la población del municipio?_ Son cosas que nuestra metodología de trabajo debe considerar. 
+ 
+**Recuerda usar el poder de los mapas responsablemente.** 
 
 ![](https://media.giphy.com/media/l46Cnk4ZRTlfeI32o/giphy.gif)
 
-<font size="4">*¡Gracias por leernos!*</font> 
-
-***
-
-
-
+*¡Gracias por leernos! :3* 
