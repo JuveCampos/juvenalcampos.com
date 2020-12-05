@@ -23,9 +23,16 @@ tags: []
 <script src="/rmarkdown-libs/crosstalk/js/crosstalk.min.js"></script>
 
 
+<p>Las tablas consisten en una disposición de datos en un arreglo matricial de filas y columnas. Estas tablas pueden mostrar su información de distintas maneras, dependiendo de la información que se quiere mostrar, las unidades de análisis u observación que la componen, la temporalidad de la información que incluyen, el numero de variables que incorporan, etc.</p>
+<p>En el uso de <strong>R</strong>, las arreglos tabulares son ina de las piezas centrales del análisis y manejo de información: es el arreglo de información que conforma a las <code>tibbles</code> y a los <code>data.frames</code>, a partir de los cuales realizamos nuestros análisis, corremos nuestros modelos o hacemos gráficas y visualizaciones.</p>
+<p>Dada su importancia en este lenguaje de programación, en el presente texto, vamos a repasar dos de las formas principales en las cuales podemos organizar nuestra información dentro de tablas (formato <em>largo</em> y formato <em>ancho</em>), las ventajas que tienen cada una de esas formas, y finalmente, veremos un ejemplo rápido de la aplicación de las funciones que nos permiten pasar de un tipo de formato al otro.</p>
 <div id="formatos-ancho-y-largo." class="section level1">
 <h1>Formatos ancho y largo.</h1>
 <p>Dos de los formatos en los que puede presentarse la información dentro de una tabla son el <strong>formato largo</strong> y el <strong>formato ancho</strong>.</p>
+<p>Ambos formatos son ampliamente utilizados para presentar información y datos abiertos a lo largo del mundo, y, si bien presentan una estructura distinta, ambos son equivalentes y pueden mostrar la misma información.</p>
+</div>
+<div id="formato-ancho" class="section level1">
+<h1>Formato Ancho</h1>
 <p>En el formato ancho, los datos para las unidades de observación se presentan a lo largo de columnas diferentes. Esto se muestra en la tabla a continuación:</p>
 </div>
 <div id="tabla-formato-ancho." class="section level1">
@@ -111,7 +118,7 @@ Juvenal
 </div>
 <div id="tabla-formato-largo." class="section level1">
 <h1>Tabla formato largo.</h1>
-<p>En el formato largo, los datos se presentan a través de dos columnas: una columna (<strong>columna de nombres</strong>) que nos dice las variables o datos que se estan registrando, mientras que otra columna (<strong>columna de valores</strong>) registra las magnitudes o valores de dichas variables.</p>
+<p>En el <em>formato largo</em>, los datos se presentan a través de dos columnas: una columna (<strong>columna de nombres</strong>) que nos dice las variables o datos que se estan registrando, mientras que otra columna (<strong>columna de valores</strong>) registra las magnitudes o valores de dichas variables.</p>
 <p>En estas tablas, la unidad de observación es una valor de una medida por persona, en constraste con la anterior, en la cual la unidad de observación es la persona.</p>
 <table>
 <thead>
@@ -262,13 +269,16 @@ Altura
 </tr>
 </tbody>
 </table>
-<p>Este tipo de tablas son muy agradables para las máquinas y son muy fáciles de filtrar y graficar en librerías como <code>ggplot2</code>, sin embargo, son muy incómodas para leer, repíten información y ocupan mas memoria y más páginas para su impresión.</p>
+<p>Este tipo de tablas son muy agradables para las máquinas y son muy fáciles de filtrar y graficar en librerías como <code>ggplot2</code>. Se usan principalmente en conjunto con otras funciones del <code>tidyverse</code> para brindar un formato <code>tidy</code> a nuestras tablas y datos.</p>
+<p>Los inconvenientes que presentan las tablas en formato <em>“largo”</em> es que dificultan el análisis visual por parte de los lectores de este tipo de tablas y ocupan mayor cantidad de memoria al repetirse valores de identificación de cada una de las observaciones.</p>
 <p>A pesar de estas diferencias, hay que tener en cuenta que ambas tablas muestran la misma información, solo que la ordenan de manera diferente.</p>
 </div>
 <div id="funciones-tidyrpivot_longer-y-tidyrpivot_wider." class="section level1">
 <h1>Funciones <code>tidyr::pivot_longer()</code> y <code>tidyr::pivot_wider()</code>.</h1>
 <p>Las funciones <code>tidyr::pivot_longer()</code> y <code>tidyr::pivot_wider()</code> son las funciones que nos brinda el <code>tidyvderse</code> para poder pasar de una tabla de formato ancho a una tabla de formato largo y viceversa.</p>
 <p>Podemos decir que son <code>funciones inversas</code> dentro de R. El resultado de una generalmente puede revertirse usando la función contraria.</p>
+<p>La función de <code>pivot_longer()</code> es alargar los datos, incrementando el numero de renglones y disminuyendo el numero de columnas, mientras que la función <code>pivot_wider()</code> tiene como principal función <em>ensanchar</em> los datos, incrementando el número de columnas y disminuyendo el número de renglones.</p>
+<p>La documentación oficial de esta función se puede visitar en este <a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">enlace</a></p>
 <div id="argumentos" class="section level2">
 <h2>Argumentos</h2>
 <p>La función <code>tidyr::pivot_longer()</code> requiere de los siguientes argumentos para funcionar:</p>
@@ -353,6 +363,6 @@ library(tidyverse) # Manipular bases de datos</code></pre>
 </div>
 <div id="conclusiones" class="section level1">
 <h1>Conclusiones</h1>
-<p>Las funciones vistas anteriormente deben formar parte de la caja de herramientas de toda persona que desée trabajar con tablas en R.</p>
-<p>Estas herramientas nos permiten variar el formato de tabla y aprovechar las bondades que nos ofrecen cada uno de estos para nuestras necesidades particulares.</p>
+<p>Las funciones vistas anteriormente deben formar parte de la caja de herramientas de toda persona que desée trabajar con tablas en R, ya que, tanto para la elaboración de gráficos como para la elaboración de reportes, es necesario hacer cambios de formato para facilitarnos la vida.</p>
+<p>Esta explicación y este ejemplo fueron bastante breves y someros, y su objetivo es proveer una breve (pero completa) introducción a los formatos de tabla y a las funciones de pivoteo; sin embargo, es necesario buscar más información y material, y practicar más el uso de estas funciones para poder sacarles todo el jugo y potencial que ofrecen.</p>
 </div>
