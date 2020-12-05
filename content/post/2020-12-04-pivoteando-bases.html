@@ -1,0 +1,358 @@
+---
+title: 'Pivoteando bases: breve tutorial de pivot_longer y pivot_wider'
+author: Juvenal Campos
+date: '2020-12-04'
+slug: pivoteando-bases
+categories:
+  - Tutoriales
+  - R
+tags: []
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
+<link href="/rmarkdown-libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/datatables-binding/datatables.js"></script>
+<link href="/rmarkdown-libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="/rmarkdown-libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/dt-core/js/jquery.dataTables.min.js"></script>
+<link href="/rmarkdown-libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/crosstalk/js/crosstalk.min.js"></script>
+
+
+<div id="formatos-ancho-y-largo." class="section level1">
+<h1>Formatos ancho y largo.</h1>
+<p>Dos de los formatos en los que puede presentarse la información dentro de una tabla son el <strong>formato largo</strong> y el <strong>formato ancho</strong>.</p>
+<p>En el formato ancho, los datos para las unidades de observación se presentan a lo largo de columnas diferentes. Esto se muestra en la tabla a continuación:</p>
+</div>
+<div id="tabla-formato-ancho." class="section level1">
+<h1>Tabla formato ancho.</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Persona
+</th>
+<th style="text-align:right;">
+Edad
+</th>
+<th style="text-align:right;">
+Peso
+</th>
+<th style="text-align:right;">
+Altura
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Roberto
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+168
+</td>
+<td style="text-align:right;">
+180
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Alicia
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+150
+</td>
+<td style="text-align:right;">
+175
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Esteban
+</td>
+<td style="text-align:right;">
+64
+</td>
+<td style="text-align:right;">
+144
+</td>
+<td style="text-align:right;">
+165
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Juvenal
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+200
+</td>
+<td style="text-align:right;">
+185
+</td>
+</tr>
+</tbody>
+</table>
+<p>Estas tablas tienen la ventaja de que son muy agradables para la lectura humana.</p>
+<p>En este tipo de tablas, incluir nuevos indivíduos hace que la tabla crezca hacia abajo, y incluir nuevas mediciones (fecha de cumpleaños, Índice de masa corporal o Años de educación) hace que la tabla crezca hacia los lados.</p>
+</div>
+<div id="tabla-formato-largo." class="section level1">
+<h1>Tabla formato largo.</h1>
+<p>En el formato largo, los datos se presentan a través de dos columnas: una columna (<strong>columna de nombres</strong>) que nos dice las variables o datos que se estan registrando, mientras que otra columna (<strong>columna de valores</strong>) registra las magnitudes o valores de dichas variables.</p>
+<p>En estas tablas, la unidad de observación es una valor de una medida por persona, en constraste con la anterior, en la cual la unidad de observación es la persona.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Persona
+</th>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:right;">
+Valor
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Roberto
+</td>
+<td style="text-align:left;">
+Edad
+</td>
+<td style="text-align:right;">
+32
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Roberto
+</td>
+<td style="text-align:left;">
+Peso
+</td>
+<td style="text-align:right;">
+168
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Roberto
+</td>
+<td style="text-align:left;">
+Altura
+</td>
+<td style="text-align:right;">
+180
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Alicia
+</td>
+<td style="text-align:left;">
+Edad
+</td>
+<td style="text-align:right;">
+24
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Alicia
+</td>
+<td style="text-align:left;">
+Peso
+</td>
+<td style="text-align:right;">
+150
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Alicia
+</td>
+<td style="text-align:left;">
+Altura
+</td>
+<td style="text-align:right;">
+175
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Esteban
+</td>
+<td style="text-align:left;">
+Edad
+</td>
+<td style="text-align:right;">
+64
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Esteban
+</td>
+<td style="text-align:left;">
+Peso
+</td>
+<td style="text-align:right;">
+144
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Esteban
+</td>
+<td style="text-align:left;">
+Altura
+</td>
+<td style="text-align:right;">
+165
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Juvenal
+</td>
+<td style="text-align:left;">
+Edad
+</td>
+<td style="text-align:right;">
+29
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Juvenal
+</td>
+<td style="text-align:left;">
+Peso
+</td>
+<td style="text-align:right;">
+200
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Juvenal
+</td>
+<td style="text-align:left;">
+Altura
+</td>
+<td style="text-align:right;">
+185
+</td>
+</tr>
+</tbody>
+</table>
+<p>Este tipo de tablas son muy agradables para las máquinas y son muy fáciles de filtrar y graficar en librerías como <code>ggplot2</code>, sin embargo, son muy incómodas para leer, repíten información y ocupan mas memoria y más páginas para su impresión.</p>
+<p>A pesar de estas diferencias, hay que tener en cuenta que ambas tablas muestran la misma información, solo que la ordenan de manera diferente.</p>
+</div>
+<div id="funciones-tidyrpivot_longer-y-tidyrpivot_wider." class="section level1">
+<h1>Funciones <code>tidyr::pivot_longer()</code> y <code>tidyr::pivot_wider()</code>.</h1>
+<p>Las funciones <code>tidyr::pivot_longer()</code> y <code>tidyr::pivot_wider()</code> son las funciones que nos brinda el <code>tidyvderse</code> para poder pasar de una tabla de formato ancho a una tabla de formato largo y viceversa.</p>
+<p>Podemos decir que son <code>funciones inversas</code> dentro de R. El resultado de una generalmente puede revertirse usando la función contraria.</p>
+<div id="argumentos" class="section level2">
+<h2>Argumentos</h2>
+<p>La función <code>tidyr::pivot_longer()</code> requiere de los siguientes argumentos para funcionar:</p>
+<ul>
+<li><p>El argumento <code>data</code>; el objeto <code>tibble</code> o <code>dataframe</code> que vamos a <em>alargar</em>.</p></li>
+<li><p>El argumento <code>cols</code>, que nos pide un vector de las columnas que vamos a alargar.</p></li>
+</ul>
+</div>
+</div>
+<div id="otros-argumentos-son" class="section level1">
+<h1>Otros argumentos son:</h1>
+<ul>
+<li><p>El argumento <code>names_to</code>, el cual va a ser el nombre de la columna de nombres. En esta se van a almacenar los nombres de las columnas marcadas en el argumento <code>cols</code>.</p></li>
+<li><p>El argumento <code>values_to</code>, el cual va a ser la columna que va a almacenar los valores de cada una de las columnas que almacenamos en los nombres.</p></li>
+</ul>
+<p>Un ejemplo de uso, con los datos mostrados arriba, puede verse en la siguiente imagen:</p>
+<p><img src="/post/2020-12-04-pivoteando-bases_files/p_longer.png" /></p>
+<p>Por su parte, la función <code>tidyr::pivot_wider()</code> requiere de los siguientes argumentos para funcionar:</p>
+<ul>
+<li><p>El argumento <code>id_cols</code>, el cual va a recibir un vector con las columnas que van a identificar a cada unidad de observación en la tabla de formato ancho.</p></li>
+<li><p>El argumento <code>names_from</code>, en el cual le pasamos la columna de los nombres que van a conformar las nuevas columnas en la nueva tabla de formato ancho.</p></li>
+<li><p>El argumento <code>values_from</code>, en el cual le pasamos la columna de los valores que van a ir en las columnas que declaramos en el argumento <code>names_from</code>.</p></li>
+</ul>
+<p>Un ejemplo de la aplicación de <code>pivot_wider()</code> con las tablas de arriba, puede verse en la siguiente imagen:</p>
+<p><img src="/post/2020-12-04-pivoteando-bases_files/p_wider.png" /></p>
+<p>Para practicar, haremos un ejemplo de <strong>aplicación de estas funciones en una base de datos reales</strong>: La base de datos de casos activos por colonia de la CDMX.</p>
+</div>
+<div id="ejemplo-práctico-con-datos-de-covid." class="section level1">
+<h1>Ejemplo práctico con datos de COVID.</h1>
+<p>Puedes descargar los datos desde este enlace:</p>
+<p><a href="https://archivo.datos.cdmx.gob.mx/sinave-colonias/" class="uri">https://archivo.datos.cdmx.gob.mx/sinave-colonias/</a></p>
+<p><strong>Librerías a utilizar.</strong></p>
+<pre class="r"><code># Pivotear 
+library(tidyverse) # Manipular bases de datos</code></pre>
+<pre class="r"><code>bd &lt;- read_csv(&quot;https://archivo.datos.cdmx.gob.mx/sinave-colonias/historico_sinave_sep-nov.csv&quot;) %&gt;% 
+  select(-X1) # Columna que tiene el numero del renglón</code></pre>
+<p>Esta tabla esta en formato ancho. En este caso, las unidades de observación (lo que significa cada renglón) son las colonias de la CDMX, mientras que las columnas son el numero de casos activos para cada uno de los días indicados en el nombre de la columna.</p>
+<p>Este formato es el formato más agradable para poder realizar mapas: si tuvieramos un archivo <code>*.shp</code> o <code>*.geojson</code> podemos “pegarle” una columna extra con las geometrías de cada colonia (esto lo pueden hacer con las funciones <code>*_join()</code> que revisamos en este <a href="https://rpubs.com/Juve_Campos/juntando_tablas">tutorial</a> con los datos geográficos de este <a href="https://datos.cdmx.gob.mx/explore/dataset/coloniascdmx/export/">enlace</a> y la librería <code>sf</code>).</p>
+<p>Supongamos que queremos hacer alguna visualización que nos demande una tabla en formato largo. Para transformar la base usaremos la función <code>pivot_longer()</code>.</p>
+<pre class="r"><code>bd_larga &lt;- bd %&gt;% 
+  pivot_longer(cols = contains(&quot;total_&quot;),
+               names_to = &quot;Fechas&quot;,
+               values_to = &quot;casosActivos&quot;) </code></pre>
+<div id="htmlwidget-1" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10"],["AZCAPOTZALCO","AZCAPOTZALCO","AZCAPOTZALCO","AZCAPOTZALCO","AZCAPOTZALCO","AZCAPOTZALCO","AZCAPOTZALCO","AZCAPOTZALCO","AZCAPOTZALCO","AZCAPOTZALCO"],["ARENAL","ARENAL","ARENAL","ARENAL","ARENAL","ARENAL","ARENAL","ARENAL","ARENAL","ARENAL"],["02-006","02-006","02-006","02-006","02-006","02-006","02-006","02-006","02-006","02-006"],["total_200905","total_200906","total_200907","total_200908","total_200909","total_200910","total_200911","total_200912","total_200913","total_200914"],[9,7,7,11,12,12,12,14,11,8]],"container":"<table class=\"cell-border stripe\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>alcaldia<\/th>\n      <th>colonia<\/th>\n      <th>clave_colonia<\/th>\n      <th>Fechas<\/th>\n      <th>casosActivos<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"language":{"url":"//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"},"autoWidth":true,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":5},{"orderable":false,"targets":0}],"order":[],"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>Convertimos la variable de Fechas a fechas de verdad. Para esto, elimino la partícula de texto <code>total_</code> y luego me quedo con las ultimas 2 letras para marcar el día, las letras 3 y 4 para marcar el mes y las letras 1 y 2 para marcar el año.</p>
+<pre class="r"><code>bd_larga &lt;- bd_larga %&gt;% 
+  mutate(Fechas = str_remove(Fechas, pattern = &quot;total_&quot;)) %&gt;% 
+  mutate(Fechas = paste(str_sub(Fechas, start = 5, end = 6),
+                        str_sub(Fechas, start = 3, end = 4),
+                        paste0(&quot;20&quot;, 
+                               str_sub(Fechas, 
+                                       start = 1, 
+                                       end = 2)),
+                        sep = &quot;-&quot;) %&gt;% 
+           as.Date(&quot;%d-%m-%Y&quot;))</code></pre>
+<p>Ya con este formato podemos hacer gráficas como las gráficas de serie de tiempo, o graficas de barras con facetas, etc. Por ejemplo, para la colonia Roma Sur, podríamos hacer lo siguiente:</p>
+<pre class="r"><code>bd_larga %&gt;% 
+  filter(colonia == &quot;ROMA SUR I&quot;) %&gt;% 
+  ggplot(aes(x = Fechas, 
+             y = casosActivos)) + 
+  geom_point() + 
+  geom_line() + 
+  labs(title = &quot;Casos Activos Colonia Roma Sur I&quot;, 
+       subtitle = &quot;Alcaldía Cuauhtemoc, CDMX&quot;, 
+       y = &quot;Casos Activos&quot;) + 
+  scale_x_date(date_breaks = &quot;1 week&quot;)</code></pre>
+<pre><code>## Warning: Removed 29 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 12 row(s) containing missing values (geom_path).</code></pre>
+<p><img src="/post/2020-12-04-pivoteando-bases_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>Ahora, para volver al formato largo, podemos hacer lo siguiente:</p>
+<pre class="r"><code>bd_ancha &lt;- bd_larga %&gt;% 
+  pivot_wider(id_cols = c(alcaldia,
+                          colonia,
+                          clave_colonia), 
+              names_from = Fechas, 
+              values_from = casosActivos, 
+              names_prefix = &quot;valores-&quot;)</code></pre>
+<div id="htmlwidget-2" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10"],["AZCAPOTZALCO","AZCAPOTZALCO","AZCAPOTZALCO","AZCAPOTZALCO","AZCAPOTZALCO","AZCAPOTZALCO","AZCAPOTZALCO","AZCAPOTZALCO","AZCAPOTZALCO","AZCAPOTZALCO"],["ARENAL","CUITLHUAC 3 Y 4 (U HAB)","DEL GAS","DEL RECREO","EL ROSARIO C (U HAB)","NUEVO SAN RAFAEL (BARR)","SAN  MIGUEL AMANTLA (PBLO)","SAN JUAN TLIHUACA (PBLO)","SAN MARCOS (BARR)","SAN PEDRO XALPA (PBLO)"],["02-006","02-014","02-015","02-018","02-025","02-053","02-069","02-079","02-080","02-085"],[9,null,8,null,22,14,7,9,8,11],[7,null,8,null,14,11,7,11,7,7],[7,null,9,null,17,10,6,11,7,null],[11,null,8,null,21,6,7,11,null,10],[12,null,7,8,20,null,6,12,null,10],[12,null,7,8,13,null,null,9,7,6],[12,null,9,7,15,null,null,12,null,9],[14,null,6,8,14,null,null,11,null,9],[11,null,null,null,13,null,null,12,null,8],[8,null,null,null,12,null,null,12,null,null],[7,null,9,null,17,null,null,9,null,null],[7,null,12,null,16,null,null,14,null,7],[7,null,12,null,12,null,null,13,null,7],[null,null,15,10,17,null,null,9,null,7],[null,null,14,11,15,null,null,10,null,8],[null,null,11,11,11,null,null,10,null,7],[null,null,10,8,9,null,null,10,null,6],[null,null,7,10,9,null,null,10,null,null],[null,null,8,11,9,null,6,13,null,8],[null,null,8,10,9,null,6,13,null,8],[null,null,6,10,7,null,6,14,null,7],[null,null,null,8,9,null,8,15,null,7],[null,null,null,6,9,null,8,11,null,7],[null,null,6,null,9,null,8,10,null,7],[null,null,10,null,15,null,8,12,null,null],[null,null,10,null,18,null,11,11,null,null],[null,null,9,7,16,null,10,15,null,null],[null,null,9,10,18,null,13,16,null,null],[null,null,10,10,20,null,13,19,null,6],[7,null,10,10,17,null,12,20,null,null],[7,null,8,9,12,null,10,16,null,null],[6,null,null,8,12,null,8,14,null,null],[6,null,null,8,11,null,8,12,null,null],[6,null,null,8,10,null,8,10,null,null],[7,null,null,6,11,null,8,10,null,null],[6,null,null,6,7,null,8,8,null,7],[null,null,null,null,null,null,null,null,null,8],[null,null,null,7,8,null,null,8,null,8],[null,null,null,null,8,null,null,6,null,9],[6,null,null,7,11,null,null,6,null,7],[6,null,null,8,10,null,null,null,null,null],[8,null,6,11,10,null,null,6,null,null],[8,null,null,13,9,null,null,6,null,null],[7,null,6,13,11,null,null,7,null,null],[9,null,null,9,14,null,null,8,6,6],[8,null,null,9,12,null,null,9,6,null],[7,null,null,11,16,null,null,7,null,null],[7,null,8,17,24,null,9,12,null,6],[6,null,8,14,22,null,10,13,null,6],[8,null,8,16,26,null,11,17,9,8],[8,null,9,13,29,null,10,16,8,8],[null,null,7,16,22,null,9,16,6,8],[null,null,null,16,22,null,11,15,7,7],[null,null,null,14,25,null,11,13,6,6],[null,null,null,16,25,null,13,13,10,6],[7,null,null,14,25,null,8,13,9,null],[7,null,null,12,26,null,9,18,14,null],[null,null,6,10,21,null,11,17,15,8],[null,null,6,9,17,null,11,15,13,8],[null,null,6,8,16,null,9,12,10,8],[null,null,8,10,17,null,10,12,7,6],[null,null,8,8,16,null,11,10,null,null],[null,null,6,7,15,null,10,9,null,null],[null,null,9,7,14,null,10,11,null,null],[null,null,8,11,14,null,8,13,null,null],[null,null,6,9,10,null,7,10,6,null],[null,6,null,10,10,null,7,10,9,null],[null,null,null,7,8,null,6,7,null,null],[null,null,7,8,10,null,null,9,null,null],[null,null,9,6,8,null,null,7,null,null],[null,null,10,null,8,null,null,6,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,6,null,null,null,null,null,null,null],[null,null,11,null,7,null,6,null,null,null],[6,null,9,10,14,null,7,8,null,null],[8,null,14,13,20,null,8,11,9,11],[8,null,14,20,25,null,13,14,14,10],[8,null,15,21,30,null,10,14,14,13],[6,null,14,22,28,null,11,15,15,13]],"container":"<table class=\"cell-border stripe\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>alcaldia<\/th>\n      <th>colonia<\/th>\n      <th>clave_colonia<\/th>\n      <th>valores-2020-09-05<\/th>\n      <th>valores-2020-09-06<\/th>\n      <th>valores-2020-09-07<\/th>\n      <th>valores-2020-09-08<\/th>\n      <th>valores-2020-09-09<\/th>\n      <th>valores-2020-09-10<\/th>\n      <th>valores-2020-09-11<\/th>\n      <th>valores-2020-09-12<\/th>\n      <th>valores-2020-09-13<\/th>\n      <th>valores-2020-09-14<\/th>\n      <th>valores-2020-09-15<\/th>\n      <th>valores-2020-09-16<\/th>\n      <th>valores-2020-09-17<\/th>\n      <th>valores-2020-09-18<\/th>\n      <th>valores-2020-09-19<\/th>\n      <th>valores-2020-09-20<\/th>\n      <th>valores-2020-09-21<\/th>\n      <th>valores-2020-09-22<\/th>\n      <th>valores-2020-09-23<\/th>\n      <th>valores-2020-09-24<\/th>\n      <th>valores-2020-09-25<\/th>\n      <th>valores-2020-09-26<\/th>\n      <th>valores-2020-09-27<\/th>\n      <th>valores-2020-09-28<\/th>\n      <th>valores-2020-09-29<\/th>\n      <th>valores-2020-09-30<\/th>\n      <th>valores-2020-10-01<\/th>\n      <th>valores-2020-10-02<\/th>\n      <th>valores-2020-10-03<\/th>\n      <th>valores-2020-10-04<\/th>\n      <th>valores-2020-10-05<\/th>\n      <th>valores-2020-10-06<\/th>\n      <th>valores-2020-10-07<\/th>\n      <th>valores-2020-10-08<\/th>\n      <th>valores-2020-10-09<\/th>\n      <th>valores-2020-10-10<\/th>\n      <th>valores-2020-10-11<\/th>\n      <th>valores-2020-10-12<\/th>\n      <th>valores-2020-10-13<\/th>\n      <th>valores-2020-10-14<\/th>\n      <th>valores-2020-10-15<\/th>\n      <th>valores-2020-10-16<\/th>\n      <th>valores-2020-10-17<\/th>\n      <th>valores-2020-10-18<\/th>\n      <th>valores-2020-10-19<\/th>\n      <th>valores-2020-10-20<\/th>\n      <th>valores-2020-10-21<\/th>\n      <th>valores-2020-10-22<\/th>\n      <th>valores-2020-10-23<\/th>\n      <th>valores-2020-10-24<\/th>\n      <th>valores-2020-10-25<\/th>\n      <th>valores-2020-10-26<\/th>\n      <th>valores-2020-10-27<\/th>\n      <th>valores-2020-10-28<\/th>\n      <th>valores-2020-10-29<\/th>\n      <th>valores-2020-10-30<\/th>\n      <th>valores-2020-10-31<\/th>\n      <th>valores-2020-11-01<\/th>\n      <th>valores-2020-11-02<\/th>\n      <th>valores-2020-11-03<\/th>\n      <th>valores-2020-11-04<\/th>\n      <th>valores-2020-11-05<\/th>\n      <th>valores-2020-11-06<\/th>\n      <th>valores-2020-11-07<\/th>\n      <th>valores-2020-11-08<\/th>\n      <th>valores-2020-11-09<\/th>\n      <th>valores-2020-11-10<\/th>\n      <th>valores-2020-11-11<\/th>\n      <th>valores-2020-11-12<\/th>\n      <th>valores-2020-11-13<\/th>\n      <th>valores-2020-11-14<\/th>\n      <th>valores-2020-11-15<\/th>\n      <th>valores-2020-11-16<\/th>\n      <th>valores-2020-11-17<\/th>\n      <th>valores-2020-11-18<\/th>\n      <th>valores-2020-11-19<\/th>\n      <th>valores-2020-11-21<\/th>\n      <th>valores-2020-11-22<\/th>\n      <th>valores-2020-11-23<\/th>\n      <th>valores-2020-11-25<\/th>\n      <th>valores-2020-11-26<\/th>\n      <th>valores-2020-11-27<\/th>\n      <th>valores-2020-11-28<\/th>\n      <th>valores-2020-11-29<\/th>\n      <th>valores-2020-11-30<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"language":{"url":"//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"},"autoWidth":true,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88]},{"orderable":false,"targets":0}],"order":[],"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>Y de esta manera, la función se encarga de generar las nuevas columnas, de acomodar los datos uno a uno y poner vacíos en caso de que no haya datos para el renglón de la base larga correspondiente.</p>
+</div>
+<div id="conclusiones" class="section level1">
+<h1>Conclusiones</h1>
+<p>Las funciones vistas anteriormente deben formar parte de la caja de herramientas de toda persona que desée trabajar con tablas en R.</p>
+<p>Estas herramientas nos permiten variar el formato de tabla y aprovechar las bondades que nos ofrecen cada uno de estos para nuestras necesidades particulares.</p>
+</div>
