@@ -225,3 +225,4 @@ Las funciones vistas anteriormente deben formar parte de la caja de herramientas
 
 Esta explicación y este ejemplo fueron bastante breves y someros, y su objetivo es proveer una breve (pero completa) introducción a los formatos de tabla y a las funciones de pivoteo; sin embargo, es necesario buscar más información y material, y practicar más el uso de estas funciones para poder sacarles todo el jugo y potencial que ofrecen.
 
+

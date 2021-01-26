@@ -1,9 +1,9 @@
 {
-    "path" : "~/Documents/GitHub/testWebsite/content/post",
-    "sortOrder" : [
+    "path": "~/Documents/GitHub/testWebsite/content/post",
+    "sortOrder": [
         {
-            "ascending" : true,
-            "columnIndex" : 2
+            "columnIndex": 2,
+            "ascending": true
         }
     ]
 }

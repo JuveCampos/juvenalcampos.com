@@ -7,10 +7,13 @@ categories: []
 tags: []
 ---
 
+<script src="2020-01-26-visualizando-pirámides-de-población-en-r_files/header-attrs/header-attrs.js"></script>
+<link href="2020-01-26-visualizando-pirámides-de-población-en-r_files/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="2020-01-26-visualizando-pirámides-de-población-en-r_files/anchor-sections/anchor-sections.js"></script>
 
 
 <p>Las pirámides de población (o <em>pirámide demográfica</em>, como le dicen los demógrafos) son un tipo de gráfica que nos permite analizar la distribución de la población por edades en una región determinada (municipio, estado o país).</p>
-<p>Desde el punto de vista gráfico, se trata de un doble histograma de frecuencias, dispuestos de manera horizontal, donde convencionalmente <strong>se ponen los grupos de edad masculina a la izquierda y los de poblaciòn femenina a la derecha</strong>. En el eje <em>y</em> (el de las ordenadas o el que va para arriba) se disponen los grupos de edad, moentras que en el eje <em>x</em> (el de las ordenadas, o el que va horizontal) van las cantidades de población. Para más información recomiendo leer este artículo de <a href="https://es.wikipedia.org/wiki/Pirámide_de_población">Wikipedia</a>.</p>
+<p>Desde el punto de vista gráfico, se trata de un doble histograma de frecuencias, dispuestos de manera horizontal, donde convencionalmente <strong>se ponen los grupos de edad masculina a la izquierda y los de población femenina a la derecha</strong>. En el eje <em>y</em> (el de las ordenadas o el que va para arriba) se disponen los grupos de edad, mientras que en el eje <em>x</em> (el de las abcisas, o el que va horizontal) van las cantidades de población. Para más información recomiendo leer este artículo de <a href="https://es.wikipedia.org/wiki/Pirámide_de_población">Wikipedia</a>.</p>
 <p>Desde el punto de vista de visualización de datos en R y a pesar de la gran utilidad y amplio uso de este tipo de gráficas, no hay una función <code>geom_popPyramid()</code> nativa en <code>ggplot2</code> que nos permita hacer pirámides de población sin tanto dolor (aunque podríamos programarla 😏). Sin embargo, en esta entrada de blog, nos dispondremos a generar una de estas gráficas a partir de elementos ya conocidos de esta librería.</p>
 <div id="antecedentes." class="section level2">
 <h2>1. Antecedentes.</h2>
@@ -73,19 +76,19 @@ pop &lt;- bd %&gt;%
 <pre class="r"><code># Checamos la base 
 pop</code></pre>
 <pre><code>## # A tibble: 34 x 5
-##    `Entidad federa… `Grupos quinque… `Población tota… Sexo 
-##    &lt;chr&gt;            &lt;chr&gt;                       &lt;dbl&gt; &lt;chr&gt;
-##  1 17 Morelos       00-04 años                 157558 Homb…
-##  2 17 Morelos       00-04 años                 157558 Muje…
-##  3 17 Morelos       05-09 años                 164416 Homb…
-##  4 17 Morelos       05-09 años                 164416 Muje…
-##  5 17 Morelos       10-14 años                 169614 Homb…
-##  6 17 Morelos       10-14 años                 169614 Muje…
-##  7 17 Morelos       15-19 años                 169269 Homb…
-##  8 17 Morelos       15-19 años                 169269 Muje…
-##  9 17 Morelos       20-24 años                 174065 Homb…
-## 10 17 Morelos       20-24 años                 174065 Muje…
-## # … with 24 more rows, and 1 more variable: `Poblacion por Sexo` &lt;dbl&gt;</code></pre>
+##    `Entidad federat… `Grupos quinquenal… `Población tota… Sexo  `Poblacion por …
+##    &lt;chr&gt;             &lt;chr&gt;                          &lt;dbl&gt; &lt;chr&gt;            &lt;dbl&gt;
+##  1 17 Morelos        00-04 años                    157558 Homb…            80137
+##  2 17 Morelos        00-04 años                    157558 Muje…            77421
+##  3 17 Morelos        05-09 años                    164416 Homb…            83849
+##  4 17 Morelos        05-09 años                    164416 Muje…            80567
+##  5 17 Morelos        10-14 años                    169614 Homb…            86160
+##  6 17 Morelos        10-14 años                    169614 Muje…            83454
+##  7 17 Morelos        15-19 años                    169269 Homb…            84029
+##  8 17 Morelos        15-19 años                    169269 Muje…            85240
+##  9 17 Morelos        20-24 años                    174065 Homb…            85098
+## 10 17 Morelos        20-24 años                    174065 Muje…            88967
+## # … with 24 more rows</code></pre>
 <p>Ahora que tenemos la base como la necesitamos, procedemos a hacer la gráfica.</p>
 </div>
 <div id="graficando-con-ggplot." class="section level2">
@@ -121,8 +124,8 @@ seq(0, 100000, by = 20000)</code></pre>
 <pre class="r"><code># Secuencia de puntos donde se van a poner las escalas del eje x
 c(seq(-100000, -20000, by = 20000), 
   seq(0, 100000, by = 20000))</code></pre>
-<pre><code>##  [1] -100000  -80000  -60000  -40000  -20000       0   20000   40000
-##  [9]   60000   80000  100000</code></pre>
+<pre><code>##  [1] -100000  -80000  -60000  -40000  -20000       0   20000   40000   60000
+## [10]   80000  100000</code></pre>
 <p>Como vemos arriba, es una secuencia que va desde -100,000 hasta 100,000. Esto implica que, dentro de la gráfica, <code>ggplot()</code> va a poner las etiquetas en los puntos marcados arriba, como puede verse en la siguiente imágen:</p>
 <p>Ahora, pongamosle las etiquetas en los puntos que determinamos arriba, a través de la función</p>
 <pre class="r"><code># LABELS - DEFINEN EL CONTENIDO
@@ -173,8 +176,8 @@ desplazamiento &lt;- 10000</code></pre>
 <pre class="r"><code># BREAKS - DEFINEN LA POSICION
 c(seq(-180000, 0, by = 30000) - desplazamiento,
                 seq(0, 180000, by = 30000) + desplazamiento)</code></pre>
-<pre><code>##  [1] -190000 -160000 -130000 -100000  -70000  -40000  -10000   10000
-##  [9]   40000   70000  100000  130000  160000  190000</code></pre>
+<pre><code>##  [1] -190000 -160000 -130000 -100000  -70000  -40000  -10000   10000   40000
+## [10]   70000  100000  130000  160000  190000</code></pre>
 <p>Estas serán las nuevas coordenadas dentro del eje X en las que se van a colocar las nuevas etiquetas. Es lo mismo que con las anteriores, solo que sumandole/restándole el desplazamiento.</p>
 <pre class="r"><code># LABELS - DEFINEN EL CONTENIDO
 c(rev(seq(0, 180000, by = 30000)), 
