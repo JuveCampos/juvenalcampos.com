@@ -223,6 +223,9 @@ Y de esta manera, la función se encarga de generar las nuevas columnas, de acom
 
 Las funciones vistas anteriormente deben formar parte de la caja de herramientas de toda persona que desée trabajar con tablas en R, ya que, tanto para la elaboración de gráficos como para la elaboración de reportes, es necesario hacer cambios de formato para facilitarnos la vida. 
 
+
+
 Esta explicación y este ejemplo fueron bastante breves y someros, y su objetivo es proveer una breve (pero completa) introducción a los formatos de tabla y a las funciones de pivoteo; sin embargo, es necesario buscar más información y material, y practicar más el uso de estas funciones para poder sacarles todo el jugo y potencial que ofrecen.
 
+![](/post/2020-12-04-pivoteando-bases_files/sandwich.png)
 
