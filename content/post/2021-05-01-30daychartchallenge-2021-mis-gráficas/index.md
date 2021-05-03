@@ -14,6 +14,8 @@ tags:
 
 En esta entrada de blog pongo mis gráficas del #30DayChartChallenge en un solo sitio.
 
+<p style = 'text-align:center;'><img src = "images/img_2.png"></p>
+
 Las gráficas son (en su mayoría) replicables sin mayor dificultad; para esto hay que descargarse los códigos (+ las bases de datos) directamente en el repositorio de Github: https://github.com/JuveCampos/30DayChartChallenge2021 . 
 
 Cualquier duda, comentario o sugerencia favor de hacermelo llegar a la cuenta del Twitter :P. 
