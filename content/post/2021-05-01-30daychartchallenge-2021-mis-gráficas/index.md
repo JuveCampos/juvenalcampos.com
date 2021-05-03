@@ -12,8 +12,11 @@ tags:
   - Blog
 ---
 
+En esta entrada de blog pongo mis gráficas del #30DayChartChallenge en un solo sitio.
 
-Mis gráficas del #30DayChartChallenge en un solo sitio :3.
+Las gráficas son (en su mayoría) replicables sin mayor dificultad; para esto hay que descargarse los códigos (+ las bases de datos) directamente en el repositorio de Github: https://github.com/JuveCampos/30DayChartChallenge2021 . 
+
+Cualquier duda, comentario o sugerencia favor de hacermelo llegar a la cuenta del Twitter :P. 
 
 ## Día 01. `part-to-whole`
 
@@ -140,4 +143,14 @@ Físico: estadísticas físicas de Pokemon.
 ## Día 29 - `Deviations`
 
 <blockquote class="twitter-tweet"><p lang="es" dir="ltr"><a href="https://twitter.com/hashtag/30DayChartChallenge?src=hash&amp;ref_src=twsrc%5Etfw">#30DayChartChallenge</a> Día 29. Desviaciones. <br><br>Tasa de mortalidad materna de los últimos años, con la desviación del último año con respecto a la tendencia histórica. <br><br>Código: <a href="https://t.co/ShxqT6FXs9">https://t.co/ShxqT6FXs9</a> <a href="https://t.co/apwGRUQbqI">pic.twitter.com/apwGRUQbqI</a></p>&mdash; Juvenal (@JuvenalCamposF) <a href="https://twitter.com/JuvenalCamposF/status/1388368865810391041?ref_src=twsrc%5Etfw">May 1, 2021</a></blockquote>
+
+**Hasta acá es todo. ¡Saludos y nos vemos en esto para el próximo año! **
+
+> _Si quieres apoyarme con $$$ para seguir haciendo gráficas y material de #Rstats, considera donarme lo de un café en el siguiente enlace:_
+
+<p style = 'text-align:center;'>
+<a href = "https://www.buymeacoffee.com/juvenalcamposf">
+<img src = "https://img.buymeacoffee.com/api/?url=aHR0cHM6Ly9pbWcuYnV5bWVhY29mZmVlLmNvbS9hcGkvP3VybD1hSFIwY0hNNkx5OWpaRzR1WW5WNWJXVmhZMjltWm1WbExtTnZiUzkxY0d4dllXUnpMM0J5YjJacGJHVmZjR2xqZEhWeVpYTXZNakF5TVM4d05TODBPVFUyWkdVMk9HWTVaR1l6TnpaaFlqUm1NamszWkRCbE5tWTBZalppWWk1cWNHYz0mc2l6ZT0zMDAmbmFtZT1Kb3JnZStKdXZlbmFsK0NhbXBvcytGZXJyZWlyYQ==&creator=Jorge+Juvenal+Campos+Ferreira&is_creating=data%20analyst%20and%20data%20teacher&design_code=1&design_color=%2379D6B5&slug=juvenalcamposf">
+</a>
+</p>
 
