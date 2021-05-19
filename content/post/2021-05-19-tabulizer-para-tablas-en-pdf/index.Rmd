@@ -1,0 +1,103 @@
+---
+title: Tabulizer para tablas en pdf
+author: R package build
+date: '2021-05-19'
+slug: tabulizer-para-tablas-en-pdf
+categories: []
+tags: []
+---
+
+A inicios de año generé un pequeño hilo de Twitter sobre como aprovechar tablas provenientes de un `*.pdf` en nuestros análisis de `#rstats`. 
+
+<blockquote class="twitter-tweet"><p lang="es" dir="ltr">Pues bueno, igualmente para mi primer hilo del año voy a re-crear este hilo de <a href="https://twitter.com/claudiodanielpc?ref_src=twsrc%5Etfw">@claudiodanielpc</a> pero usando <a href="https://twitter.com/hashtag/RStats?src=hash&amp;ref_src=twsrc%5Etfw">#RStats</a> <a href="https://t.co/gifEKbJ9v3">https://t.co/gifEKbJ9v3</a></p>&mdash; Juvenal (@JuvenalCamposF) <a href="https://twitter.com/JuvenalCamposF/status/1347367599508647939?ref_src=twsrc%5Etfw">January 8, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+Sin embargo, como generalmente los hilos de Twitter son vanos y se olvidan con el tiempo, he decidido generar una entrada de blog para tener el código a la mano para futuros trabajos y, de esta manera, no estar googleando mis hilos cada vez que necesite sacar información de tablas en `*.pdf`. 
+
+## Tablas en *.pdf
+
+Muchas veces nos vamos a ver en la necesidad de extraer datos en *.pdf; ya sea porque es la única manera en que podemos encontrar la información, porque las personas que se encargan de proporcionarnos los datos de interés no conocen la conveniencia de presentar sus datos en formatos abiertos o quizá por el simple hecho de que quieren ser malos con nosotros y ponernos dificultades para realizar análisis a partir de sus datos.
+
+En esta entrada de blog vamos a ocuparnos del caso menos malo posible: el caso en el que alguién pasó un archivo de Word a PDF con tablas en el. Estos archivos tienen la ventaja de que respetan cierta estructura y esto permite que la extracción de información sea más sencilla. 
+
+Para esta labor, vamos a extraer datos del **Plan estratégico y financiero 2021-2025 de Infonavit**, el cual es un documento que trabajó el buen [@claudiodanielpc](https://twitter.com/claudiodanielpc) en un hilo parecido al mío, desde el cual extrajo los mismos datos pero haciendo el proceso en Python. 
+
+## Proceso: 
+
+**Primero**, instalamos la librería `tabulizer`: 
+
+```{r, eval = FALSE}
+# Instalamos tabulizer 
+install.packages("tabulizer") # Para instalar tabulizer en mi compu
+```
+
+**Segundo: ** Llamamos a las librerías y guardamos la ubicación del archivo del **Plan estratégico y financiero 2021-2025 de Infonavit**: 
+
+```{r}
+# Librerias ---- 
+library(tabulizer) # Para leer tablas en pdf
+library(tidyverse) # Para manipular datos
+
+# Obtenemos la url del Plan del INFONAVIT
+url <- "https://portalmx.infonavit.org.mx/wps/wcm/connect/67e528e7-f13d-4dbf-a668-b29a594351c3/Plan_Estrategico_y_Financiero_2020-2024.pdf?MOD=AJPERES&CVID=mYkHiU3"
+```
+
+**Tercero: ** Llamamos a las librerías y guardamos la ubicación del archivo del **Plan estratégico y financiero 2021-2025 de Infonavit**: 
+
+```{r}
+# Extraemos la tabla de la página 116
+tab <- extract_tables(url, pages = 116)
+
+# Generamos la tabla: 
+matriz <- tab[[1]] %>% # Nos quedamos con la tabla
+  as.tibble() %>% # Convertimos a tibble
+  filter(V1 != "") %>% # Filtramos los renglones en blanco
+  slice(-1) %>% # Quitamos el renglón de los nombres
+  separate(V6, 
+           into = c("V6", "V7", "V8", "V9"), 
+           sep = "\\s+") # La ultima columna, con los datos pegados, la separamos en cuatro
+
+# Le metemos los nombres personalizados (que signifiquen algo para nosotros)
+names(matriz) <- c("Entidad", 
+                   "Nueva", 
+                   "Existente", 
+                   "No Hipotecarios", 
+                   "Total", 
+                   "Derrama Infonavit", 
+                   "Derrama Entidades Financieras", 
+                   "Derrama No-hipotecarios", 
+                   "Derrama Total")
+
+# Convertimos las columnas a numero
+matriz[,2:9] <- lapply(matriz[,2:9], function(x){
+  x %>% 
+    str_remove_all(pattern = ",") %>% # Le quitamos las comas
+    as.numeric() # Lo convertimos a numero
+})
+
+# Armamos las grafica de porcentaje de créditos por entidad: 
+
+# Generamos la base de datos a graficar
+bd_plot <- matriz %>% 
+  select(Entidad,Nueva) %>% 
+  filter(Entidad != "Nacional") %>% 
+  mutate(Pctje = 100*Nueva/sum(Nueva)) %>% 
+  arrange(-Pctje) 
+
+# Hacemos la gráfica
+bd_plot %>% 
+  ggplot(aes(x = reorder(Entidad, Pctje), y = Pctje)) + 
+  geom_col(fill = "orange") + 
+  coord_flip() + 
+  geom_label(aes(label = paste0(round(Pctje,1), "%")), 
+             hjust = -0.05) + 
+  scale_y_continuous(expand = expansion(c(0,0.3), 0)) + 
+  labs(y = "", x = "", 
+       title = "Porcentaje del total de Créditos para adquisición de vivienda nueva\npor Entidad Federativa, 2021", 
+       caption = "Fuente: Plan Estratégico y Financiero 2021-2025. INFONAVIT. ") +
+  theme_minimal() + 
+  theme(plot.title = element_text(hjust = 0.5), 
+        panel.background = element_blank(), 
+        panel.grid = element_blank(),
+        axis.text.x = element_blank())
+```
+
