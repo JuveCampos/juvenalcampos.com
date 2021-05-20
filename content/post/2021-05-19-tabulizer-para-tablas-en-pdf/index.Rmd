@@ -1,9 +1,12 @@
 ---
-title: "Tabulizer para tablas en pdf"
-author: "R package build"
+title: Tabulizer para tablas en pdf
+author: Juvenal Campos
 date: '2021-05-19'
 slug: tabulizer-para-tablas-en-pdf
-categories: []
+categories:
+  - pdf
+  - Tutoriales
+  - graficas
 tags: []
 ---
 
@@ -13,21 +16,17 @@ A inicios de año generé un pequeño hilo de Twitter sobre como aprovechar tabl
 
 Sin embargo, como generalmente los hilos de Twitter son vanos y se olvidan con el tiempo, he decidido generar una entrada de blog para tener el código a la mano para futuros trabajos y, de esta manera, no estar googleando mis hilos cada vez que necesite sacar información de tablas en `*.pdf`. Igualmente, tener la entrada de blog permite que otros usuarios puedan también acceder a este contenido de manera más fácil.
 
-
 # Sobre mi hilo en Twitter: 
 
 En mi hilo quise puntualizar algunos aspectos de la extracción de tablas a través de códigos en #rstats: 
 
 > 1. Primero, la librería `tabula`, o `tabula-py` es una librería de Python que es un **wrapper** de una librería de Java que también se llama tabula.
-
 En R **también existen estas librerías wrapper**, y, en este caso, la librería se llama `[tabulizer](https://cran.r-project.org/web/packages/tabulizer/vignettes/tabulizer.html)`.
 
 > 2. Para poder utilizar estas librerías basadas en Java se requiere bajar a nuestra sesión de **R** la librería `rJava` y, obvio, tener una distribución de `Java` instalada en tu computadora...
-
 ...O [en su defecto] usar `RStudio Cloud`, que es como `RStudio`, pero en la nube y sin problemas de librerías.
 
 > Otras librerías que igualmente usan Java son `mailR` (la que utilizo para mandar correos automatizados) o `RSelenium` (para hacer tests de p{aginas web o web scraping con usuarios automatizados).
-
 Una de las cosas que descubrí re-haciendo el proceso de extracción de datos es que es **muy complicado instalar librerías que dependen de Java en computadoras Mac con procesador M1**. Por lo mismo, si planeas utilizar una de estas librerías (o si decides seguir este mini-tutorial) te recomiendo que no lo intentes desde una de estas nuevas Mac. 
 
 ## Tablas en *.pdf
@@ -53,11 +52,9 @@ install.packages("tabulizer") # Para instalar tabulizer en mi compu
 # Librerias ---- 
 library(tabulizer) # Para leer tablas en pdf
 library(tidyverse) # Para manipular datos
-
 # # Obtenemos la url del Plan del INFONAVIT
-# url <- "/home/juvenal/Descargas/Plan_Estrategico_y_Financiero_2020-2024.pdf"
-url <- "https://portalmx.infonavit.org.mx/wps/wcm/connect/67e528e7-f13d-4dbf-a668-b29a594351c3/Plan_Estrategico_y_Financiero_2020-2024.pdf?MOD=AJPERES&CVID=mYkHiU3"
-
+url <- "/home/juvenal/Descargas/Plan_Estrategico_y_Financiero_2020-2024.pdf"
+# url <- "https://portalmx.infonavit.org.mx/wps/wcm/connect/67e528e7-f13d-4dbf-a668-b29a594351c3/Plan_Estrategico_y_Financiero_2020-2024.pdf?MOD=AJPERES&CVID=mYkHiU3"
 ```
 
 **Tercero: ** Ya que tenemos la dirección de nuestro archivo, ahora extraemos los datos que nos interesan. En este caso, queremos los datos de la Tabla 29: _Programa operativo Anual 2021 por estado,_ que se encuentra en la página 113.
@@ -73,7 +70,7 @@ tab <- extract_tables(url,
 
 En el último paso, vamos a romper la columna 6 para dividirla en 4 columnas adicionales a partir de los espacios guardados en cada celda. 
 
-```{r}
+```{r warning=FALSE}
 # Generamos la tabla: 
 matriz <- tab[[1]] %>% # Nos quedamos con la tabla
   as.tibble() %>% # Convertimos a tibble
@@ -97,28 +94,24 @@ names(matriz) <- c("Entidad",
                    "Entidades Financieras", 
                    "No-hipotecarias", 
                    "Total (Derrama de Crédito)")
-
 # Convertimos las columnas a numero
 matriz[,2:9] <- lapply(matriz[,2:9], function(x){
   x %>% 
     str_remove_all(pattern = ",") %>% # Le quitamos las comas
     as.numeric() # Lo convertimos a numero
 })
-
 ```
 
 Y ya, finalmente armamos la gráfica utilizando código de `ggplot()`.
 
-```{r, fig.height=10}
+```{r, fig.height=10, eval = FALSE}
 # Armamos las grafica de porcentaje de créditos por entidad:
-
 # Generamos la base de datos a graficar
 bd_plot <- matriz %>% 
   select(Entidad,Nueva) %>% 
   filter(Entidad != "Nacional") %>% 
   mutate(Pctje = 100*Nueva/sum(Nueva)) %>% 
   arrange(-Pctje) 
-
 # Hacemos la gráfica
 bd_plot %>% 
   ggplot(aes(x = reorder(Entidad, Pctje), y = Pctje)) + 
@@ -136,10 +129,11 @@ bd_plot %>%
         panel.grid = element_blank(),
         axis.text.x = element_blank())
 ```
+![](images/grafica.png)
+
 Finalmente, concluí el hilo con el siguiente mensaje: 
 
 > Y listo. Con este hilo, quiero mostrar que muchas de las tareas sencillas de esto del manejo de los datos se pueden hacer de manera sencilla tanto en #Rstats como en #Python, y que los pasos son prácticamente los mismos, solo cambia la sintaxis. :P
-
 _Ese es todo el hilo. Si andan sin quehacer y quieren repasar sus conocimientos de importar tablas de `pdf`, de `dplyr` o de hacer gráficas de barras en R, en este enlace esta el código completo:_ 
 
 https://github.com/JuveCampos/juveBlog/blob/master/tabula/recreandoTablaDanielPC.R
