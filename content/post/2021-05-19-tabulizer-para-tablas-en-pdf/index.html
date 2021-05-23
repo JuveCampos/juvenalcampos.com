@@ -13,6 +13,20 @@ tags: []
 <script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
 
 
+<style>
+
+  p.footnote{
+  color:#5e5e5e;
+  font-size:90%;
+  text-align:center;
+  }
+  
+  img {
+    width: 40%;
+    height: auto;
+}
+    
+</style>
 <p>A inicios de año generé un pequeño hilo de Twitter sobre como aprovechar tablas provenientes de un <code>*.pdf</code> en nuestros análisis de <code>#rstats</code>.</p>
 <blockquote class="twitter-tweet">
 <p lang="es" dir="ltr">
@@ -31,16 +45,22 @@ Pues bueno, igualmente para mi primer hilo del año voy a re-crear este hilo de 
 En R <strong>también existen estas librerías wrapper</strong>, y, en este caso, la librería se llama <code>[tabulizer](https://cran.r-project.org/web/packages/tabulizer/vignettes/tabulizer.html)</code>.</li>
 </ol>
 </blockquote>
+<p style="text-align:center;">
+<img src = 'https://pbs.twimg.com/media/ErLN5IGVgAM0_sh?format=png&name=240x240' height = '120px'>
+</p>
 <blockquote>
 <ol start="2" style="list-style-type: decimal">
 <li>Para poder utilizar estas librerías basadas en Java se requiere bajar a nuestra sesión de <strong>R</strong> la librería <code>rJava</code> y, obvio, tener una distribución de <code>Java</code> instalada en tu computadora…
 …O [en su defecto] usar <code>RStudio Cloud</code>, que es como <code>RStudio</code>, pero en la nube y sin problemas de librerías.</li>
 </ol>
 </blockquote>
+<p style="text-align:center;">
+<img src = 'https://pbs.twimg.com/media/ErLPQ9GVQAQZFzN?format=jpg&name=360x360' style = ''>
+</p>
 <blockquote>
-<p>Otras librerías que igualmente usan Java son <code>mailR</code> (la que utilizo para mandar correos automatizados) o <code>RSelenium</code> (para hacer tests de p{aginas web o web scraping con usuarios automatizados).
-Una de las cosas que descubrí re-haciendo el proceso de extracción de datos es que es <strong>muy complicado instalar librerías que dependen de Java en computadoras Mac con procesador M1</strong>. Por lo mismo, si planeas utilizar una de estas librerías (o si decides seguir este mini-tutorial) te recomiendo que no lo intentes desde una de estas nuevas Mac.</p>
+<p>Otras librerías que igualmente usan Java son <code>mailR</code> (la que utilizo para mandar correos automatizados) o <code>RSelenium</code> (para hacer tests de p{aginas web o web scraping con usuarios automatizados).</p>
 </blockquote>
+<p>Una de las cosas que descubrí re-haciendo el proceso de extracción de datos es que es <strong>muy complicado instalar librerías que dependen de Java en computadoras Mac con procesador M1</strong>. Por lo mismo, si planeas utilizar una de estas librerías (o si decides seguir este mini-tutorial) te recomiendo que no lo intentes desde una de estas nuevas Mac, ya que no vas a poder T__T. (O, si puedes, pásame el secreto).</p>
 <div id="tablas-en-.pdf" class="section level2">
 <h2>Tablas en *.pdf</h2>
 <p>Muchas veces nos vamos a ver en la necesidad de extraer datos en <code>*.pdf</code>; ya sea porque es la única manera en que podemos encontrar la información, porque las personas que se encargan de proporcionarnos los datos de interés no conocen la conveniencia de presentar sus datos en formatos abiertos o quizá por el simple hecho de que quieren ser malos con nosotros y ponernos dificultades para realizar análisis a partir de sus datos.</p>
@@ -57,15 +77,25 @@ install.packages(&quot;tabulizer&quot;) # Para instalar tabulizer en mi compu</c
 library(tabulizer) # Para leer tablas en pdf
 library(tidyverse) # Para manipular datos
 # # Obtenemos la url del Plan del INFONAVIT
-url &lt;- &quot;/home/juvenal/Descargas/Plan_Estrategico_y_Financiero_2020-2024.pdf&quot;
-# url &lt;- &quot;https://portalmx.infonavit.org.mx/wps/wcm/connect/67e528e7-f13d-4dbf-a668-b29a594351c3/Plan_Estrategico_y_Financiero_2020-2024.pdf?MOD=AJPERES&amp;CVID=mYkHiU3&quot;</code></pre>
+# url &lt;- &quot;/home/juvenal/Descargas/Plan_Estrategico_y_Financiero_2020-2024.pdf&quot;
+url &lt;- &quot;https://portalmx.infonavit.org.mx/wps/wcm/connect/67e528e7-f13d-4dbf-a668-b29a594351c3/Plan_Estrategico_y_Financiero_2020-2024.pdf?MOD=AJPERES&amp;CVID=mYkHiU3&quot;</code></pre>
 <p><strong>Tercero: </strong> Ya que tenemos la dirección de nuestro archivo, ahora extraemos los datos que nos interesan. En este caso, queremos los datos de la Tabla 29: <em>Programa operativo Anual 2021 por estado,</em> que se encuentra en la página 113.</p>
+<p style="text-align:center;">
+<img src = 'images/captura_tabla_pdf.png' style = 'width:100%;'>
+</p>
+<!-- ![](images/captura_tabla_pdf.png) -->
+<p class="footnote">
+Fig. 1: La tabla de interés en la página 113.
+</p>
 <pre class="r"><code># Extraemos la tabla de la página 113
 tab &lt;- extract_tables(url, 
                       pages = 113, 
                       method = &quot;stream&quot;)</code></pre>
+<p>Del chunk de código de arriba podemos ver que la función para extraer tablas es la función <code>extract_tables()</code>, la cual recibe como primer argumento la ubicación del archivo, la página que contiene la tabla y el método de extracción de los datos.</p>
+<p>La función provee de dos métodos distintos para realizar la extracción de la información: el método <code>stream</code>, el algoritmo de extracción básico de <code>tabula</code>, el método <code>lattice</code>, el algoritmo de extracción de hojas de cálculo de <code>tabula</code>, y el método <code>decide</code>, que escoge, por página, el método más apropiado de los dos anteriores. <em>Todos los argumentos de la función se pueden consultar en la documentación de dicha función.</em> Otro argumento interesante es el argumento <code>area</code>, el cual permite al usuario seleccionar las coordenadas del documento en las cuales quiere que se enfoque el algoritmo para la extracción de información.</p>
+<p>En este caso, el algoritmo <code>lattice</code> extraía solamente los datos de los renglones que no tenían el fondo blanco, por lo que nos proporcionaba solamente la mitad de la información; por eso, tras prueba y error se decidió que el método ideal era el método que usaba el algoritmo <code>stream</code>.</p>
 <p><strong>Cuarto: </strong> Ya con los datos extraídos dentro del objeto <code>tab</code>, aprovechamos los patrones de su estructura para poder darles una forma de tabla estructurada.</p>
-<p>En el último paso, vamos a romper la columna 6 para dividirla en 4 columnas adicionales a partir de los espacios guardados en cada celda.</p>
+<p>En el último paso, vamos a romper la columna 6 para dividirla en 4 columnas adicionales a partir de los espacios guardados en cada celda. Para esto utilizamos la función <code>tidyr::separate()</code>.</p>
 <pre class="r"><code># Generamos la tabla: 
 matriz &lt;- tab[[1]] %&gt;% # Nos quedamos con la tabla
   as.tibble() %&gt;% # Convertimos a tibble
@@ -73,7 +103,8 @@ matriz &lt;- tab[[1]] %&gt;% # Nos quedamos con la tabla
   slice(-1) %&gt;% # quitamos el primer renglón
   separate(V6, 
            into = c(&quot;V6&quot;, &quot;V7&quot;, &quot;V8&quot;, &quot;V9&quot;), 
-           sep = &quot;\\s&quot;) # Separamos la columna 6 en 4 columnas mas</code></pre>
+           sep = &quot;\\s&quot;) # Separamos la columna 6 en 4 columnas mas
+# Utilizando el espacio. </code></pre>
 <p>Ahora, vamos a renombrar las columnas a los nombres que vienen en el documento original.</p>
 <pre class="r"><code># Le metemos los nombres personalizados (que signifiquen algo para nosotros)
 names(matriz) &lt;- c(&quot;Entidad&quot;, 
@@ -85,6 +116,7 @@ names(matriz) &lt;- c(&quot;Entidad&quot;,
                    &quot;Entidades Financieras&quot;, 
                    &quot;No-hipotecarias&quot;, 
                    &quot;Total (Derrama de Crédito)&quot;)
+
 # Convertimos las columnas a numero
 matriz[,2:9] &lt;- lapply(matriz[,2:9], function(x){
   x %&gt;% 
@@ -122,7 +154,17 @@ bd_plot %&gt;%
 <em>Ese es todo el hilo. Si andan sin quehacer y quieren repasar sus conocimientos de importar tablas de <code>pdf</code>, de <code>dplyr</code> o de hacer gráficas de barras en R, en este enlace esta el código completo:</em></p>
 </blockquote>
 <p><a href="https://github.com/JuveCampos/juveBlog/blob/master/tabula/recreandoTablaDanielPC.R" class="uri">https://github.com/JuveCampos/juveBlog/blob/master/tabula/recreandoTablaDanielPC.R</a></p>
+<div id="otras-librerías-para-tratar-con-datos-en-pdf." class="section level3">
+<h3>Otras librerías para tratar con datos en pdf.</h3>
+<p>El ejemplo de esta entrada de blog es algo muy sencillo; cada pdf es es distinto y dependiendo de su calidad, de su estructura y de la complejidad de su estructura va a ser la dificultad a la que nos vamos a enfrentar tratando de extraerle información.</p>
+<p>Otras librerías/paquetes de R muy útiles para lidiar con la extracción de datos provenientes de <code>pdfs</code> son la librería <code>pdftools</code> y la librería <code>tesseract</code> (o al menos son las que yo conozco). La primera es buena cuando la información que queremos extraer es información de texto, mientras que la segunda cuenta con un algoritmo de <em>reconocimiento óptico de caracteres</em> para leer texto de pdfs escaneados (muy utilizados por parte de oficinas de gobierno, especialmente cuando responden solicitudes de información) o texto proveniente de imagenes.</p>
+</div>
+<div id="en-conclusión" class="section level3">
+<h3>En conclusión</h3>
+<p>Mas que una guía para extraer datos de <code>pdfs</code>, esta entrada tuvo el propósito de guardar, para futuras referencias, el proceso que llevé a cabo a principios de año con el documento de infonavit; de todos modos, espero que sirva como punto de partida para aquellas personas que estan empezando a usar R y de repente se topan con datos en estos formatos, para personas que quieran implementar procesos de extracción de datos con métodos replicables y para personas que quieran experimentar con alternativas a los programas comerciales para lidiar con pdfs (como <code>iLovePDF</code> o <code>textSniper</code>).</p>
+<p>Quedo al pendiente sobre dudas y observaciones al presente contenido; igualmente, si conocen alguna librería adicional, no duden en compartirla conmigo en mis redes :9</p>
 <p>¡Saludos!</p>
 <p><strong>–Juvenal</strong></p>
+</div>
 </div>
 </div>
