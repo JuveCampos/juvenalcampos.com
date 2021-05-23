@@ -167,7 +167,8 @@ bd_plot %>%
         panel.grid = element_blank(),
         axis.text.x = element_blank())
 ```
-![](images/grafica.png)
+
+<img src = 'images/grafica.png' style = 'width:100%;'>
 
 Finalmente, concluí el hilo con el siguiente mensaje: 
 
