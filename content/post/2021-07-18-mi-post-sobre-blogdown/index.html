@@ -1,0 +1,227 @@
+---
+title: Mi post sobre blogdown
+author: Juvenal Campos
+date: '2021-07-18'
+slug: mi-post-de-blogdown
+categories: []
+tags: []
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<style>
+
+  p.centrado {
+    text-align: center;
+  }
+
+  p.footnote{
+  color:#5e5e5e;
+  font-size:90%;
+  text-align:center;
+  }
+  
+  img {
+    width: 40%;
+    height: auto;
+    text-align:center; 
+}
+    
+</style>
+<p style="color: gray;">
+Contenido de una presentación brindada en el LNPP-Tech del 12 de marzo del 2020.
+</p>
+<p class="centrado">
+<img src="images/Captura%20de%20Pantalla%202021-07-18%20a%20la(s)%2015.30.54.png" />
+</p>
+<p class="footnote">
+Fig. 1. Este soy yo sin saber que pronto ibamos a dejar de trabajar de manera presencial
+</p>
+<div id="tl-dr" class="section level2">
+<h2>TL; DR</h2>
+<blockquote>
+<p>Esta entrada de blog trata de explicar algunas generalidades sobre la creación y publicación de páginas web estilo <em>blog</em> a traves del uso de la librería <code>blogdown</code> de R.</p>
+</blockquote>
+</div>
+<div id="motivación" class="section level2">
+<h2>Motivación</h2>
+<p>Uno de los temas más comunes entre aquellas personas que escriben blogs de R es, precisamente, <strong>como crear blogs en R</strong>. Además, he visto tantos ultimamente, que decidí igualmente que ahora escribiría mi propio post sobre <code>blogdown</code>, mi experiencia utilizando la librería para generar blogs temáticos sobre R, como construí el mio y algunos tips y consejos después de un año creando y gestionando mi página con esta librería.</p>
+</div>
+<div id="importancia-de-tener-un-sitio-personal" class="section level2">
+<h2>Importancia de tener un sitio personal</h2>
+<p>Un <strong>sitio personal</strong> es una página web en la cual subimos contenido acerca de nosotros, de nuestro trabajo y de las cosas que nos gustan.</p>
+<p>En su curso, <code>The personal website playbook</code>, <a href="https://www.tomhirst.com/products/personal-website-playbook/">Tom Hirst</a> nos da algunas de las ventajas de porque es conveniente contar con un sitio personal:</p>
+<ul>
+<li><p><strong>Presentarnos efectivamente: nuestros intereses, nuestros proyectos, nuestras ideas y nuestra historia.</strong> Una página web consiste de un gran espacio para expresarnos y comunicarnos.</p></li>
+<li><p><strong>Incrementar nuestra visibilidad en línea.</strong> Un sitio web bien diseñado puede ser una parte integral de nuestra estrategia comercial (si tenemos alguna).</p></li>
+<li><p><strong>Presentar los servicios y productos que ofrecemos: </strong> en caso de que los tengamos a la venta, podemos generar un catálogo con estos y ponerlo disponible 24/7.</p></li>
+<li><p><strong>Practicar nuestras habilidades de comunicación</strong> al estar escribiendo contenido para este sitio.</p></li>
+<li><p><strong>Es el CV moderno.</strong> Nos permite destacar y diferenciarnos de la competencia (que no tiene su propia página).</p></li>
+<li><p><strong>Consiste en un repositorio de documentos, tutoriales archivos y bases de datos útiles</strong> tanto para nosotros como para personas a las que podamos ayudar después. Tiene sus ventajas respecto a nuestros perfiles de Redes Sociales al darle más orden y estructura a nuestros contenidos, además de no vernos limitados por el espacio que nos dan para realizar publicaciones.</p></li>
+</ul>
+<!-- Es por estos motivos que decidí generar mi propia página personal.  -->
+</div>
+<div id="qué-es-rmarkdown" class="section level2">
+<h2>¿Qué es RMarkdown?</h2>
+<p>RMarkdown es la <strong>combinación del lenguaje de marcado <code>Markdown</code> combinado con las capacidades del lenguaje de programación <code>R</code></strong> para analizar y visualizar datos.</p>
+<p class="centrado">
+<img src="images/Captura%20de%20Pantalla%202021-07-18%20a%20la(s)%2023.33.01.png" />
+</p>
+<p class="footnote">
+Fig. 2. RMarkdown como la combinación de R y Markdown.
+</p>
+<!-- meter enlaces de los archivos -->
+<p>Al combinar ambos lenguajes tenemos la capacidad de crear una gran cantidad de documentos, que van desde una página web básica en HTML hasta documentos <code>*.pdf</code> (con ayuda de <code>LaTeX</code>), documentos de <em>Word</em>, presentaciones de diapositivas (<code>Xaringan</code>), libros electrónicos (<code>bookdown</code>) y, por supuesto, blogs personales.</p>
+<p class="centrado">
+<img src="https://d33wubrfki0l68.cloudfront.net/aee91187a9c6811a802ddc524c3271302893a149/a7003/images/bandthree2.png" />
+</p>
+<p class="footnote">
+Fig. 2. Documentos y programas que trabajan con RMarkdown.
+</p>
+<p>Personalmente, considero que aprender <code>RMarkdown</code> es una habilidad muy importante entre aquellos aspirantes a analistas de datos, científicos de datos y econometristas que han escogido el lenguaje <code>R</code> como su herramienta de trabajo; nos ofrece una herramienta de comunicación altamente versatil, nos obliga a trabajar de manera reproducible, a escribir mejor código y es la puerta de entrada a otro tipo de habilidades muy útiles, como la creación y la estructura de páginas web o aprender <code>CSS</code>.</p>
+<p>Para que los artículos que generes en tu blog se vean lo más bonitos posible, primero hay que aprender a utilizar <code>RMarkdown.</code> Posiblemente en el <a href="https://www.lnpp.mx">LNPP</a> abramos un curso pronto, pero por ahora, puedes aprender lo básico en <a href="https://rpubs.com/Juve_Campos/rmarkdown">este tutorial chiquito que hice alguna vez</a> para mi otro blog :9 o en algun curso en línea (<a href="https://www.datacamp.com/courses/reporting-with-r-markdown">como este</a>).</p>
+</div>
+<div id="blogdown" class="section level2">
+<h2>Blogdown</h2>
+<p>El paquete <code>Blogdown</code> es el paquete de <code>R</code> creado para generar sitios web estáticos personalizables en <code>Markdown.</code></p>
+<p>Entre las ventajas que ofrece estan las siguientes:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Podemos incluir y ejecutar código de <code>R</code></strong>(o de cualquier otro lenguaje de programación soportado por el paquete <code>knit</code>, como <code>Python</code>).</p></li>
+<li><p>Automáticamente <strong>nos genera</strong> (renderiza) <strong>resultados</strong> como gráficas, tablas, resultados de análisis estadísticos y widgets de HTML.</p></li>
+<li><p>Nos permite <strong>incluir</strong> citaciones, pies de página y ecuaciones <code>LaTeX</code>, así como código HTML en caso de que necesitemos cosas más particulares.</p></li>
+</ol>
+<div id="instalación" class="section level3">
+<h3>Instalación</h3>
+<p>Este paquete se encuentra disponible en el <code>CRAN.</code> Se puede instalar con el siguiente código:</p>
+<pre class="r"><code>install.packages(&quot;blogdown&quot;)</code></pre>
+<p>Igualmente, la versión de desarrollo se puede descargar con el siguiente código:</p>
+<pre class="r"><code>remotes::install_github(&#39;rstudio/blogdown&#39;)</code></pre>
+</div>
+</div>
+<div id="por-qué-usar-blogdown" class="section level2">
+<h2>¿Por qué usar <code>blogdown</code>?</h2>
+<p>Las ventajas de <code>blogdown</code> con respecto a otros servicios (como <code>wordpress</code> o publicar en <code>medium</code>) consisten prácticamente en tres cosas:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Facilita la inclusión de código de R.</strong> Al estar basado en R, le da el formato correcto al código que publiquemos. Igualmente, como en cualquier documento de RMarkdown, genera y ejecuta código en su propio ambiente, por lo que no tenemos que preocuparnos por estar pegando <em>por separado</em> los resultados de ejecutar ciertos bloques de código.</p></li>
+<li><p><strong>Es gratuito</strong>. Ventajas de ser <em>Open Source.</em></p></li>
+<li><p><strong>Te permite empezar a trabajar desde <em>ya</em> en tu sitio web</strong>. Solo se necesita descargar el paquete.</p></li>
+</ol>
+</div>
+<div id="en-que-casos-usar-blogdown" class="section level2">
+<h2>En que casos usar <code>blogdown</code></h2>
+<p>Personalmente, creo que utilizar la librería <code>blogdown</code> es un buen ejercicio para aquellos programadores de R que deseen publicar cosas (como visualizaciones o tutoriales) dado que las herramientas del paquete nos facilitan bastante el trabajo.</p>
+<p>También podría ser útil para alguien que solo quiere experimentar y montar un pequeño blog y quiere hacerlo rápido y gratis, e irlo mejorarlo sobre la marcha.</p>
+<p>Sin embargo, para sitios web más complejos o para publicaciones de blog de otro tipo de temas, quizá convenga explorar soluciones de mercado (como <code>Wordpress</code> o <code>Medium</code>) las cuales pueden proveer de más herramientas a los autores, como añalisis de tráfico, instalación de <code>plugins</code>, generación de tiendas de <code>e-commerce</code>.</p>
+</div>
+<div id="framework-hugo" class="section level2">
+<h2>Framework Hugo</h2>
+<p>Por default, el paquete <code>blogdown</code> usa <code>Hugo</code>, un generador de sitios estáticos <code>open-source</code>, el cual provee una manera rápida y flexible de generar el contenido de tu sitio y de compartirlo en línea.</p>
+<p>Según su repositorio en línea, <code>Hugo</code> está optimizado para ser rápido, fácil de usar y ser altamente configurable. <code>Hugo</code> toma un directorio con contenido compatible y lo convierte en código HTML listo para ser publicado en la web.</p>
+<p>Cuando se utiliza en <code>blogdown</code>, instalamos <code>Hugo</code> desde RStudio (por lo que no debemos preocuparnos tanto por entenderlo en un principio).</p>
+<p>Para revisar los temas disponibles para generar nuestros blogs, podemos consultar el enlace de temas disponibles para <code>Hugo</code>: <a href="https://themes.gohugo.io" class="uri">https://themes.gohugo.io</a> y ver cual nos agrada más.</p>
+<p>El código fuente de <code>Hugo</code> se puede consultar en este repositorio: <a href="https://github.com/gohugoio/hugo" class="uri">https://github.com/gohugoio/hugo</a></p>
+<p>Para instalar Hugo y tenerlo listo en nuestra sesión de RStudio, lo hacemos con el siguiente código:</p>
+<pre class="r"><code>blogdown::install_hugo()</code></pre>
+</div>
+<div id="proceso-de-trabajo" class="section level2">
+<h2>Proceso de trabajo</h2>
+<p>Una vez que ya estamos decididos a generar nuestra página con esta librería ( <em>decidirse es el paso más difícil</em>) ponemos manos a la obra.</p>
+<p>Un primer paso sería revisar los <a href="https://bookdown.org/yihui/blogdown/other-themes.html">temas de Hugo</a> para ver cual es el tema que más se adapta a tus gustos y necesidades.</p>
+<p>Otro paso inicial sería <strong>tener a la mano imagenes</strong> para adornar tu página principal y tener una idea mas o menos clara de como quieres que se vea la página.</p>
+<p>También es conveniente que <strong>redactes un texto para explicar acerca de tí, quién eres y que esperas lograr publicando tu blog,</strong> y también tener a la mano tus redes de contacto (RRSS, correo) para ponerlos a disposición de la gente que te gustaría que te contactara.</p>
+<p>Una vez con todo esto, describo a continuación como es el proceso básico para generar un blog por primera vez.</p>
+<div id="para-crear-el-blog-por-primera-vez" class="section level3">
+<h3>Para crear el blog por primera vez:</h3>
+<ol style="list-style-type: decimal">
+<li>Nos vamos a <code>File &gt; New Project &gt;</code> en la barra de herramientas de RStudio.</li>
+</ol>
+<p class="centrado">
+<img src="images/img_1.png" />
+</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Seleccionamos <code>New Directory &gt;</code> para crear una carpeta con todos los archivos que se van a requerir. Una vez aquí seleccionamos la opción de <code>Website using blogdown</code> para generar un directorio adaptado a este fin.
+<p class="centrado">
+<img src="images/img_2.png" />
+</p></li>
+<li>Una vez que vamos a crear el nuevo directorio, le damos un nombre y seleccionamos la opción de descargar <code>Hugo</code>, el tema que se va a ocupar (ver temas en <a href="https://themes.gohugo.io" class="uri">https://themes.gohugo.io</a>) y demás opciones por default.</li>
+</ol>
+<p>Terminamos por presionar <code>Create Project</code>.</p>
+<p class="centrado">
+<img src="images/img_4.png" />
+</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Una vez que configuramos el proyecto y el paquete <code>blogdown</code> ya creo los archivos base, la sesión se tiene que ver como en la siguiente imagen:</li>
+</ol>
+<p class="centrado">
+<img src="images/img_5.png" />
+</p>
+<ol start="5" style="list-style-type: decimal">
+<li>Para correr el sitio, nos vamos a la sección de <code>Addins</code>, le damos en <code>Serve Site</code> y en la ventana del visualizador se debería ver la página generada.</li>
+</ol>
+<p class="centrado">
+<img src="images/img_6.png" />
+</p>
+<ol start="6" style="list-style-type: decimal">
+<li>La página generada se puede ver como en la imagen a continuación. Se utiliza el tema seleccionado y se ponen, por default, tres <em>posts</em> que podemos eliminar en la carpeta de contenido.</li>
+</ol>
+<p class="centrado">
+<img src="images/img_7.png" />
+</p>
+<p>La página se puede modificar, modificando los archivos de la carpeta de <code>layouts</code> dentro de los archivos que ya nos instaló el paquete <code>blogdown</code>. Esto para darle una identidad propia, si se requiere.</p>
+</div>
+<div id="para-publicar-una-nueva-entrada" class="section level3">
+<h3>Para publicar una nueva entrada:</h3>
+<p>Para publicar una entrada, seguimos el siguiente procedimiento:</p>
+<ol style="list-style-type: decimal">
+<li>Nos vamos a la sección de <code>Addins</code> y seleccionamos <code>New Post</code>. Una vez que lo hacemos, nos sale la siguiente ventana:</li>
+</ol>
+<p class="centrado">
+<img src="images/img_9.png" />
+</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Ya en esta ventana, rellenamos cada campo de metadatos con los datos que consideremos pertinentes.</li>
+</ol>
+<p class="centrado">
+<img src="images/img_10.png" />
+</p>
+<p>Y, a partir de acá, prosigue escribir el artículo con nuestros conocimientos de R y RMarkdown.</p>
+</div>
+</div>
+<div id="donde-publicar-mi-blog" class="section level2">
+<h2>¿Donde Publicar mi blog?</h2>
+<p>Publicar el blog consiste en poner a disposición todo el contenido de la página web que generamos en los pasos anteriores. Par publicar la página en línea, los dos servicios más comunes de manera gratuita son <code>Github Pages</code> y <code>Netlify</code>. Podemos usar una de las dos, o ambas.</p>
+<p>En ambos casos, podemos almacenar el código y los archivos en un <code>repositorio de Github</code> para que el servicio genere la página (y para ahorrarnos también el costo de un servidor). Esto aplica solo para el caso de páginas web estáticas.</p>
+<p><code>Github Pages</code> es un servicio de <code>Github</code> que permite construir una página web a partir de un repositorio de código. Para esto, tenemos que generar un repositorio y después cargar, en dicho repositorio, todo el código necesario para generar la página y configurar el repositorio para que muestre este contenido.</p>
+<p>Por su parte, <code>Netlify</code> es una compañía que ofrece servicios de computación en la nube para el almacenamiento de aplicaciones web y sitios estáticos (como un blog). Uno de sus servicios consiste en proveer almacenamiento (host) a páginas web almacenadas a través de un control de versiones <code>Git</code>, por lo que, al igual que el servicio anterior, nos permite almacenar páginas donde el código está almacenado en repositorios de <code>Github.</code></p>
+<p>La ventaja de <code>Netlify</code> sobre <code>Github Pages</code> radica en que <code>Netlify</code> corre <code>Hugo</code> desde sus servidores, por lo que la carga de la página se hace de manera más rápida. Otra ventaja es que <code>Netlify</code> nos puede ayudar a gestionar la compra de dominios (direcciones web), por lo que si queremos que nuestra página tenga su dominio personalizado, lo podemos obtener/comprar de forma sencilla desde este servicio.</p>
+</div>
+<div id="algunos-ejemplos" class="section level2">
+<h2>Algunos ejemplos:</h2>
+<p>Algunos ejemplos de blogs construidos con la librería <code>blogdown</code> son los siguientes:</p>
+<ul>
+<li><p><a href="https://yihui.org">Blog de Yihui Xie (creador de la librería)</a></p></li>
+<li><p><a href="https://blog.rstudio.com">RStudio blog</a></p></li>
+<li><p><a href="https://rviews.rstudio.com">RViews blog</a></p></li>
+<li><p><a href="https://simplystatistics.org">Simplystatistics.</a></p></li>
+<li><p><a href="https://robjhyndman.com">Rob Hyndman.</a></p></li>
+<li><p><a href="http://kbroman.org/">Karl Broman.</a></p></li>
+<li><p><a href="https://juvenalcampos.com">Juvenal Campos (yo mero).</a></p></li>
+</ul>
+</div>
+<div id="referencias" class="section level2">
+<h2>Referencias:</h2>
+<p>Para escribir esta entrada, tomé como referencia las siguientes publicaciones (además de mi experiencia personal).</p>
+<ul>
+<li><p><strong>Librería de Github:</strong> <a href="https://github.com/rstudio/blogdown" class="uri">https://github.com/rstudio/blogdown</a></p></li>
+<li><p><strong>Temas de Hugo:</strong> <a href="https://themes.gohugo.io" class="uri">https://themes.gohugo.io</a></p></li>
+<li><p><strong>Libro de blogdown:</strong> <a href="https://bookdown.org/yihui/blogdown/" class="uri">https://bookdown.org/yihui/blogdown/</a></p></li>
+<li><p><strong>Preguntas y ayuda en stackoverflow:</strong> <a href="https://stackoverflow.com/questions/tagged/blogdown" class="uri">https://stackoverflow.com/questions/tagged/blogdown</a></p></li>
+<li><p><strong>Artículo en español de Rubén Casal:</strong> <a href="https://rubenfcasal.github.io/post/creación-de-sitios-web-con-blogdown/" class="uri">https://rubenfcasal.github.io/post/creación-de-sitios-web-con-blogdown/</a></p></li>
+<li><p><strong>Blogdown en 2021:</strong> <a href="https://alison.rbind.io/blog/2020-12-new-year-new-blogdown/" class="uri">https://alison.rbind.io/blog/2020-12-new-year-new-blogdown/</a></p></li>
+<li><p><strong>Página personal:</strong> <a href="https://pamepairo.netlify.app/post/7-12-2020-motivos-pagina-web/" class="uri">https://pamepairo.netlify.app/post/7-12-2020-motivos-pagina-web/</a></p></li>
+<li><p><strong>Webs con Rmarkdown:</strong> <a href="https://paocorrales.github.io/post/webs-con-rmarkdown/" class="uri">https://paocorrales.github.io/post/webs-con-rmarkdown/</a></p></li>
+<li><p><strong>Wikipedia de Netlify:</strong> <a href="https://es.wikipedia.org/wiki/Hugo_(software)" class="uri">https://es.wikipedia.org/wiki/Hugo_(software)</a></p></li>
+<li><p><strong>Curso <code>The personal website playbook</code> de Tom Hirst. Clase 01.</strong> <a href="https://www.tomhirst.com/products/personal-website-playbook/" class="uri">https://www.tomhirst.com/products/personal-website-playbook/</a></p></li>
+</ul>
+</div>
