@@ -252,6 +252,8 @@ Algunos ejemplos de blogs construidos con la librería `blogdown` son los siguie
 
 * [Karl Broman.](http://kbroman.org/)
 
+* [Isabella Benabaye](https://isabella-b.com)
+
 * [Juvenal Campos (yo mero).](https://juvenalcampos.com)
 
 ## Referencias: 
