@@ -12,6 +12,14 @@ tags: []
 
 <style>
 
+  #rcorners2 {
+  border-radius: 25px;
+  border: 2px solid #73AD21;
+  padding: 20px; 
+  width: 100%;
+  height: 100%; 
+}
+
   p.centrado {
     text-align: center;
   }
@@ -23,10 +31,15 @@ tags: []
   }
   
   img {
-    width: 40%;
+    width: 90%;
     height: auto;
     text-align:center; 
 }
+
+  i {
+  color:#5e5e5e;
+  }
+
     
 </style>
 <p style="color: gray;">
@@ -40,13 +53,13 @@ Fig. 1. Este soy yo sin saber que pronto ibamos a dejar de trabajar de manera pr
 </p>
 <div id="tl-dr" class="section level2">
 <h2>TL; DR</h2>
-<blockquote>
-<p>Esta entrada de blog trata de explicar algunas generalidades sobre la creación y publicación de páginas web estilo <em>blog</em> a traves del uso de la librería <code>blogdown</code> de R.</p>
-</blockquote>
+<p id="rcorners2">
+<i>Esta entrada de blog trata de explicar algunas generalidades sobre la creación y publicación de páginas web estilo <em>blog</em> a traves del uso de la librería <code>blogdown</code> de R.</i>
+</p>
 </div>
 <div id="motivación" class="section level2">
 <h2>Motivación</h2>
-<p>Uno de los temas más comunes entre aquellas personas que escriben blogs de R es, precisamente, <strong>como crear blogs en R</strong>. Además, he visto tantos ultimamente, que decidí igualmente que ahora escribiría mi propio post sobre <code>blogdown</code>, mi experiencia utilizando la librería para generar blogs temáticos sobre R, como construí el mio y algunos tips y consejos después de un año creando y gestionando mi página con esta librería.</p>
+<p>Uno de los temas más comunes entre aquellas personas que escriben blogs de R es, precisamente, <strong>como crear blogs en R</strong>. Además, he visto tantos ultimamente, que decidí escribir mi propio post sobre <code>blogdown</code> con mi experiencia utilizando la librería para generar blogs temáticos sobre R, sobre como construí el mio y algunos tips y consejos después de un año creando y gestionando mi página con esta librería.</p>
 </div>
 <div id="importancia-de-tener-un-sitio-personal" class="section level2">
 <h2>Importancia de tener un sitio personal</h2>
@@ -77,7 +90,7 @@ Fig. 2. RMarkdown como la combinación de R y Markdown.
 <img src="https://d33wubrfki0l68.cloudfront.net/aee91187a9c6811a802ddc524c3271302893a149/a7003/images/bandthree2.png" />
 </p>
 <p class="footnote">
-Fig. 2. Documentos y programas que trabajan con RMarkdown.
+Fig. 2. Documentos y programas que trabajan con RMarkdown.<b>Fuente: </b>RStudio.
 </p>
 <p>Personalmente, considero que aprender <code>RMarkdown</code> es una habilidad muy importante entre aquellos aspirantes a analistas de datos, científicos de datos y econometristas que han escogido el lenguaje <code>R</code> como su herramienta de trabajo; nos ofrece una herramienta de comunicación altamente versatil, nos obliga a trabajar de manera reproducible, a escribir mejor código y es la puerta de entrada a otro tipo de habilidades muy útiles, como la creación y la estructura de páginas web o aprender <code>CSS</code>.</p>
 <p>Para que los artículos que generes en tu blog se vean lo más bonitos posible, primero hay que aprender a utilizar <code>RMarkdown.</code> Posiblemente en el <a href="https://www.lnpp.mx">LNPP</a> abramos un curso pronto, pero por ahora, puedes aprender lo básico en <a href="https://rpubs.com/Juve_Campos/rmarkdown">este tutorial chiquito que hice alguna vez</a> para mi otro blog :9 o en algun curso en línea (<a href="https://www.datacamp.com/courses/reporting-with-r-markdown">como este</a>).</p>
@@ -124,69 +137,8 @@ Fig. 2. Documentos y programas que trabajan con RMarkdown.
 <p>Para instalar Hugo y tenerlo listo en nuestra sesión de RStudio, lo hacemos con el siguiente código:</p>
 <pre class="r"><code>blogdown::install_hugo()</code></pre>
 </div>
-<div id="proceso-de-trabajo" class="section level2">
-<h2>Proceso de trabajo</h2>
-<p>Una vez que ya estamos decididos a generar nuestra página con esta librería ( <em>decidirse es el paso más difícil</em>) ponemos manos a la obra.</p>
-<p>Un primer paso sería revisar los <a href="https://bookdown.org/yihui/blogdown/other-themes.html">temas de Hugo</a> para ver cual es el tema que más se adapta a tus gustos y necesidades.</p>
-<p>Otro paso inicial sería <strong>tener a la mano imagenes</strong> para adornar tu página principal y tener una idea mas o menos clara de como quieres que se vea la página.</p>
-<p>También es conveniente que <strong>redactes un texto para explicar acerca de tí, quién eres y que esperas lograr publicando tu blog,</strong> y también tener a la mano tus redes de contacto (RRSS, correo) para ponerlos a disposición de la gente que te gustaría que te contactara.</p>
-<p>Una vez con todo esto, describo a continuación como es el proceso básico para generar un blog por primera vez.</p>
-<div id="para-crear-el-blog-por-primera-vez" class="section level3">
-<h3>Para crear el blog por primera vez:</h3>
-<ol style="list-style-type: decimal">
-<li>Nos vamos a <code>File &gt; New Project &gt;</code> en la barra de herramientas de RStudio.</li>
-</ol>
-<p class="centrado">
-<img src="images/img_1.png" />
-</p>
-<ol start="2" style="list-style-type: decimal">
-<li>Seleccionamos <code>New Directory &gt;</code> para crear una carpeta con todos los archivos que se van a requerir. Una vez aquí seleccionamos la opción de <code>Website using blogdown</code> para generar un directorio adaptado a este fin.
-<p class="centrado">
-<img src="images/img_2.png" />
-</p></li>
-<li>Una vez que vamos a crear el nuevo directorio, le damos un nombre y seleccionamos la opción de descargar <code>Hugo</code>, el tema que se va a ocupar (ver temas en <a href="https://themes.gohugo.io" class="uri">https://themes.gohugo.io</a>) y demás opciones por default.</li>
-</ol>
-<p>Terminamos por presionar <code>Create Project</code>.</p>
-<p class="centrado">
-<img src="images/img_4.png" />
-</p>
-<ol start="4" style="list-style-type: decimal">
-<li>Una vez que configuramos el proyecto y el paquete <code>blogdown</code> ya creo los archivos base, la sesión se tiene que ver como en la siguiente imagen:</li>
-</ol>
-<p class="centrado">
-<img src="images/img_5.png" />
-</p>
-<ol start="5" style="list-style-type: decimal">
-<li>Para correr el sitio, nos vamos a la sección de <code>Addins</code>, le damos en <code>Serve Site</code> y en la ventana del visualizador se debería ver la página generada.</li>
-</ol>
-<p class="centrado">
-<img src="images/img_6.png" />
-</p>
-<ol start="6" style="list-style-type: decimal">
-<li>La página generada se puede ver como en la imagen a continuación. Se utiliza el tema seleccionado y se ponen, por default, tres <em>posts</em> que podemos eliminar en la carpeta de contenido.</li>
-</ol>
-<p class="centrado">
-<img src="images/img_7.png" />
-</p>
-<p>La página se puede modificar, modificando los archivos de la carpeta de <code>layouts</code> dentro de los archivos que ya nos instaló el paquete <code>blogdown</code>. Esto para darle una identidad propia, si se requiere.</p>
-</div>
-<div id="para-publicar-una-nueva-entrada" class="section level3">
-<h3>Para publicar una nueva entrada:</h3>
-<p>Para publicar una entrada, seguimos el siguiente procedimiento:</p>
-<ol style="list-style-type: decimal">
-<li>Nos vamos a la sección de <code>Addins</code> y seleccionamos <code>New Post</code>. Una vez que lo hacemos, nos sale la siguiente ventana:</li>
-</ol>
-<p class="centrado">
-<img src="images/img_9.png" />
-</p>
-<ol start="2" style="list-style-type: decimal">
-<li>Ya en esta ventana, rellenamos cada campo de metadatos con los datos que consideremos pertinentes.</li>
-</ol>
-<p class="centrado">
-<img src="images/img_10.png" />
-</p>
-<p>Y, a partir de acá, prosigue escribir el artículo con nuestros conocimientos de R y RMarkdown.</p>
-</div>
+<div id="parte-técnica" class="section level2">
+<h2>Parte técnica:</h2>
 </div>
 <div id="donde-publicar-mi-blog" class="section level2">
 <h2>¿Donde Publicar mi blog?</h2>
@@ -206,6 +158,7 @@ Fig. 2. Documentos y programas que trabajan con RMarkdown.
 <li><p><a href="https://simplystatistics.org">Simplystatistics.</a></p></li>
 <li><p><a href="https://robjhyndman.com">Rob Hyndman.</a></p></li>
 <li><p><a href="http://kbroman.org/">Karl Broman.</a></p></li>
+<li><p><a href="https://isabella-b.com">Isabella Benabaye</a></p></li>
 <li><p><a href="https://juvenalcampos.com">Juvenal Campos (yo mero).</a></p></li>
 </ul>
 </div>
