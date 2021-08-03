@@ -36,7 +36,13 @@ tags: []
   i {
   color:#5e5e5e;
   }
-
+  
+  strong {
+    font-weight: 1000;
+    color:white;
+    font-face:bold;
+    background-color: #3366FF;
+  }  
     
 </style>
 
@@ -44,14 +50,6 @@ tags: []
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-<p style = 'color: gray;'>Contenido de una presentación brindada en el LNPP-Tech del 12 de marzo del 2020.</p> 
-
-
-<p class = "centrado">
-![](images/Captura de Pantalla 2021-07-18 a la(s) 15.30.54.png)
-</p>
-
-<p class = "footnote">Fig. 1. Este soy yo sin saber que pronto ibamos a dejar de trabajar de manera presencial</p>
 
 ## TL; DR
 
@@ -102,7 +100,7 @@ Al combinar ambos lenguajes tenemos la capacidad de crear una gran cantidad de d
 
 <p class = 'footnote'>Fig. 2. Documentos y programas que trabajan con RMarkdown.<b>Fuente: </b>RStudio. </p>
 
-Personalmente, considero que aprender `RMarkdown` es una habilidad muy importante entre aquellos aspirantes a analistas de datos, científicos de datos y econometristas que han escogido el lenguaje `R` como su herramienta de trabajo; nos ofrece una herramienta de comunicación altamente versatil, nos obliga a trabajar de manera reproducible, a escribir mejor código y es la puerta de entrada a otro tipo de habilidades muy útiles, como la creación y la estructura de páginas web o aprender `CSS`. 
+Personalmente, considero que aprender `RMarkdown` es una habilidad muy importante entre aquellos aspirantes a analistas de datos, científicos de datos y econometristas **que han escogido el lenguaje `R` como su herramienta de trabajo;** nos ofrece una herramienta de comunicación altamente versatil, nos obliga a trabajar de manera reproducible, a escribir mejor código y es la puerta de entrada a otro tipo de habilidades muy útiles, como la creación y la estructura de _páginas web_  y a aprender `CSS`. 
 
 Para que los artículos que generes en tu blog se vean lo más bonitos posible, primero hay que aprender a utilizar `RMarkdown.` Posiblemente en el [LNPP](https://www.lnpp.mx) abramos un curso pronto, pero por ahora, puedes aprender lo básico en [este tutorial chiquito que hice alguna vez](https://rpubs.com/Juve_Campos/rmarkdown) para mi otro blog :9 o en algun curso en línea ([como este](https://www.datacamp.com/courses/reporting-with-r-markdown)).
 
@@ -144,13 +142,13 @@ Las ventajas de `blogdown` con respecto a otros servicios (como `wordpress` o pu
 
 ## En que casos usar `blogdown`
 
-Personalmente, creo que utilizar la librería `blogdown` es un buen ejercicio para aquellos programadores de R que deseen publicar cosas (como visualizaciones o tutoriales) dado que las herramientas del paquete nos facilitan bastante el trabajo. 
+Personalmente, creo que utilizar la librería `blogdown` **es un buen ejercicio para aquellos programadores de R que deseen publicar cosas** (como visualizaciones o tutoriales) dado que las herramientas del paquete nos facilitan bastante el trabajo. 
 
-También podría ser útil para alguien que solo quiere experimentar y montar un pequeño blog y quiere hacerlo rápido y gratis, e irlo mejorarlo sobre la marcha.
+También podría ser útil para alguien que solo quiere **experimentar y montar un pequeño blog** y quiere hacerlo rápido y gratis, e irlo mejorarlo sobre la marcha.
 
-Sin embargo, para sitios web más complejos o para publicaciones de blog de otro tipo de temas, quizá convenga explorar soluciones de mercado (como `Wordpress` o `Medium`) las cuales pueden proveer de más herramientas a los autores, como añalisis de tráfico, instalación de `plugins`, generación de tiendas de `e-commerce`. 
+Sin embargo, para sitios web más complejos o para publicaciones de blog de otro tipo de temas, quizá convenga explorar soluciones de mercado (como `Wordpress` o `Medium`) las cuales pueden proveer de más herramientas a los autores, como añalisis de tráfico, instalación de `plugins`, generación de tiendas de `e-commerce`, entre muchas otras ventajas de los servicios modernos y programados por alguien más. 
 
-## Framework Hugo
+## Framework `Hugo`
 
 Por default, el paquete `blogdown` usa `Hugo`, un generador de sitios estáticos `open-source`, el cual provee una manera rápida y flexible de generar el contenido de tu sitio y de compartirlo en línea. 
 
@@ -168,22 +166,26 @@ Para instalar Hugo y tenerlo listo en nuestra sesión de RStudio, lo hacemos con
 blogdown::install_hugo()
 ```
 
-
 ## Parte técnica: 
 
+> Para hacer menos pesada esta entrada, decidí mover toda la parte técnica (entendiendo como _parte técnica_ donde trabajamos con RStudio) al siguiente enlace: https://juvenalcampos.com/2021/08/01/generando-un-blog-y-más-cosas-técnicas/ 
 
 
 ## ¿Donde Publicar mi blog? 
 
-Publicar el blog consiste en poner a disposición todo el contenido de la página web que generamos en los pasos anteriores. Par publicar la página en línea, los dos servicios más comunes de manera gratuita son `Github Pages` y `Netlify`. Podemos usar una de las dos, o ambas. 
+Publicar el blog consiste en poner a disposición todo el contenido de la página web. Para publicar la página en línea, los dos servicios más comunes son `Github Pages` y `Netlify`. Podemos usar una de las dos, o ambas. 
 
-En ambos casos, podemos almacenar el código y los archivos en un `repositorio de Github` para que el servicio genere la página (y para ahorrarnos también el costo de un servidor). Esto aplica solo para el caso de páginas web estáticas. 
+<!-- En ambos casos, podemos almacenar el código y los archivos en un `repositorio de Github` para que el servicio genere la página (y para ahorrarnos también el costo de un servidor). Esto aplica solo para el caso de páginas web estáticas.  -->
 
-`Github Pages` es un servicio de `Github` que permite construir una página web a partir de un repositorio de código. Para esto, tenemos que generar un repositorio y después cargar, en dicho repositorio, todo el código necesario para generar la página y configurar el repositorio para que muestre este contenido. 
+**Github Pages** es un servicio de `Github` que permite construir una página web a partir de un repositorio de código. Para esto, tenemos que generar un repositorio y después cargar, en dicho repositorio, todo el código necesario para generar la página y configurar el repositorio para que muestre este contenido. 
 
-Por su parte, `Netlify` es una compañía que ofrece servicios de computación en la nube para el almacenamiento de aplicaciones web y sitios estáticos (como un blog). Uno de sus servicios consiste en proveer almacenamiento (host) a páginas web almacenadas a través de un control de versiones `Git`, por lo que, al igual que el servicio anterior, nos permite almacenar páginas donde el código está almacenado en repositorios de `Github.` 
+Por su parte, **Netlify** es una compañía que ofrece servicios de computación en la nube para el almacenamiento de aplicaciones web y sitios estáticos (como un blog). Uno de sus servicios consiste en proveer almacenamiento (host) a páginas web almacenadas a través de un control de versiones `Git`, por lo que, al igual que el servicio anterior, nos permite almacenar páginas donde el código está almacenado en repositorios de `Github.` 
 
-La ventaja de `Netlify` sobre `Github Pages` radica en que `Netlify` corre `Hugo` desde sus servidores, por lo que la carga de la página se hace de manera más rápida. Otra ventaja es que `Netlify` nos puede ayudar a gestionar la compra de dominios (direcciones web), por lo que si queremos que nuestra página tenga su dominio personalizado, lo podemos obtener/comprar de forma sencilla desde este servicio. 
+La ventaja de `Netlify` sobre `Github Pages` radica en que `Netlify` corre `Hugo` desde sus servidores, por lo que disminuye los tiempos de carga de la página. 
+
+Otra ventaja es que `Netlify` nos puede ayudar a gestionar la compra de dominios (direcciones web), por lo que si queremos que nuestra página tenga su dominio personalizado, lo podemos _obtener/comprar_ de forma sencilla desde este servicio. 
+
+**Nota:** De ambos servicios se desprende el hecho de que el hosteo se tiene que realizar desde un repositorio de Github; esto tiene la ventaja de que todos los sitios web construidos con esta librería tienen el código disponible en línea y, si queremos, podemos descargar el código que los genera en nuestras computadoras. 
 
 ## Algunos ejemplos: 
 
@@ -228,4 +230,27 @@ Para escribir esta entrada, tomé como referencia las siguientes publicaciones (
 * **Wikipedia de Netlify:** https://es.wikipedia.org/wiki/Hugo_(software)
 
 * **Curso `The personal website playbook` de Tom Hirst. Clase 01.** https://www.tomhirst.com/products/personal-website-playbook/ 
+
+# Conclusion 
+
+<p style = 'color: gray;'>Contenido de una presentación brindada en el LNPP-Tech del 12 de marzo del 2020.</p> 
+
+
+<p class = "centrado">
+![](images/Captura de Pantalla 2021-07-18 a la(s) 15.30.54.png)
+</p>
+
+<p class = "footnote"> Este soy yo sin saber que pronto ibamos a dejar de trabajar de manera presencial</p>
+
+Este fue el contenido (ligeramente aumentado) de una charla que di para un **LNPP-Tech** en marzo de 2020, unos dias antes de tener que dejar de ir presencialmente a mi lugar de trabajo. Los **LNPP-Tech** son una iniciativa de mi lugar de trabajo en la cual todos podemos compartirnos conocimientos técnicos a partir de clases y talleres con el fin de que todos podamos aprender del talento de las personas con las que trabajamos todos los días. 
+
+Una de las cosas que **la pandemia ha evidenciado es la necesidad de tener una presencia más fuerte en línea **, y desde el inicio del confinamiento hasta ahora hemos visto como una gran cantidad de profesionistas, desde dentistas hasta economistas consagrados, pasando por candidatos a gobernador, **han tenido que hacerse espacio en las redes para llegar a más audiencias y poder vender sus bienes y sus servicios** en una época en la cual las actividades de promoción de manera personal se han visto fuertemente limitadas. 
+
+Es por esto que me animé a escribir un blog y hacer una presentación para mis compañeros del Laboratorio; para que **más personas se animen a dar un primer paso** en la creación de su página web y de sus estrategias digitales, para que **mas personas conozcan las herramientas que nos brinda R para la creación y la gestión de contenido** y para que **se animen a escribir** sus tutoriales y sus entradas de blog. 
+
+Ojalá haya más personas que se animen a escribir su propio contenido 😉. 
+
+Cualquier duda, consulta o sugerencia quedo al pendiente en mi correo **juveroark@gmail.com** o en mis RRSS disponibles en la parte de arriba de la página. 
+
+-Happy Coding
 
