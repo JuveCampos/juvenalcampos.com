@@ -32,9 +32,16 @@ tags:
   color:#5e5e5e;
   }
 
+  b {
+    font-weight: 1000;
+    color:white;
+    font-face:bold;
+    background-color: #3366FF;
+  } 
+
 </style>
 
-En esta entrada de blog planeo ir escribiendo la guía técnica para poder realizar una página estilo blog con **R** y `blogdown`.
+<b>En esta entrada de blog planeo ir escribiendo tutoriales y guías técnicas para poder tabajar con R y `blogdown`.</b>
 
 ## Proceso de trabajo 
 
@@ -58,42 +65,27 @@ Una vez con todo esto, describo a continuación como es el proceso básico para 
 
 2. Seleccionamos `New Directory >` para crear una carpeta con todos los archivos que se van a requerir. Una vez aquí seleccionamos la opción de `Website using blogdown` para generar un directorio adaptado a este fin. 
 
-![](https://raw.githubusercontent.com/JuveCampos/juvenalcampos.com/master/content/post/2021-08-01-generando-un-blog-y-más-cosas-técnicas/images/img_2.png)
+<img src = 'https://raw.githubusercontent.com/JuveCampos/juvenalcampos.com/master/content/post/2021-08-01-generando-un-blog-y-más-cosas-técnicas/images/img_2.png'></img>
 
 
 3. Una vez que vamos a crear el nuevo directorio, le damos un nombre y seleccionamos la opción de descargar `Hugo`, el tema que se va a ocupar (ver temas en https://themes.gohugo.io) y demás opciones por default. 
 
 Terminamos por presionar `Create Project`.
 
-<p class = "centrado">
+<img src = 'https://raw.githubusercontent.com/JuveCampos/juvenalcampos.com/master/content/post/2021-08-01-generando-un-blog-y-más-cosas-técnicas/images/img_4.png'></img>
 
-![](https://raw.githubusercontent.com/JuveCampos/juvenalcampos.com/master/content/post/2021-08-01-generando-un-blog-y-más-cosas-técnicas/images/img_4.png)
-
-</p>
 
 4. Una vez que configuramos el proyecto y el paquete `blogdown` ya creo los archivos base, la sesión se tiene que ver como en la siguiente imagen: 
 
-<p class = "centrado">
-
-![](https://raw.githubusercontent.com/JuveCampos/juvenalcampos.com/master/content/post/2021-08-01-generando-un-blog-y-más-cosas-técnicas/images/img_5.png)
-
-</p>
+<img src = 'https://raw.githubusercontent.com/JuveCampos/juvenalcampos.com/master/content/post/2021-08-01-generando-un-blog-y-más-cosas-técnicas/images/img_5.png'></img>
 
 5. Para correr el sitio, nos vamos a la sección de `Addins`, le damos en `Serve Site` y en la ventana del visualizador se debería ver la página generada. 
  
-<p class = "centrado"> 
-
-![](https://raw.githubusercontent.com/JuveCampos/juvenalcampos.com/master/content/post/2021-08-01-generando-un-blog-y-más-cosas-técnicas/images/img_6.png)
-
-</p>
+<img src = 'https://raw.githubusercontent.com/JuveCampos/juvenalcampos.com/master/content/post/2021-08-01-generando-un-blog-y-más-cosas-técnicas/images/img_6.png'></img>
 
 6. La página generada se puede ver como en la imagen a continuación. Se utiliza el tema seleccionado y se ponen, por default, tres _posts_ que podemos eliminar en la carpeta de contenido. 
 
-<p class = "centrado">
-
-![](https://raw.githubusercontent.com/JuveCampos/juvenalcampos.com/master/content/post/2021-08-01-generando-un-blog-y-más-cosas-técnicas/images/img_7.png)
-
-</p>
+<img src = 'https://raw.githubusercontent.com/JuveCampos/juvenalcampos.com/master/content/post/2021-08-01-generando-un-blog-y-más-cosas-técnicas/images/img_7.png'></img>
 
 La página se puede modificar, modificando los archivos de la carpeta de `layouts` dentro de los archivos que ya nos instaló el paquete `blogdown`. Esto para darle una identidad propia, si se requiere. 
 
@@ -103,19 +95,10 @@ Para publicar una entrada, seguimos el siguiente procedimiento:
 
 1. Nos vamos a la sección de `Addins` y seleccionamos `New Post`. Una vez que lo hacemos, nos sale la siguiente ventana: 
 
-<p class = "centrado">
-
-![](https://raw.githubusercontent.com/JuveCampos/juvenalcampos.com/master/content/post/2021-08-01-generando-un-blog-y-más-cosas-técnicas/images/img_9.png)
-
-</p>
+<img src = 'https://raw.githubusercontent.com/JuveCampos/juvenalcampos.com/master/content/post/2021-08-01-generando-un-blog-y-más-cosas-técnicas/images/img_9.png'></img>
 
 2. Ya en esta ventana, rellenamos cada campo de metadatos con los datos que consideremos pertinentes. 
 
-<p class = "centrado">
-
-![](https://raw.githubusercontent.com/JuveCampos/juvenalcampos.com/master/content/post/2021-08-01-generando-un-blog-y-más-cosas-técnicas/images/img_10.png)
-
-</p>
+<img src = 'https://raw.githubusercontent.com/JuveCampos/juvenalcampos.com/master/content/post/2021-08-01-generando-un-blog-y-más-cosas-técnicas/images/img_10.png'></img>
 
 Y, a partir de acá, prosigue escribir el artículo con nuestros conocimientos de R y RMarkdown.
-
