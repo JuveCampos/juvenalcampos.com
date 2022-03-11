@@ -254,7 +254,7 @@ str_c("imagenes_bien/", list.files("imagenes_bien/")) %>%
 
 Y ya. Eso es todo. Tenemos nuestro GIF de memes. 
 
-
+![](https://github.com/JuveCampos/juvenalcampos.com/raw/master/content/post/2022-03-10-scrap-de-memes-en-r/memes.gif)
 
 # 8. Conclusiones: 
 
