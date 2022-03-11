@@ -1,0 +1,244 @@
+---
+title: Scrap de memes en R
+author: R package build
+date: '2022-03-10'
+slug: scrap-de-memes-en-r
+categories:
+  - Blog
+tags: []
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<p>Una idea que siempre he tenido en mente es que R (#rstats) no es un lenguaje solo para la estadística. R <a href="https://en.wikipedia.org/wiki/R_(programming_language)">es un lenguaje de programación</a> que, además de ayudarnos en hacer estadística y econometría, nos sirve para hacer muchas otras cositas.</p>
+<p>Para este tutorial/laboratorio, vamos a usar las capacidades de R para entrar a Twitter para descargar memes en español publicados en las últimas horas, y de paso, practicar el proceso para elaborar gifs.</p>
+<div id="requerimientos" class="section level1">
+<h1>1. Requerimientos:</h1>
+<p>Para iniciar, requerimos tener lo siguiente:</p>
+<ol style="list-style-type: decimal">
+<li><p>R y RStudio instalados.</p></li>
+<li><p>La librería <code>rtweet</code> y una cuenta de Twitter.</p></li>
+<li><p>El <code>tidyverse</code> (o el sabor de R que más te guste, aunque en este tutorial utilizaremos ese)</p></li>
+</ol>
+<p>y ya.</p>
+</div>
+<div id="iniciamos-a-escribir-código." class="section level1">
+<h1>2. Iniciamos a escribir código.</h1>
+<p>Iniciaremos llamando a las librerías que vamos a utilizar, las cuales serían las siguientes:</p>
+<pre class="r"><code># Librerias: 
+library(tidyverse) # Para manejo de datos
+library(rtweet)    # Para descargar datos de Twitter
+library(magick)    # Para hacer gifs
+library(jpeg)      # Para utilizar funciones para manipular imagenes</code></pre>
+</div>
+<div id="obtenemos-los-datos-de-twitter." class="section level1">
+<h1>3. Obtenemos los datos de Twitter.</h1>
+<p>Para obtener datos sobre lo que la gente publica en Twitter, necesitamos acceder a su API. Para acceder a su API de forma sencilla, la comunidad de #Rstats ha creado el paquete <a href="https://github.com/ropensci/rtweet"><code>rtweet</code></a>, el cual se encarga de simplificar la interacción con este servicio a la utilización de funciones de R de las de toda la vida (si has interactuado con APIs en R antes, recordarás que suele ser un tema algo complejo, por lo menos al principio).</p>
+<p>En este caso, lo que vamos a hacer será buscar todos los tweets que contengan la palabra <code>"meme"</code> y que esten en español. Para esto, nos podemos ayudar de la herramienta de <a href="https://twitter.com/search-advanced?lang=es"><code>busqueda avanzada</code></a> de Twitter, la cual simplifica la formulación de busquedas avanzadas dentro de la Red Social.</p>
+<p>La consulta quedaría entonces como <code>memes lang:es</code>. La guardamos en un objeto llamado <code>termino</code>.</p>
+<pre class="r"><code># Termino de busqueda: 
+termino &lt;- &quot;memes lang:es&quot;</code></pre>
+<p>Y metemos el término dentro de nuestra función para descargar Tweets:</p>
+<pre class="r"><code>bd &lt;- rtweet::search_tweets(q = termino,       # Término de busquyeda
+                      n = 10000,               # Numero de Tweets a descargar
+                      include_rts = FALSE,     # Incluir Retweets? 
+                      retryonratelimit = TRUE) # Reintentar cuando se sobrepase el límite de consulta. </code></pre>
+<p>Hay que mencionar que el API de Twitter nos permite descargar aproximadamente 15,000 tweets cada 15 minutos, por lo que, si de repente quisieramos buscar algún tema más complejo, hay que tener en cuenta que nuestra descarga puede quedarse trabajando un buen rato. Igualmente, el API gratuito solamente nos permite descargar tweets de los últimos 7 días, por lo que también hay que tener eso en cuenta.</p>
+<p>La descarga toma un rato, y la barra de descarga suele verse así cuando está trabajando:</p>
+<pre><code>Downloading [==============&gt;-----]  45%</code></pre>
+<p>Una vez que tenemos los datos, mas vale guardarlos (por cualquier cosa). Para esto, los vamos a guardar en un excel con la siguiente función:</p>
+<pre class="r"><code>openxlsx::write.xlsx(bd, str_c(&quot;memes_de_twitter.xlsx&quot;))</code></pre>
+<p>Lo que guardará los datos en un archivo en nuestro directorio de trabajo (el cual tienes que tener bien ubicado).</p>
+<p>Y ya. Tenemos los datos.</p>
+</div>
+<div id="explorando-los-datos" class="section level1">
+<h1>4. Explorando los datos:</h1>
+<p>Ahora exploramos la información que tenemos:</p>
+<pre class="r"><code># Primeros renglones
+head(bd)</code></pre>
+<pre><code>## # A tibble: 6 × 90
+##   user_id             status_id     created_at          screen_name text  source
+##   &lt;chr&gt;               &lt;chr&gt;         &lt;dttm&gt;              &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; 
+## 1 1469135822540754946 150207327484… 2022-03-11 00:05:50 saikiwik    &quot;mi … Twitt…
+## 2 1024505790864994304 150207322147… 2022-03-11 00:05:37 CasmarSaulo &quot;@Lu… Twitt…
+## 3 972969430010482688  150207311818… 2022-03-11 00:05:13 RapsXXX     &quot;Eso… Twitt…
+## 4 276662928           150207310988… 2022-03-11 00:05:11 folklorivy  &quot;\&quot;s… Twitt…
+## 5 1372272345524674560 150207310166… 2022-03-11 00:05:09 miiguelmrtz &quot;mi … Twitt…
+## 6 364908458           150207310035… 2022-03-11 00:05:08 DieBatsuDie &quot;@u_… Twitt…
+## # … with 84 more variables: display_text_width &lt;dbl&gt;, reply_to_status_id &lt;chr&gt;,
+## #   reply_to_user_id &lt;chr&gt;, reply_to_screen_name &lt;chr&gt;, is_quote &lt;lgl&gt;,
+## #   is_retweet &lt;lgl&gt;, favorite_count &lt;dbl&gt;, retweet_count &lt;dbl&gt;,
+## #   quote_count &lt;lgl&gt;, reply_count &lt;lgl&gt;, hashtags &lt;chr&gt;, symbols &lt;lgl&gt;,
+## #   urls_url &lt;chr&gt;, urls_t.co &lt;chr&gt;, urls_expanded_url &lt;chr&gt;, media_url &lt;chr&gt;,
+## #   media_t.co &lt;chr&gt;, media_expanded_url &lt;chr&gt;, media_type &lt;chr&gt;,
+## #   ext_media_url &lt;chr&gt;, ext_media_t.co &lt;chr&gt;, ext_media_expanded_url &lt;chr&gt;, …</code></pre>
+<pre class="r"><code># Nombres de las variables: 
+names(bd)</code></pre>
+<pre><code>##  [1] &quot;user_id&quot;                 &quot;status_id&quot;              
+##  [3] &quot;created_at&quot;              &quot;screen_name&quot;            
+##  [5] &quot;text&quot;                    &quot;source&quot;                 
+##  [7] &quot;display_text_width&quot;      &quot;reply_to_status_id&quot;     
+##  [9] &quot;reply_to_user_id&quot;        &quot;reply_to_screen_name&quot;   
+## [11] &quot;is_quote&quot;                &quot;is_retweet&quot;             
+## [13] &quot;favorite_count&quot;          &quot;retweet_count&quot;          
+## [15] &quot;quote_count&quot;             &quot;reply_count&quot;            
+## [17] &quot;hashtags&quot;                &quot;symbols&quot;                
+## [19] &quot;urls_url&quot;                &quot;urls_t.co&quot;              
+## [21] &quot;urls_expanded_url&quot;       &quot;media_url&quot;              
+## [23] &quot;media_t.co&quot;              &quot;media_expanded_url&quot;     
+## [25] &quot;media_type&quot;              &quot;ext_media_url&quot;          
+## [27] &quot;ext_media_t.co&quot;          &quot;ext_media_expanded_url&quot; 
+## [29] &quot;ext_media_type&quot;          &quot;mentions_user_id&quot;       
+## [31] &quot;mentions_screen_name&quot;    &quot;lang&quot;                   
+## [33] &quot;quoted_status_id&quot;        &quot;quoted_text&quot;            
+## [35] &quot;quoted_created_at&quot;       &quot;quoted_source&quot;          
+## [37] &quot;quoted_favorite_count&quot;   &quot;quoted_retweet_count&quot;   
+## [39] &quot;quoted_user_id&quot;          &quot;quoted_screen_name&quot;     
+## [41] &quot;quoted_name&quot;             &quot;quoted_followers_count&quot; 
+## [43] &quot;quoted_friends_count&quot;    &quot;quoted_statuses_count&quot;  
+## [45] &quot;quoted_location&quot;         &quot;quoted_description&quot;     
+## [47] &quot;quoted_verified&quot;         &quot;retweet_status_id&quot;      
+## [49] &quot;retweet_text&quot;            &quot;retweet_created_at&quot;     
+## [51] &quot;retweet_source&quot;          &quot;retweet_favorite_count&quot; 
+## [53] &quot;retweet_retweet_count&quot;   &quot;retweet_user_id&quot;        
+## [55] &quot;retweet_screen_name&quot;     &quot;retweet_name&quot;           
+## [57] &quot;retweet_followers_count&quot; &quot;retweet_friends_count&quot;  
+## [59] &quot;retweet_statuses_count&quot;  &quot;retweet_location&quot;       
+## [61] &quot;retweet_description&quot;     &quot;retweet_verified&quot;       
+## [63] &quot;place_url&quot;               &quot;place_name&quot;             
+## [65] &quot;place_full_name&quot;         &quot;place_type&quot;             
+## [67] &quot;country&quot;                 &quot;country_code&quot;           
+## [69] &quot;geo_coords&quot;              &quot;coords_coords&quot;          
+## [71] &quot;bbox_coords&quot;             &quot;status_url&quot;             
+## [73] &quot;name&quot;                    &quot;location&quot;               
+## [75] &quot;description&quot;             &quot;url&quot;                    
+## [77] &quot;protected&quot;               &quot;followers_count&quot;        
+## [79] &quot;friends_count&quot;           &quot;listed_count&quot;           
+## [81] &quot;statuses_count&quot;          &quot;favourites_count&quot;       
+## [83] &quot;account_created_at&quot;      &quot;verified&quot;               
+## [85] &quot;profile_url&quot;             &quot;profile_expanded_url&quot;   
+## [87] &quot;account_lang&quot;            &quot;profile_banner_url&quot;     
+## [89] &quot;profile_background_url&quot;  &quot;profile_image_url&quot;</code></pre>
+<pre class="r"><code># Dimensión de la tabla: 
+dim(bd)</code></pre>
+<pre><code>## [1] 18000    90</code></pre>
+<p>Como podemos observar, la base tiene 18,000 tweets (eso son muchos memes) por lo que lo más conveniente va a ser ordenarlos por el numero de likes (la variable <code>favorite count</code>) y quedarnos con los 200 memes más likeados (y aún así siguen siendo muchos). Los memes se pueden visitar con los datos de la columna <code>media_url</code>, la cual contiene una liga hacia la dirección donde se almacena el contenido multimedia de cada post.</p>
+<pre class="r"><code># Nos quedamos con los 200 memes más likeados: 
+doscientos_memes &lt;- bd %&gt;% 
+  arrange(-favorite_count) %&gt;% # Ordenar de mayor a menor
+  head(n = 200) # Nos quedamos con los primeros 200</code></pre>
+</div>
+<div id="descarga" class="section level1">
+<h1>5. Descarga:</h1>
+<p>Una vez que tenemos estos 200 memes mas likeados, vamos a descargarlos a una carpeta.</p>
+<p>Para crear carpetas en R, utilizamos la función <code>dir.create()</code>.</p>
+<pre class="r"><code>dir.create(&quot;200 memes&quot;)</code></pre>
+<p>Extraemos la dirección de los memes como vector de texto:</p>
+<pre class="r"><code>direccion_memes &lt;- doscientos_memes$media_url %&gt;% 
+  unique() %&gt;%  # Para no duplicar
+  unlist() # Los deslistamos. 
+length(direccion_memes) # Ya se hicieron menos </code></pre>
+<pre><code>## [1] 107</code></pre>
+<p>Y los descargamos:</p>
+<pre class="r"><code># Bucle elegante para la descarga de los memes
+map(.x = seq_along(direccion_memes), # Genera una serie de numeros que va del 1 a la longitud del vector de interés
+    .f = function(i){
+      curl::curl_download(url = direccion_memes[i], # El link de descarga
+                          destfile = str_glue(&quot;200 memes/{i}.jpg&quot;) # Cada imagen va a llevar un numero, de acuerdo a su turno de descarga
+                          )
+    })</code></pre>
+<p>Si ejecutaste esta función, probablemente te salió un error. Para tratar de solucionarlo (o darla la vuelta) tenemos dos opciones: o corregimos lo que esta mal o lo ignoramos y nos pasamos a lo que sigue ( <em>tan como la vida</em>). Como este ejercicio no es tan riguroso, vamos a tratar de darle la vuelta. Para esto, utilizaremos la función <code>tryCatch</code>, que nos permite evaluar funciones en las que todo sale bien y avisar en los casos en los que algo sale mal.</p>
+<pre class="r"><code># Mejoramos el código del chunk anterior: 
+map(.x = seq_along(direccion_memes), # Genera una serie de numeros que va del 1 a la longitud del vector de interés
+    .f = function(i){
+      tryCatch({
+        # Lo que debe hacer si todo sale bien: 
+          curl::curl_download(url = direccion_memes[i], # El link de descarga
+                              destfile = str_glue(&quot;200 memes/{i}.jpg&quot;) # Cada imagen va a llevar un numero, de acuerdo a su turno de descarga
+                              )  
+      }, error = function(e){
+        # Para que nos avise si hubo algun error, y en donde: 
+        print(str_c(&quot;Hubo un error en la descarga del meme &quot;, i, &quot; T_T&quot;))
+      }
+    )
+  })</code></pre>
+<p>Y así ya tenemos nuestra carpeta llena de imagenes.</p>
+<p><img src="images/Captura%20de%20Pantalla%202022-03-10%20a%20la(s)%2018.31.25.png" /></p>
+</div>
+<div id="limpieza-manual" class="section level1">
+<h1>6. Limpieza manual</h1>
+<p>Como los memes provienen de Twitter, es obvio que no se espera que sean grandes memes. Para esto, vamos a quitar, manualmente, aquellos memes que no den gracia, o que sean políticamente incorrectos, o que no cumplan con nuestros altos estándares de humor.</p>
+<p>…</p>
+<p>Después de revisar manualmente las mas de 100 imagenes (y de ver memes malísimos) llegué a una selección de 31 imagenes medianamente graciosas <code>¯\_(ツ)_/¯</code> para compartir en Redes sociales. Con estas imagenes vamos a armar un GIF para compartirlas todas juntas.</p>
+</div>
+<div id="armado-del-gif" class="section level1">
+<h1>7. Armado del GIF:</h1>
+<p>Para armar un gif se requiere que todas las imagenes que lo van a conformar sean de dimensiones similares; si hacemos un GIF con imagenes de distintos tamaños nos va a quedar un gif feo de ver. Para ver las dimensiones de las imagenes de nuestra carpeta, hacemos lo siguiente:</p>
+<pre class="r"><code># Creamos un vector con la ubicación de las imagenes: 
+imagenes &lt;- str_c(&quot;200 memes/&quot;, list.files(&quot;200 memes//&quot;))
+
+# Generamos la tabla de dimensiones: 
+dimensiones &lt;- lapply(seq_along(imagenes),
+       function(x){
+         tryCatch({readJPEG(imagenes[x]) %&gt;%
+             dim() %&gt;%
+             append(imagenes[x])},
+                  error = function(e){
+                    print(str_c(&quot;error en&quot;, x))
+                  })
+         }) %&gt;%
+  do.call(rbind.data.frame, .)
+
+# Cambiamos los nombres de la tabla: 
+names(dimensiones) &lt;- c(&quot;altura&quot;, &quot;anchura&quot;, &quot;.&quot;, &quot;imagen&quot;)
+
+# Visualizamos las dimensiones: 
+dimensiones %&gt;% as_tibble()</code></pre>
+<p>Como queda claro de arriba, las imagenes tienen dimensiones muy variadas, y eso nos dificultará generar un gif de calidad. Para homogeneizar los tamaños, vamos a rehacerlas con unas dimensiones de 900x900 píxeles (sugerencia, pero se puede usar cualquier otra dimensión).</p>
+<pre class="r"><code># Creamos una nueva carpeta para las imagenes que estan bien: 
+dir.create(&quot;imagenes_bien&quot;)
+
+# Bucle elegante para reformatear nuestras imagenes: 
+for (i in imagenes) {
+  tryCatch({
+  
+  # Leemos la imagen:
+  img &lt;- readJPEG(i)
+  
+  # Generamos un nuevo nombre para la imagen: 
+  nuevo_nombre_imagen &lt;- paste0(&quot;imagenes_bien/&quot;, i %&gt;% str_remove(pattern = &quot;imagenes|200 memes&quot;)) # Corre esto paso por paso para que veas que fue lo que se hizo aquí. 
+  
+  # Guardamos la nueva imagen en un formato cuadrado de 900x900: 
+  jpeg(nuevo_nombre_imagen,
+       width=900, height=900)
+  
+  # La ploteamos como raster (recordemos que las imagenes jpg son también matrices de puntos, como los rasters)
+  plot(as.raster(img))
+  dev.off()
+  
+  }, error = function(e){
+    
+    # En caso de que nos salga error: 
+    str_c(&quot;error en &quot;, imagenes_magical[i])
+  })
+  
+}</code></pre>
+<p>Lo cual nos convertirá todas las imagenes de la carpeta previa en rectángulos de color blanco.</p>
+<p><img src="images/Captura%20de%20Pantalla%202022-03-10%20a%20la(s)%2019.22.20.png" /></p>
+<p>Ahora sí, con las imagenes correctas, armamos el gif. Si me siguen de antes, ya reconocerán este código para armar estas imagenes en movimiento:</p>
+<pre class="r"><code># CREACIÓN DEL GIF.
+# El gif se guardará en el directorio local: 
+str_c(&quot;imagenes_bien/&quot;, list.files(&quot;imagenes_bien/&quot;)) %&gt;%
+  map(image_read) %&gt;% # Lee rutas de los archivos.
+  image_join() %&gt;% # Junta imágenes
+  image_animate(fps=5) %&gt;% # Anima las imagenes, con 1 segundo entre imágenes.
+  image_write(&quot;memes.gif&quot;) # Escribe el gif en el directorio.</code></pre>
+<p>Y ya. Eso es todo. Tenemos nuestro GIF de memes.</p>
+</div>
+<div id="conclusiones" class="section level1">
+<h1>8. Conclusiones:</h1>
+<p>Si bien el descargar memes pudiera parecer algo trivial (y lo es), vale la pena pensar en las aplicaciones de esto para otro tipo de temas (como buscar imagenes de manifestaciones en tiempo real, de visualizaciones de datos, de mapas o de otros temas más serios). Igualmente, esto es otro ejemplo de las aplicaciones de los datos de Twitter para hacer más y más variadas visualizaciones, aparte de los análisis típicos como las redes y las nubes de palabras. Practica con otro tema, con otra fecha y cuéntame en los comentarios como te fue.</p>
+<p>¡Saludos!</p>
+<p><strong>–Juvenal</strong></p>
+</div>
