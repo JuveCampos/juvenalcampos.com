@@ -248,7 +248,7 @@ Ahora sí, con las imagenes correctas, armamos el gif. Si me siguen de antes, ya
 str_c("imagenes_bien/", list.files("imagenes_bien/")) %>%
   map(image_read) %>% # Lee rutas de los archivos.
   image_join() %>% # Junta imágenes
-  image_animate(fps=5) %>% # Anima las imagenes, con 1 segundo entre imágenes.
+  image_animate(fps=2) %>% # Anima las imagenes, 2 imagenes por segundo
   image_write("memes.gif") # Escribe el gif en el directorio.
 ```
 
