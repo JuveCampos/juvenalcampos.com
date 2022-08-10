@@ -1,0 +1,70 @@
+---
+title: Convertir documentos de Word y Power Point a PDF en R
+author: Juvenal Campos
+date: '2022-08-10'
+slug: convertir-documentos-de-word-y-power-point-a-pdf-en-r
+categories:
+  - Tutoriales
+tags: []
+---
+
+## R cuenta con librerías capaces de ayudarnos a convertir archivos de Office a PDF, los cuales pueden ayudarnos cuando el _Guardar como..._ nos queda corto. 
+
+Durante la primera mitad del año me tocó estar trabajando con infografías en Word (y PPTX) acerca de temas relativos al COVID. En un punto, llegué a tener `r 16*32` archivos y un día resultó que tenía que convertirlos a PDF. 
+
+La alternativa sencilla es convertirlos a PDF utilizando la función de _Guardar como..._ que ya viene en Word, o el _Exportar_ de Power Point. Esta es la opción directa. Sin embargo... yo tenía que hacer esto `r 16*32` veces, lo cual lo hacía tedioso, complicado, aburrido y desesperante. 
+
+Quizá, si le mueves al R, sabrás que se puede trabajar con _documentos parametrizados_; esto es, documentos que cambian dependiendo de una base de datos. Sin embargo, en el equipo se decidió que sería más práctico hacerlo en Word (porque generalmente, en un equipo de trabajo, no todos saben/quieren usar R, además de que Word es prácticamente un estándar de trabajo en las oficinas de todo el mundo).
+
+Entonces, aprovechando mis conocimientos de programación encontré una forma de realizar esta transformación utilizando código de R, para el caso en el cual tengas que transformar miles y miles de Words a PDF. 
+
+Para que el código funcione se requiere lo siguiente: 
+
+1. R instalado. 
+
+2. Para que me funcionara a mí en mi Mac Pro M1 (2020), instalé una versión de _LibreOffice_; programa Open-Source de ofimática (el que generalmente viene para Línux). 
+
+3. Documentos a transformar. 
+
+
+```{r, eval = F}
+# Guardado automático en pdf:
+library(doconv)    # Convertir a PDS
+library(tidyverse) # Manejo de datos
+
+# Carpeta de archivos WORD
+origen <- "/Users/juvenalcampos/Downloads/Origen"
+
+# Carpeta para depositar archivos PDF
+destino <- "/Users/juvenalcampos/Downloads/Destino"
+
+# Proceso ----
+archivos <- list.files(origen)
+direcciones <- str_c(origen, "/", list.files(origen))
+
+j = 1
+
+lapply(1:length(direcciones), function(j){
+
+  tryCatch({
+
+    direccion_archivo <- direcciones[j]
+    nombre_archivo <- archivos[j] %>%
+      str_replace(pattern = ".docx", replacement = ".pdf")
+
+    docx2pdf(input =
+               direccion_archivo,
+             output =
+               str_c(destino, "/", nombre_archivo))
+
+    print(str_c(nombre_archivo))
+  },
+  error = function(e){print(str_c("Error en j = ", nombre_archivo))})
+})
+```
+
+### Observaciones: 
+
+Checa que el documento **no** tenga el control de cambios activado, o el pdf se va a generar con comentarios incluídos. 
+
+
